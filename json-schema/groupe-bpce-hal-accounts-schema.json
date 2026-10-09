@@ -1,0 +1,333 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/groupe-bpce/main/json-schema/groupe-bpce-hal-accounts-schema.json",
+  "title": "HalAccounts",
+  "description": "HYPERMEDIA structure used for returning the list of the available accounts to the AISP",
+  "x-generated": "2026-10-09",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/groupe-bpce-psd2-accounts-openapi.yml#/components/schemas/HalAccounts",
+  "type": "object",
+  "properties": {
+    "accounts": {
+      "description": "List of PSU account that are made available to the TPP\n",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AccountResource"
+      }
+    },
+    "_links": {
+      "$ref": "#/$defs/AccountListLinks"
+    }
+  },
+  "required": [
+    "accounts",
+    "_links"
+  ],
+  "$defs": {
+    "AccountIdentification": {
+      "description": "Unique and unambiguous identification for the account between the account owner and the account servicer.\nCard accounts must provide the identification of the card through the \"other\" substructure by giving, for instance, the masked PAN (MPAN).\nThe currency used for the account, when needed, can be specified through the [currency] field.\n",
+      "type": "object",
+      "properties": {
+        "workspace": {
+          "description": "Workspace to which the account is linked.\nThis workspace might be specified by the AISP when forwarding the consent on accounts.\nIf not provided, the default workspace is computed from the authentication that was used for getting the OAuth2 Access Token.\n",
+          "type": "string",
+          "maxLength": 32
+        },
+        "iban": {
+          "description": "ISO20022: International Bank Account Number (IBAN) - identification used internationally by financial institutions to uniquely identify the account of a customer.\n\nFurther specifications of the format and content of the IBAN can be found in the standard ISO 13616 \"Banking and related financial services - International Bank Account Number (IBAN)\" version 1997-10-01, or later revisions.\n",
+          "type": "string",
+          "pattern": "^[A-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}$"
+        },
+        "other": {
+          "$ref": "#/$defs/GenericIdentification"
+        },
+        "currency": {
+          "$ref": "#/$defs/CurrencyCode"
+        }
+      }
+    },
+    "AccountLinks": {
+      "description": "links that can be used for further navigation when browsing Account Information at one account level\n| Link | Description |\n| ---- | ----------- |\n| owners | link to the owners identities for a given account |\n| balances | link to the balances of a given account |\n| transactions | link to the transactions of a given account |\n| overdrafts | link to the lists of overdrafts of a given account |\n",
+      "type": "object",
+      "properties": {
+        "owners": {
+          "$ref": "#/$defs/GenericLink"
+        },
+        "balances": {
+          "$ref": "#/$defs/GenericLink"
+        },
+        "transactions": {
+          "$ref": "#/$defs/GenericLink"
+        },
+        "overdrafts": {
+          "$ref": "#/$defs/GenericLink"
+        }
+      },
+      "readOnly": true
+    },
+    "AccountListLinks": {
+      "description": "Links that can be used for further navigation when browsing Account Information at top level\n| Link | Description |\n| ---- | ----------- |\n| self | link to the list of all available accounts |\n| consents | link to the consents forwarding |\n| endUserIdentity | link to the end-user identity|\n| trustedBeneficiaries | link to the list of trusted beneficiaries |\n| worspaces | array of link to each relevant workspaces |\n| first | link to the first page of the accounts result |\n| last | link to the last page of the accounts result |\n| next | link to the next page of the accounts result |\n| prev | link to the previous page of the accounts result |\n",
+      "type": "object",
+      "properties": {
+        "self": {
+          "$ref": "#/$defs/GenericLink"
+        },
+        "consents": {
+          "$ref": "#/$defs/GenericLink"
+        },
+        "endUserIdentity": {
+          "$ref": "#/$defs/GenericLink"
+        },
+        "trustedBeneficiaries": {
+          "$ref": "#/$defs/GenericLink"
+        },
+        "workspaces": {
+          "description": "list of all workspaces that can be accessed by the PSU",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/GenericLink"
+          }
+        },
+        "first": {
+          "$ref": "#/$defs/GenericLink"
+        },
+        "last": {
+          "$ref": "#/$defs/GenericLink"
+        },
+        "next": {
+          "$ref": "#/$defs/GenericLink"
+        },
+        "prev": {
+          "$ref": "#/$defs/GenericLink"
+        }
+      },
+      "required": [
+        "self"
+      ],
+      "readOnly": true
+    },
+    "AccountResource": {
+      "description": "PSU account that is made available to the TPP. \nThe ASPSP is able to set up specific accounts in order to provide card transactions with a delayed debit.  \nThis account must be specific to a given card. Consequently, when the card is renewed, a new account will be set up. \nASPSP might also set-up different accounts for one given card but with different imputation dates. The remanence of these accounts is up to the ASPSP but must be equal or greater than the one which is provided through the Web-Banking interface. \nCase a payment card is blocked, any relevant information (balances, transactions...) that is available through the ASPSP PSU-interfaces must also be available through the API till the end of remanence period.\n",
+      "type": "object",
+      "properties": {
+        "workspace": {
+          "$ref": "#/$defs/Workspace"
+        },
+        "resourceId": {
+          "$ref": "#/$defs/ResourceId"
+        },
+        "bicFi": {
+          "description": "ISO20022: Code allocated to a financial institution by the ISO 9362 Registration Authority as described in ISO 9362 \"Banking - Banking telecommunication messages - Business identification code (BIC)\".\n",
+          "type": "string",
+          "pattern": "^[A-Z]{6,6}[A-Z2-9][A-NP-Z0-9]([A-Z0-9]{3,3}){0,1}$"
+        },
+        "accountId": {
+          "$ref": "#/$defs/AccountIdentification"
+        },
+        "name": {
+          "description": "Label of the PSU account\nIn case of a delayed debit card transaction set, the name shall specify the holder name and can also provide the imputation date\n",
+          "type": "string",
+          "maxLength": 70
+        },
+        "details": {
+          "description": "Specifications that might be provided by the ASPSP\n- characteristics of the account\n- characteristics of the relevant card\n",
+          "type": "string",
+          "maxLength": 140
+        },
+        "linkedAccount": {
+          "description": "Case of a set of pending card transactions, the ASPSP will provide the relevant cash account the card is set up on.\nWhen used, this field must be valued with the resourceId of the relevant cash account.\n",
+          "type": "string",
+          "maxLength": 70
+        },
+        "usage": {
+          "description": "Specifies the usage of the account\n| Code | Description |\n| ---- | ----------- |\n| PRIV | Private personal account |\n| ORGA | Professional account |\nCase of a set of pending card transactions, this field does not have to be set since the usage is inherited from the linked account.\n",
+          "type": "string",
+          "enum": [
+            "PRIV",
+            "ORGA"
+          ]
+        },
+        "cashAccountType": {
+          "description": "Specifies the type of the account\n| Code | Description |\n| ---- | ----------- |\n| CACC | Cash account |\n| CARD | List of card based transactions |\n",
+          "type": "string",
+          "enum": [
+            "CACC",
+            "CARD"
+          ]
+        },
+        "product": {
+          "description": "Product Name of the Bank for this account, proprietary definition\n",
+          "type": "string",
+          "maxLength": 35
+        },
+        "balances": {
+          "description": "list of balances provided by the ASPSP",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/BalanceResource"
+          },
+          "minItems": 1
+        },
+        "psuStatus": {
+          "$ref": "#/$defs/PsuStatusType"
+        },
+        "_links": {
+          "$ref": "#/$defs/AccountLinks"
+        }
+      },
+      "required": [
+        "name",
+        "cashAccountType",
+        "_links"
+      ]
+    },
+    "AmountType": {
+      "description": "Structure aiming to embed the amount and the currency to be used.\n",
+      "type": "object",
+      "properties": {
+        "amount": {
+          "description": "ISO20022: Amount of money to be moved between the debtor and creditor, before deduction of charges, expressed in the currency as ordered by the initiating party.\n",
+          "type": "number",
+          "format": "float",
+          "pattern": "^\\-{0,1}[0-9]{1,13}(\\.[0-9]{0,5}){0,1}$"
+        },
+        "currency": {
+          "$ref": "#/$defs/CurrencyCode"
+        }
+      },
+      "required": [
+        "amount",
+        "currency"
+      ]
+    },
+    "BalanceResource": {
+      "description": "Structure of an account balance",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Label of the balance",
+          "type": "string",
+          "maxLength": 70
+        },
+        "balanceAmount": {
+          "$ref": "#/$defs/AmountType"
+        },
+        "balanceType": {
+          "$ref": "#/$defs/BalanceStatus"
+        },
+        "lastChangeDateTime": {
+          "description": "Timestamp of the last change of the balance amount",
+          "type": "string",
+          "format": "date-time"
+        },
+        "referenceDate": {
+          "description": "Reference date for the balance",
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastCommittedTransaction": {
+          "description": "Identification of the last committed transaction. This is actually useful for instant balance.\n",
+          "type": "string",
+          "maxLength": 40
+        }
+      },
+      "required": [
+        "name",
+        "balanceAmount",
+        "balanceType"
+      ]
+    },
+    "BalanceStatus": {
+      "description": "Type of balance\n| Code | Name | Description |\n| ---- | ---- | ----------- |\n| CLBD | ISO20022 ClosingBooked | Balance of the account at the end of the pre-agreed account reporting period. It is the sum of the opening booked balance at the beginning of the period and all entries booked to the account during the pre-agreed account reporting period.  |\n| PRCD | ISO20022 PreviouslyClosedBooked | Balance of the account at the previously closed account reporting period. The opening booked balance for the new period has to be equal to this balance. Usage: the previously booked closing balance should equal (inclusive date) the booked closing balance of the date it references and equal the actual booked opening balance of the current date. |\n| ITAV | ISO20022 InterimAvailable | Available balance calculated in the course of the account servicer's business day, at the time specified, and subject to further changes during the business day. The interim balance is calculated on the basis of booked credit and debit items during the calculation time/period specified.  |\n| XPCD | ISO20022 Expected | Balance, composed of booked entries and pending items known at the time of calculation, which projects the end of day balance if everything is booked on the account and no other entry is posted.  |\n| VALU | (None) | Value-date balance |\n| OTHR | (None) | Other Balance |\n",
+      "type": "string",
+      "enum": [
+        "CLBD",
+        "XPCD",
+        "VALU",
+        "OTHR",
+        "PRCD",
+        "ITAV"
+      ]
+    },
+    "CurrencyCode": {
+      "description": "Specifies the currency of the amount or of the account.\nA code allocated to a currency by a Maintenance Agency under an international identification scheme, as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\".\n",
+      "type": "string",
+      "pattern": "^[A-Z]{3,3}$"
+    },
+    "GenericIdentification": {
+      "description": "ISO20022: Unique identification of an account, a person or an organisation, as assigned by an issuer.\nAPI: The ASPSP will document which account reference type it will support.\n",
+      "type": "object",
+      "properties": {
+        "identification": {
+          "description": "API: Identifier\n",
+          "type": "string",
+          "maxLength": 70
+        },
+        "schemeName": {
+          "description": "Name of the identification scheme.\nPossible values for the scheme name, partially based on ISO20022 external code list, are the following:\n| Code | Name | Description |\n| ---- | ---- | ----------- |\n| BANK | BankPartyIdentification | Unique and unambiguous assignment made by a specific bank or similar financial institution to identify a relationship as defined between the bank and its client. |\n| BBAN | BBANIdentifier | Basic Bank Account Number (BBAN) - identifier used nationally by financial institutions, ie, in individual countries, generally as part of a National Account Numbering Scheme(s), to uniquely identify the account of a customer. |\n| COID | CountryIdentificationCode) : Country authority given organisation identification (e.g., corporate registration number) |\n| SREN | SIREN | The SIREN number is a 9 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation in France. |\n| SRET | SIRET | The SIRET number is a 14 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation unit in France. It consists of the SIREN number, followed by a five digit classification number, to identify the local geographical unit of that entity. |\n| NIDN | NationalIdentityNumber | Number assigned by an authority to identify the national identity number of a person. |\nOther values are also permitted, for instance:\n| Code | Name | Description |\n| ---- | ---- | ----------- |\n| OAUT | OAUTH2 | OAUTH2 access token that is owned by the PISP being also an AISP and that can be used in order to identify the PSU |\n| CPAN | CardPan | Card PAN |\n| MPAN | MaskedPan | Card PAN where some digits were replaced for security reason |\n| TPAN | TokenizedPan | Token which was provided by a Token Service Provider (TSP) in order to obfuscate a real card PAN. The TSP must be identified in the issuer field |\n| TBAN | TokenizedIBAN | Token which was provided by a Token Service Provider (TSP) in order to obfuscate an IBAN. The TSP must be identified in the issuer field |\nEach implementation of the STET PSD2 API must specify in its own documentation which schemes can actually been used\n",
+          "type": "string",
+          "maxLength": 70
+        },
+        "issuer": {
+          "description": "ISO20022: Entity that assigns the identification. this could a country code or any organisation name or identifier that can be recognized by both parties\n",
+          "type": "string",
+          "maxLength": 35
+        }
+      },
+      "required": [
+        "identification",
+        "schemeName"
+      ]
+    },
+    "GenericLink": {
+      "description": "hypertext reference",
+      "type": "object",
+      "properties": {
+        "href": {
+          "description": "URI to be used. HREF stands for Hypertext REFerence.",
+          "type": "string",
+          "maxLength": 2000
+        },
+        "templated": {
+          "description": "This field must be set with \"true\"  when [href] is an URI template, i.e. with parameters that will be set by the client afterwards. Parameter fields must be included by the API server according to RFC6570.\nOtherwise, this property must be absent or set to false\ndefault value: false\n",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "href"
+      ]
+    },
+    "PsuStatusType": {
+      "description": "ISO20022: Specifies the type of account ownership.\n| Name | Description |\n| ---- | ---------- |\n| Account Holder | Person which is the sole holder of the account. |\n| Account Co-Holder | Person which shares with others the holding of the account. |\n| Attorney | Generic case of a person having a mandate to access the account data. |\n| Custodian For Minor | Entity that holds shares/units on behalf of a legal minor. Although the account is registered under the name of the minor, the custodian retains control of the account. |\n| Legal Guardian | Entity that was appointed by a legal authority to act on behalf of a person judged to be incapacitated. |\n| Nominee | Entity named by the beneficial owner to act on its behalf, often to facilitate dealing, or to conceal the identity of the beneficiary. |\n| Successor On Death | Deceased's estate, or successor, to whom the respective percentage of ownership will be transferred upon the death of one of the owners. |\n| Trustee | Legal owners of the property. However, the beneficiary has the equitable or beneficial ownership. |\n",
+      "type": "string",
+      "maxLength": 35
+    },
+    "ResourceId": {
+      "description": "API: Identifier assigned by the ASPSP for further use of the created resource through API calls.\nThe API client cannot set or modify the value of this field.\nSince this value can be exchanged between the server and the client as an URL element or for support information, it must not contain sensitive value such as personal or business data.\nHowever it is the duty of each ASPSP to perform its own risk analysis on this topic.\n",
+      "type": "string",
+      "pattern": "^([a-zA-Z0-9_ /\\-?:\\()\\.,']{1,100})$",
+      "readOnly": true
+    },
+    "Workspace": {
+      "description": "Some ASPSP may provide different user workspaces that can be accessed by the same authenticated PSU. In this case, the AISP is able to retrieve the different pieces of account information by specifying the relevant workspace as a QUERY parameter. Identification of the workspace to be used when processing the request. If not present, the default workspace to be used is the one that is linked to the authentication processed during the OAuth2 access token request.",
+      "type": "object",
+      "properties": {
+        "identification": {
+          "description": "identification of the workspace to be used as an optional query parameter for some AISP queries",
+          "type": "string",
+          "maxLength": 32
+        },
+        "label": {
+          "description": "textual description of the workspace as specified by the ASPSP in relationship wth the PSU",
+          "type": "string",
+          "maxLength": 128
+        }
+      },
+      "required": [
+        "identification",
+        "label"
+      ]
+    }
+  }
+}

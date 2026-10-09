@@ -1,0 +1,46 @@
+generated: '2026-10-09'
+method: searched
+source: https://apistore.groupebpce.com/api/account-information-services-3; https://apistore.groupebpce.com/api/payment-initiation-3;
+  https://apistore.groupebpce.com/api/psd2-registration
+versioning:
+  scheme: semver-like, aligned with STET specification versions
+  current:
+    account-information: 1.6.2 (1.4.2 deprecated)
+    payment-initiation: 1.6.2
+    psd2-registration: 1.0.6
+    moneytransfer: 1.1.1
+    collection-through-payment-initiation: v0
+  notes: '"The decommissioning policy is based on the API lifecycle, which is aligned with the versions of the STET
+    specifications."'
+  docs: https://apistore.groupebpce.com/api/psd2-registration
+deprecation:
+  policy_url: https://apistore.groupebpce.com/api/account-information-services-3
+  policy_text: 'Day of Deployment of the New API Version (T0): Version N+1 is deployed to the 89C3 Live gateway.
+    Three Months Post Deployment (T0 + 3 Months): Version N of the API is decommissioned from all environments (sandbox
+    and live). Communication regarding the decommissioning of version N will occur on the deployment date of version
+    N+1.'
+  notice_period: Three Months Post Deployment (T0 + 3 Months)
+  channel: '"The preferred communication channel is this Groupe BPCE API Store portal, in the "Roadmap" section
+    of the impacted API. An additional communication via email to the contacts of the providers registered on the
+    Groupe BPCE API Store portal may complement this process."'
+  exceptions: '"API modifications can occur out of the three-month regulatory notice period (art. 30 des RTS / paragraphe
+    4). We apply this in case of : urgent functional issue to solve impacting all PSU of at least one major customers
+    segment security issue evolutions requested by the national competent authority"'
+  sunset_header: null
+  notes: No Sunset/Deprecation HTTP headers documented.
+maintenance: '"a weekly slot is reserved for a programmed maintenance (all IT infrastructure incl''d backends and
+  API gateways) Monday morning from midnight to 06:00 am CET"'
+endpoint_migrations:
+- old: www.<codetab>.live.api.89C3.com
+  new: www.<bank code>.oba-bad-me-live-api.89c3.com
+  retired: '2025-09-28'
+  source: https://apistore.groupebpce.com/api/account-information-services-3
+sla:
+  notes: No SLA published on the API Store. PSD2 availability statistics are mentioned on the PSD2 solution page
+    ("the BPCE group also provides statistics on its available regulatory PSD2 APIs").
+status_page: null
+deprecated_products:
+- name: Account Information Services 1.4.2
+  status: deprecated
+  source: https://apistore.groupebpce.com/api/account-information-services-3
+deprecated_operations: []

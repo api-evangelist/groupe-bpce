@@ -1,0 +1,238 @@
+generated: '2026-10-09'
+method: derived
+status: candidate
+source: openapi/ (operations of the Groupe BPCE PSD2 STET and Open Finance Transfer contracts)
+name: Groupe BPCE MCP Server (candidate)
+description: 'No official Groupe BPCE MCP server was found: apistore.groupebpce.com/.well-known/mcp.json and /llms.txt returned
+  404 (2026-10-09), the pre-flight MCP docs probe found no MCP documentation, and a web search found no announcement. This
+  is a candidate tool list derived one-to-one from the public OpenAPI operations; nobody ships it.'
+evidence:
+- url: https://apistore.groupebpce.com/.well-known/mcp.json
+  status: 404
+- url: https://apistore.groupebpce.com/llms.txt
+  status: 404
+deployment:
+  mode: none
+  auth: oauth
+  verified: derived
+  note: Backing APIs use OAuth2 (STET accessCode / clientCredentials; PKCE authorization code for Open Finance Transfer) with
+    eIDAS-certified TPP access; any server would inherit that.
+tool_count: 31
+tools:
+- name: accounts_get
+  description: Retrieval of the PSU accounts (AISP)
+  operationId: accountsGet
+  method: GET
+  path: /accounts
+  api: openapi/groupe-bpce-psd2-accounts-openapi.yml
+  readOnly: true
+- name: accounts_owners_get
+  description: Retrieval of an account owners (AISP)
+  operationId: accountsOwnersGet
+  method: GET
+  path: /accounts/{accountResourceId}/owners
+  api: openapi/groupe-bpce-psd2-accounts-openapi.yml
+  readOnly: true
+- name: accounts_balances_get
+  description: Retrieval of an account balances report (AISP)
+  operationId: accountsBalancesGet
+  method: GET
+  path: /accounts/{accountResourceId}/balances
+  api: openapi/groupe-bpce-psd2-accounts-openapi.yml
+  readOnly: true
+- name: accounts_transactions_get
+  description: Retrieval of an account transaction set (AISP)
+  operationId: accountsTransactionsGet
+  method: GET
+  path: /accounts/{accountResourceId}/transactions
+  api: openapi/groupe-bpce-psd2-accounts-openapi.yml
+  readOnly: true
+- name: accounts_transactions_details_get
+  description: Retrieval of transaction details (AISP)
+  operationId: accountsTransactionsDetailsGet
+  method: GET
+  path: /accounts/{accountResourceId}/transactions/{transactionResourceId}/details
+  api: openapi/groupe-bpce-psd2-accounts-openapi.yml
+  readOnly: true
+- name: accounts_overdrafts_get
+  description: Retrieval of an account overdraft (AISP)
+  operationId: accountsOverdraftsGet
+  method: GET
+  path: /accounts/{accountResourceId}/overdrafts
+  api: openapi/groupe-bpce-psd2-accounts-openapi.yml
+  readOnly: true
+- name: consents_put
+  description: Forwarding the PSU consent (AISP)
+  operationId: consentsPut
+  method: PUT
+  path: /consents
+  api: openapi/groupe-bpce-psd2-accounts-openapi.yml
+  readOnly: false
+- name: end_user_identity_get
+  description: Retrieval of the identity of the end-user (AISP)
+  operationId: EndUserIdentityGet
+  method: GET
+  path: /end-user-identity
+  api: openapi/groupe-bpce-psd2-accounts-openapi.yml
+  readOnly: true
+- name: trusted_beneficiaries_get
+  description: Retrieval of the trusted beneficiaries list (AISP)
+  operationId: trustedBeneficiariesGet
+  method: GET
+  path: /trusted-beneficiaries
+  api: openapi/groupe-bpce-psd2-accounts-openapi.yml
+  readOnly: true
+- name: payment_requests_post
+  description: Payment request initiation (PISP)
+  operationId: paymentRequestsPost
+  method: POST
+  path: /payment-requests
+  api: openapi/groupe-bpce-psd2-payments-openapi.yml
+  readOnly: false
+- name: payment_requests_get
+  description: Retrieval of a payment request (PISP)
+  operationId: paymentRequestsGet
+  method: GET
+  path: /payment-requests/{paymentRequestResourceId}
+  api: openapi/groupe-bpce-psd2-payments-openapi.yml
+  readOnly: true
+- name: payment_request_put
+  description: Cancellation of a Payment/Transfer Request (PISP)
+  operationId: paymentRequestPut
+  method: PUT
+  path: /payment-requests/{paymentRequestResourceId}
+  api: openapi/groupe-bpce-psd2-payments-openapi.yml
+  readOnly: false
+- name: payment_request_confirmation_post
+  description: Confirmation of a payment request using an OAUTH2 Authorization code grant (PISP)
+  operationId: paymentRequestConfirmationPost
+  method: POST
+  path: /payment-requests/{paymentRequestResourceId}/confirmation
+  api: openapi/groupe-bpce-psd2-payments-openapi.yml
+  readOnly: false
+- name: payment_request_transactions_get
+  description: Retrieval of the Credit Transfert Transactions that were processed for a given payment request (PISP)
+  operationId: paymentRequestTransactionsGet
+  method: GET
+  path: /payment-requests/{paymentRequestResourceId}/transactions
+  api: openapi/groupe-bpce-psd2-payments-openapi.yml
+  readOnly: true
+- name: funds_confirmations_post
+  description: Payment coverage check request (CBPII)
+  operationId: fundsConfirmationsPost
+  method: POST
+  path: /funds-confirmations
+  api: openapi/groupe-bpce-psd2-funds-availability-openapi.yml
+  readOnly: false
+- name: registration_post
+  description: Client Registration request
+  operationId: registrationPost
+  method: POST
+  path: /register
+  api: openapi/groupe-bpce-psd2-registration-openapi.yml
+  readOnly: false
+- name: registration_get
+  description: Retrieve the actual registration for a given client_id
+  operationId: registrationGet
+  method: GET
+  path: /register/{clientId}
+  api: openapi/groupe-bpce-psd2-registration-openapi.yml
+  readOnly: true
+- name: registration_put
+  description: Update the actual registration for a given client_id
+  operationId: registrationPut
+  method: PUT
+  path: /register/{clientId}
+  api: openapi/groupe-bpce-psd2-registration-openapi.yml
+  readOnly: false
+- name: registration_delete
+  description: Delete the actual registration for a given client_id
+  operationId: registrationDelete
+  method: DELETE
+  path: /register/{clientId}
+  api: openapi/groupe-bpce-psd2-registration-openapi.yml
+  readOnly: false
+- name: get_internal_accounts
+  description: Get the internal accounts
+  operationId: getInternalAccounts
+  method: GET
+  path: /internalAccounts
+  api: openapi/groupe-bpce-open-finance-transfer-openapi.yml
+  readOnly: true
+- name: get_external_accounts
+  description: Get the external accounts
+  operationId: getExternalAccounts
+  method: GET
+  path: /externalAccounts
+  api: openapi/groupe-bpce-open-finance-transfer-openapi.yml
+  readOnly: true
+- name: create_external_account
+  description: Create a new external account
+  operationId: createExternalAccount
+  method: POST
+  path: /externalAccounts
+  api: openapi/groupe-bpce-open-finance-transfer-openapi.yml
+  readOnly: false
+- name: create_transfer_request
+  description: Create a transfer request
+  operationId: createTransferRequest
+  method: POST
+  path: /transferRequests
+  api: openapi/groupe-bpce-open-finance-transfer-openapi.yml
+  readOnly: false
+- name: get_transfer_request_errors
+  description: List of errors in a transfer request
+  operationId: getTransferRequestErrors
+  method: GET
+  path: /transferRequests/{transferRequestId}/errors
+  api: openapi/groupe-bpce-open-finance-transfer-openapi.yml
+  readOnly: true
+- name: get_transfer_request
+  description: Read transfer request characteristics
+  operationId: getTransferRequest
+  method: GET
+  path: /transferRequests/{transferRequestId}
+  api: openapi/groupe-bpce-open-finance-transfer-openapi.yml
+  readOnly: true
+- name: delete_transfer_request
+  description: Delete a transfer request
+  operationId: deleteTransferRequest
+  method: DELETE
+  path: /transferRequests/{transferRequestId}
+  api: openapi/groupe-bpce-open-finance-transfer-openapi.yml
+  readOnly: false
+- name: create_transfer_request_confirmation
+  description: Confirm a transfer request
+  operationId: createTransferRequestConfirmation
+  method: POST
+  path: /transferRequests/{transferRequestId}/confirmations
+  api: openapi/groupe-bpce-open-finance-transfer-openapi.yml
+  readOnly: false
+- name: create_transfer_request_transfer_request_line
+  description: Add additional transfers within a transfer request
+  operationId: createTransferRequestTransferRequestLine
+  method: POST
+  path: /transferRequests/{transferRequestId}/transferRequestLines
+  api: openapi/groupe-bpce-open-finance-transfer-openapi.yml
+  readOnly: false
+- name: get_transfer_request_transfer_request_lines
+  description: Get the transfer request lines list
+  operationId: getTransferRequestTransferRequestLines
+  method: GET
+  path: /transferRequests/{transferRequestId}/transferRequestLines
+  api: openapi/groupe-bpce-open-finance-transfer-openapi.yml
+  readOnly: true
+- name: get_transfer_request_transfer_request_line
+  description: Get a transfer request line with details
+  operationId: getTransferRequestTransferRequestLine
+  method: GET
+  path: /transferRequests/{transferRequestId}/transferRequestLines/{transferRequestLineId}
+  api: openapi/groupe-bpce-open-finance-transfer-openapi.yml
+  readOnly: true
+- name: delete_transfer_request_transfer_request_line
+  description: Delete a transfer request line
+  operationId: deleteTransferRequestTransferRequestLine
+  method: DELETE
+  path: /transferRequests/{transferRequestId}/transferRequestLines/{transferRequestLineId}
+  api: openapi/groupe-bpce-open-finance-transfer-openapi.yml
+  readOnly: false

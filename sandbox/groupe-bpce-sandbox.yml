@@ -1,0 +1,39 @@
+generated: '2026-10-09'
+method: searched
+source: https://apistore.groupebpce.com/api/account-information-services-3; https://apistore.groupebpce.com/api/payment-initiation-3;
+  https://apistore.groupebpce.com/api/psd2-registration
+description: 'PSD2 testing facility required by RTS Art. 30(5): a per-bank sandbox ("assembly mode") with static
+  fictive persona data; consent already recorded. "PSU ID & TEST DATA AS DESCRIBED BELOW CANNOT BE USED IN PRODUCTION
+  LIVE ENVIRONMENT."'
+docs:
+- https://apistore.groupebpce.com/api/account-information-services-3
+- https://apistore.groupebpce.com/api/payment-initiation-3
+- https://apistore.groupebpce.com/api/psd2-registration
+modes:
+- name: sandbox
+  base_url: www.<codetab>.sandbox.api.89C3.com
+  note: '"In sandbox assembly mode, access to tests data can be done thru the endpoint www.<codetab>.sandbox.api.89C3.com"'
+- name: live
+  base_url: www.<codetab>.oba-bad-me-live-api.89C3.com
+  note: requires prior PSD2 Registration and live eIDAS QWAC certificate
+registration_sandbox:
+  token_url: https://www.<codetab>.sandbox.api.89C3.com/stet/psd2/oauth/token
+  client_id: PSD2_TPPRegister
+  note: '"The generic client_id to be used to get the access token is “PSD2_TPPRegister“"'
+  source: https://apistore.groupebpce.com/api/psd2-registration
+test_personas:
+- name: LEA SANDBOXA
+  profile: Student only one payment account
+- name: CLAIRE RECETTEB
+  profile: Young active and entrepreneur 2 payment accounts (1 individual, one professional)
+- name: GEORGES PERSONAC
+  profile: Active 1 joint payment account (Mr OR Mrs) more than 200 transactions on FR7617515000920400085945890
+- name: GILLES TESTUNID
+  profile: Retired 3 payment accounts (Mr, Mr OR Mrs, Mr AND Mrs)
+test_otp:
+  value: '12345678'
+  note: '"in the assembly mode, you’ll have to enter OTP SMS = « 12345678 » for all persona whenever the authentication
+    screen is proposed."'
+  source: https://apistore.groupebpce.com/api/account-information-services-3
+test_clocks: null
+triggers: null

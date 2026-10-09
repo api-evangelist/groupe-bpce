@@ -1,0 +1,60 @@
+# harvested from https://github.com/BPCE/bpce-api-guidelines-rulesets/blob/14005808ecd2f75f7c05c67f4625cb4e6542e65a/rulesets/oas-ruleset.yaml on 2026-10-09 — a Spectral ruleset published in the provider's own GitHub repository (BPCE/bpce-api-guidelines-rulesets); found by GitHub code search, fetched verbatim
+x-method: harvested
+x-stamped: 2026-10-09
+x-source-url: https://github.com/BPCE/bpce-api-guidelines-rulesets/blob/14005808ecd2f75f7c05c67f4625cb4e6542e65a/rulesets/oas-ruleset.yaml
+#
+# Copyright 2019-2022 Groupe BPCE
+#
+# Licensed under the Apache License, Version 2.0 (the License);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+extends:
+  # These 2 includes are done in oas-ruleset but must be redone here to deactivate oas2&3 rules
+  - [spectral:oas, off]
+rules:
+  oas3-schema: error
+  oas2-schema: error
+
+  oas31-version:
+    description: "OAS 3.1 is not supported - Only 3.0.X should be used"
+    severity: error
+    extensions:
+      since: 2024-01-01
+      justification: "Few tools actually support the 3.1 version, so using a 3.0.X version maximizes compatibility."
+      tags:
+        - oas
+        - version
+    given: $
+    recommended: true
+    formats:
+      - oas3_1
+    message: "{{description}} ({{path}})"
+    then:
+      function: falsy
+
+  oas2-version:
+    description: "Swagger/ OAS2 is considered legacy - consider upgrading to OAS3"
+    severity: warn
+    extensions:
+      since: 2024-01-01
+      justification: "Fewer and fewer tools actively support the 2.0 version, which presents an obsolescence risk."
+      tags:
+        - oas
+        - version
+    given: $
+    recommended: true
+    formats:
+      - oas2
+    message: "{{description}} ({{path}})"
+    then:
+      function: falsy

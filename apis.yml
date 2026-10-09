@@ -1,23 +1,588 @@
 aid: groupe-bpce
+
 name: Groupe BPCE
-description: 'Groupe BPCE is a company surfaced via the API Evangelist harvest backlog (source: spectral-ruleset-github)
-  and added to the network as a stub for full-pipeline profiling.'
+
+description: Groupe BPCE is the second-largest banking group in France, operating retail banking and insurance through its main brands Banque
+  Populaire, Caisse d'Epargne and Natixis (per groupebpce.com). Through its Group BPCE API STORE (apistore.groupebpce.com) it publishes an API
+  product catalog and developer center covering payment and collection services and PSD2 (DSP2) regulatory APIs for account information, payment
+  initiation and funds confirmation for authorized payment service providers, with technical and sales support. It also publishes its API design
+  guidelines and Spectral rulesets on GitHub (github.com/BPCE).
+
 url: https://raw.githubusercontent.com/api-evangelist/groupe-bpce/refs/heads/main/apis.yml
+
 x-type: company
+
 x-source: harvest:spectral-ruleset-github
-x-tier: stub
-x-tier-reason: harvest
+
+x-tier: profiled
+x-tier-reason: enrichment pass 2026-10-09 (modular-v1; was harvest)
+
 specificationVersion: '0.20'
+
 created: '2026-10-09'
+
 modified: '2026-10-09'
+
 tags:
 - Company
-apis: []
+- Banking
+- Financial Services
+- Open Banking
+- PSD2
+- Payments
+- Insurance
+- France
+
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+
+image: https://avatars.githubusercontent.com/u/105843508?v=4
+
 common:
+- type: AgenticAccess
+  url: agentic-access/groupe-bpce-agentic-access.yml
+- type: RateLimits
+  url: rate-limits/groupe-bpce-rate-limits.yml
+- type: Plans
+  url: plans/groupe-bpce-plans-pricing.yml
+- type: Spectral
+  url: rules/groupe-bpce-rules.yml
+- type: Spectral
+  url: rules/groupe-bpce-bpce-api-guidelines-rulesets-spectral-rules.yml
+- type: JSONLD
+  url: json-ld/groupe-bpce-context.jsonld
+- type: Vocabulary
+  url: vocabulary/groupe-bpce-vocabulary.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DataModel
+  url: data-model/groupe-bpce-data-model.yml
+- type: ChangeLog
+  url: changelog/groupe-bpce-changelog.yml
+- type: Idempotency
+  url: conventions/groupe-bpce-conventions.yml
+- type: Conventions
+  url: conventions/groupe-bpce-conventions.yml
+- type: Sandbox
+  url: sandbox/groupe-bpce-sandbox.yml
+- type: Security
+  url: security/groupe-bpce-vulnerability-disclosure.yml
+- type: Deprecation
+  url: https://apistore.groupebpce.com/api/account-information-services-3
+- type: Lifecycle
+  url: lifecycle/groupe-bpce-lifecycle.yml
+- type: ErrorCatalog
+  url: errors/groupe-bpce-problem-types.yml
+- type: Conformance
+  url: conformance/groupe-bpce-conformance.yml
+- type: Overlay
+  url: overlays/groupe-bpce-natixis-psd2-accounts-overlay.yaml
+- type: SecurityTxt
+  url: well-known/groupe-bpce-security.txt
+- type: SecurityTxt
+  url: well-known/groupe-bpce-groupebpce-security.txt
+- type: WellKnown
+  url: well-known/groupe-bpce-well-known.yml
+- type: Hosts
+  url: hosts/groupe-bpce-hosts.yml
+- type: Vendors
+  url: vendors/groupe-bpce-vendors.yml
+- type: OAuthScopes
+  url: scopes/groupe-bpce-scopes.yml
+- type: Authentication
+  url: authentication/groupe-bpce-authentication.yml
+- type: VulnerabilityDisclosure
+  url: security/groupe-bpce-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/groupe-bpce-domain-security.yml
 - type: Website
   url: https://groupebpce.com/
+- type: SpectralRules
+  url: https://github.com/BPCE/bpce-api-guidelines-rulesets/blob/14005808ecd2f75f7c05c67f4625cb4e6542e65a/rulesets/oas-ruleset.yaml
+- type: DeveloperPortal
+  url: https://apistore.groupebpce.com/
+- type: APIReference
+  url: https://apistore.groupebpce.com/apis
+- type: Documentation
+  url: https://apistore.groupebpce.com/developer-catalog
+- type: GettingStarted
+  url: https://apistore.groupebpce.com/solution/psd2-regulatory-apis
+- type: Support
+  url: https://apistore.groupebpce.com/support-technique
+- type: FAQ
+  url: https://apistore.groupebpce.com/faq
+- type: Contact
+  url: https://apistore.groupebpce.com/support-commercial
+- type: Login
+  url: https://apistore.groupebpce.com/user/login
+- type: TermsOfService
+  url: https://apistore.groupebpce.com/terms-of-use
+- type: PrivacyPolicy
+  url: https://apistore.groupebpce.com/protection-of-personal-data
+- type: Blog
+  url: https://www.groupebpce.com/toute-l-actualite/
+- type: Newsroom
+  url: https://newsroom.groupebpce.fr/
+- type: GitHubOrganization
+  url: https://github.com/BPCE
+- type: LinkedIn
+  url: https://www.linkedin.com/company/bpce
+
+apis:
+- aid: groupe-bpce:groupe-bpce-aisp-api
+  name: Groupe BPCE AISP API
+  description: The AISP API from Groupe BPCE — 9 operation(s) for aisp.
+  humanURL: https://apistore.groupebpce.com/api/account-information-services-3
+  baseURL: https://www.{etab}.oba-bad-me-live-api.banquepopulaire.fr/stet/psd2/v1.6.2
+  tags:
+  - AISP
+  properties:
+  - type: OpenAPI
+    url: openapi/groupe-bpce-aisp-api-openapi.yml
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/account-information-services-3
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-access-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-transactions-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-beneficiaries-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-balances-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-owners-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/payment-initiation-3
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-credit-transfert-transactions-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-authentication-request-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-confirmation-resource-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/funds-availability-3
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-payment-coverage-request-resource-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-payment-coverage-report-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/psd2-registration
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-registration-record-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-registration-request-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/account-information-services-4
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/account-information-services-1
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/moneytransfer
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-transfer-request-line-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-transfer-request-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-transfer-request-line-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-external-account-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-internal-account-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-error-schema.json
+- aid: groupe-bpce:groupe-bpce-cbpii-api
+  name: Groupe BPCE CBPII API
+  description: The CBPII API from Groupe BPCE — 1 operation(s) for cbpii.
+  humanURL: https://apistore.groupebpce.com/api/account-information-services-3
+  baseURL: https://www.{etab}.oba-bad-me-live-api.banquepopulaire.fr/stet/psd2/v1.6.2
+  tags:
+  - CBPII
+  properties:
+  - type: OpenAPI
+    url: openapi/groupe-bpce-cbpii-api-openapi.yml
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/account-information-services-3
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-access-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-transactions-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-beneficiaries-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-balances-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-owners-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/payment-initiation-3
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-credit-transfert-transactions-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-authentication-request-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-confirmation-resource-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/funds-availability-3
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-payment-coverage-request-resource-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-payment-coverage-report-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/psd2-registration
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-registration-record-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-registration-request-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/account-information-services-4
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/account-information-services-1
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/moneytransfer
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-transfer-request-line-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-transfer-request-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-transfer-request-line-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-external-account-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-internal-account-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-error-schema.json
+- aid: groupe-bpce:groupe-bpce-external-accounts-api
+  name: Groupe BPCE External Accounts API
+  description: 'External Accounts Management: Searching for accounts or declaring new ones.'
+  humanURL: https://apistore.groupebpce.com/api/account-information-services-3
+  baseURL: https://www.{etab}.oba-bad-me-live-api.banquepopulaire.fr/stet/psd2/v1.6.2
+  tags:
+  - External Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/groupe-bpce-external-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/account-information-services-3
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-access-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-transactions-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-beneficiaries-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-balances-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-owners-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/payment-initiation-3
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-credit-transfert-transactions-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-authentication-request-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-confirmation-resource-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/funds-availability-3
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-payment-coverage-request-resource-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-payment-coverage-report-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/psd2-registration
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-registration-record-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-registration-request-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/account-information-services-4
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/account-information-services-1
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/moneytransfer
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-transfer-request-line-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-transfer-request-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-transfer-request-line-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-external-account-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-internal-account-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-error-schema.json
+- aid: groupe-bpce:groupe-bpce-internal-accounts-api
+  name: Groupe BPCE Internal Accounts API
+  description: Internal Accounts Management.
+  humanURL: https://apistore.groupebpce.com/api/account-information-services-3
+  baseURL: https://www.{etab}.oba-bad-me-live-api.banquepopulaire.fr/stet/psd2/v1.6.2
+  tags:
+  - Internal Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/groupe-bpce-internal-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/account-information-services-3
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-access-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-transactions-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-beneficiaries-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-balances-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-owners-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/payment-initiation-3
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-credit-transfert-transactions-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-authentication-request-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-confirmation-resource-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/funds-availability-3
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-payment-coverage-request-resource-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-payment-coverage-report-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/psd2-registration
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-registration-record-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-registration-request-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/account-information-services-4
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/account-information-services-1
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/moneytransfer
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-transfer-request-line-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-transfer-request-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-transfer-request-line-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-external-account-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-internal-account-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-error-schema.json
+- aid: groupe-bpce:groupe-bpce-pisp-api
+  name: Groupe BPCE PISP API
+  description: The PISP API from Groupe BPCE — 5 operation(s) for pisp.
+  humanURL: https://apistore.groupebpce.com/api/account-information-services-3
+  baseURL: https://www.{etab}.oba-bad-me-live-api.banquepopulaire.fr/stet/psd2/v1.6.2
+  tags:
+  - PISP
+  properties:
+  - type: OpenAPI
+    url: openapi/groupe-bpce-pisp-api-openapi.yml
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/account-information-services-3
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-access-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-transactions-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-beneficiaries-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-balances-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-owners-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/payment-initiation-3
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-credit-transfert-transactions-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-authentication-request-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-confirmation-resource-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/funds-availability-3
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-payment-coverage-request-resource-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-payment-coverage-report-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/psd2-registration
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-registration-record-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-registration-request-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/account-information-services-4
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/account-information-services-1
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/moneytransfer
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-transfer-request-line-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-transfer-request-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-transfer-request-line-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-external-account-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-internal-account-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-error-schema.json
+- aid: groupe-bpce:groupe-bpce-registration-api
+  name: Groupe BPCE Registration API
+  description: OAuth2 Dynamic Client Registration & Management
+  humanURL: https://apistore.groupebpce.com/api/account-information-services-3
+  baseURL: https://www.{etab}.oba-bad-me-live-api.banquepopulaire.fr/stet/psd2/v1.6.2
+  tags:
+  - Registration
+  properties:
+  - type: OpenAPI
+    url: openapi/groupe-bpce-registration-api-openapi.yml
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/account-information-services-3
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-access-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-transactions-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-beneficiaries-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-balances-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-owners-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/payment-initiation-3
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-credit-transfert-transactions-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-authentication-request-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-confirmation-resource-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/funds-availability-3
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-payment-coverage-request-resource-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-payment-coverage-report-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/psd2-registration
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-registration-record-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-registration-request-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/account-information-services-4
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/account-information-services-1
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/moneytransfer
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-transfer-request-line-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-transfer-request-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-transfer-request-line-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-external-account-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-internal-account-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-error-schema.json
+- aid: groupe-bpce:groupe-bpce-transfers-api
+  name: Groupe BPCE Transfers API
+  description: Creating and validating transfers.
+  humanURL: https://apistore.groupebpce.com/api/account-information-services-3
+  baseURL: https://www.{etab}.oba-bad-me-live-api.banquepopulaire.fr/stet/psd2/v1.6.2
+  tags:
+  - Transfers
+  properties:
+  - type: OpenAPI
+    url: openapi/groupe-bpce-transfers-api-openapi.yml
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/account-information-services-3
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-access-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-transactions-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-beneficiaries-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-balances-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-owners-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/payment-initiation-3
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-credit-transfert-transactions-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-authentication-request-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-confirmation-resource-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/funds-availability-3
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-payment-coverage-request-resource-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-hal-payment-coverage-report-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/psd2-registration
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-registration-record-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-registration-request-schema.json
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/account-information-services-4
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/account-information-services-1
+  - type: Documentation
+    url: https://apistore.groupebpce.com/api/moneytransfer
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-transfer-request-line-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-transfer-request-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-transfer-request-line-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-external-account-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-internal-account-schema.json
+  - type: JSONSchema
+    url: json-schema/groupe-bpce-error-schema.json
+x-enrichment:
+  date: '2026-10-09'
+  status: enriched
+  artifacts_added: 76
+  pass: modular-v1
+  engine: identity=anthropic,contract=anthropic,surfaces=anthropic,docs=anthropic,regulatory=anthropic

@@ -1,0 +1,11 @@
+#
+# SECURITY.TXT for BPCE
+# https://securitytxt.org/
+#
+# If you would like to report a security issue
+# you may report it to CERT Groupe BPCE
+Contact: mailto:cert@bpce.fr
+Expires: 2025-12-31T22:59:00.000Z
+Encryption: https://openpgp.circl.lu/pks/lookup?search=0x4FBDF286&fingerprint=on&op=index
+Encryption: openpgp4fpr:3D88CEA3577EC510E55334638563A2F34FBDF286
+Preferred-Languages: en, fr

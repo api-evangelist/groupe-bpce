@@ -1,0 +1,260 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/groupe-bpce/main/json-schema/groupe-bpce-registration-request-schema.json",
+  "title": "RegistrationRequest",
+  "description": "structure of a client request",
+  "x-generated": "2026-10-09",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/groupe-bpce-psd2-registration-openapi.yml#/components/schemas/RegistrationRequest",
+  "type": "object",
+  "properties": {
+    "redirect_uris": {
+      "$ref": "#/$defs/RedirectUris"
+    },
+    "software_statement": {
+      "description": "JSON Web Token (JWT) [RFC7519] that asserts metadata values about the client software as a bundle\n",
+      "type": "string"
+    },
+    "token_endpoint_auth_method": {
+      "$ref": "#/$defs/TokenEndpointAuthMethod"
+    },
+    "grant_types": {
+      "$ref": "#/$defs/GrantTypes"
+    },
+    "response_types": {
+      "$ref": "#/$defs/ResponseTypes"
+    },
+    "client_name": {
+      "$ref": "#/$defs/ClientName"
+    },
+    "client_uri": {
+      "$ref": "#/$defs/ClientUri"
+    },
+    "logo_uri": {
+      "$ref": "#/$defs/LogoUri"
+    },
+    "scope": {
+      "$ref": "#/$defs/Scope"
+    },
+    "tos_uri": {
+      "$ref": "#/$defs/TosUri"
+    },
+    "policy_uri": {
+      "$ref": "#/$defs/PolicyUri"
+    },
+    "jwks_uri": {
+      "$ref": "#/$defs/JwksUri"
+    },
+    "provider_legal_id": {
+      "$ref": "#/$defs/ProviderLegalId"
+    },
+    "client_legal_id": {
+      "$ref": "#/$defs/ClientLegalId"
+    },
+    "logo": {
+      "$ref": "#/$defs/Logo"
+    },
+    "jwks": {
+      "$ref": "#/$defs/JsonWebKeySet"
+    },
+    "software_id": {
+      "$ref": "#/$defs/SoftwareId"
+    },
+    "software_version": {
+      "$ref": "#/$defs/SoftwareVersion"
+    },
+    "contact": {
+      "$ref": "#/$defs/Contact"
+    }
+  },
+  "required": [
+    "redirect_uris",
+    "token_endpoint_auth_method",
+    "grant_types",
+    "client_name",
+    "provider_legal_id",
+    "jwks",
+    "contact"
+  ],
+  "$defs": {
+    "ClientLegalId": {
+      "description": "Extension to RFC7591.\nAuthorization number of the agent. MUST BE present when the agent and the TPP are distinct entities.\nIn a similar way to the ETSI specification on the Authorization Number for TPPs, the agent Authorization Number must respect the following format:\n- \"AGT\" as 3 character legal person identity type reference;\n- 2 character ISO 3166 country code representing the NCA country;\n- hyphen-minus \"-\" (0x2D (ASCII), U+002D (UTF-8)); and\n- 2-8 character NCA identifier (A-Z uppercase only, no separator);\n- hyphen-minus \"-\" (0x2D (ASCII), U+002D (UTF-8)); and \n- Agent identifier (registration number as specified by the NCA).          \n",
+      "type": "string"
+    },
+    "ClientName": {
+      "description": "Human-readable string name of the client to be presented to the end-user during authorization. If omitted, the authorization server MAY display the raw \"client_id\" value to the end-user instead. It is RECOMMENDED that clients always send this field. The value of this field MAY be internationalized, as described in Section 2.2.\n",
+      "type": "string"
+    },
+    "ClientUri": {
+      "description": "URL string of a web page providing information about the client. If present, the server SHOULD display this URL to the end-user in a clickable fashion. It is RECOMMENDED that clients always send this field. The value of this field MUST point to a valid web page. The value of this field MAY be internationalized, as described in Section 2.2.\n",
+      "type": "string"
+    },
+    "Contact": {
+      "description": "Object representing a way to contact a person responsible for this API client.",
+      "type": "object",
+      "properties": {
+        "contact_name": {
+          "description": "Human-readable name of the contact to be presented to the end-user during authorization.",
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone_number": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "contact_name"
+      ]
+    },
+    "GrantTypes": {
+      "description": "Array of OAuth 2.0 grant type strings that the client can use at the token endpoint. These grant types are defined as follows:\n* \"authorization_code\": The authorization code grant type defined in OAuth 2.0, Section 4.1.\n* \"implicit\": The implicit grant type defined in OAuth 2.0, Section 4.2.\n* \"password\": The resource owner password credentials grant type defined in OAuth 2.0, Section 4.3.\n* \"client_credentials\": The client credentials grant type defined in OAuth 2.0, Section 4.4.\n* \"refresh_token\": The refresh token grant type defined in OAuth  2.0, Section 6.\n* \"urn:ietf:params:oauth:grant-type:jwt-bearer\": The JWT Bearer Token Grant Type defined in OAuth JWT Bearer Token Profiles [RFC7523].\n* \"urn:ietf:params:oauth:grant-type:saml2-bearer\": The SAML 2.0 Bearer Assertion Grant defined in OAuth SAML 2 Bearer Token Profiles [RFC7522].\n\nIf the token endpoint is used in the grant type, the value of this parameter MUST be the same as the value of the \"grant_type\" parameter passed to the token endpoint defined in the grant type definition. Authorization servers MAY allow for other values as defined in the grant type extension process described in OAuth 2.0, Section 4.5. If omitted, the default behavior is that the client will use only the \"authorization_code\" Grant Type.\nSTET API: allowed values are:\n* authorization_code\n* password\n* client_credentials\n* refresh_token          \n",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "authorization_code",
+          "implicit",
+          "password",
+          "client_credentials",
+          "refresh_token",
+          "urn:ietf:params:oauth:grant-type:jwt-bearer",
+          "urn:ietf:params:oauth:grant-type:saml2-bearer"
+        ]
+      }
+    },
+    "JsonWebKey": {
+      "description": "A JWK is a JSON object that represents a cryptographic key. The members of the object represent properties of the key, including its value. This JSON object MAY contain whitespace and/or line breaks before or after any JSON values or structural characters, in accordance with Section 2 of RFC 7159 [RFC7159]. This document defines the key parameters that are not algorithm specific and, thus, common to many keys.\n",
+      "type": "object",
+      "properties": {
+        "kty": {
+          "description": "The \"kty\" (key type) parameter identifies the cryptographic algorithm family used with the key, such as \"RSA\" or \"EC\". \"kty\" values should either be registered in the IANA \"JSON Web Key Types\" registry established by [JWA] or be a value that contains a Collision- Resistant Name. The \"kty\" value is a case-sensitive string. This member MUST be present in a JWK.\nA list of defined \"kty\" values can be found in the IANA \"JSON Web Key Types\" registry established by [JWA]; the initial contents of this registry are the values defined in Section 6.1 of [JWA]. \nThe key type definitions include specification of the members to be used for those key types. Members used with specific \"kty\" values can be found in the IANA \"JSON Web Key Parameters\" registry established by Section 8.1.\n",
+          "type": "string"
+        },
+        "use": {
+          "description": "The \"use\" (public key use) parameter identifies the intended use of the public key. The \"use\" parameter is employed to indicate whether a public key is used for encrypting data or verifying the signature on data.\nValues defined by this specification are:\no \"sig\" (signature)\no \"enc\" (encryption)\nOther values MAY be used. The \"use\" value is a case-sensitive string. Use of the \"use\" member is OPTIONAL, unless the application requires its presence.\nWhen a key is used to wrap another key and a public key use designation for the first key is desired, the \"enc\" (encryption) key use value is used, since key wrapping is a kind of encryption. The \"enc\" value is also to be used for public keys used for key agreement operations.\nAdditional \"use\" (public key use) values can be registered in the IANA \"JSON Web Key Use\" registry established by Section 8.2. Registering any extension values used is highly recommended when this specification is used in open environments, in which multiple organizations need to have a common understanding of any extensions used. However, unregistered extension values can be used in closed environments, in which the producing and consuming organization will always be the same.\n",
+          "type": "string"
+        },
+        "key_ops": {
+          "description": "The \"key_ops\" (key operations) parameter identifies the operation(s) for which the key is intended to be used. The \"key_ops\" parameter is intended for use cases in which public, private, or symmetric keys may be present.\nIts value is an array of key operation values. Values defined by this specification are:\no \"sign\" (compute digital signature or MAC)\no \"verify\" (verify digital signature or MAC)\no \"encrypt\" (encrypt content)\no \"decrypt\" (decrypt content and validate decryption, if applicable)\no \"wrapKey\" (encrypt key)\no \"unwrapKey\" (decrypt key and validate decryption, if applicable)\no \"deriveKey\" (derive key)\no \"deriveBits\" (derive bits not to be used as a key)\n(Note that the \"key_ops\" values intentionally match the \"KeyUsage\" values defined in the Web Cryptography API [W3C.CR-WebCryptoAPI-20141211] specification.)\nOther values MAY be used. The key operation values are casesensitive strings. Duplicate key operation values MUST NOT be present in the array. Use of the \"key_ops\" member is OPTIONAL, unless the application requires its presence.\nMultiple unrelated key operations SHOULD NOT be specified for a key because of the potential vulnerabilities associated with using the same key with multiple algorithms. Thus, the combinations \"sign\" with \"verify\", \"encrypt\" with \"decrypt\", and \"wrapKey\" with \"unwrapKey\" are permitted, but other combinations SHOULD NOT be used.\nAdditional \"key_ops\" (key operations) values can be registered in the IANA \"JSON Web Key Operations\" registry established by Section 8.3. The same considerations about registering extension values apply to the \"key_ops\" member as do for the \"use\" member.\nThe \"use\" and \"key_ops\" JWK members SHOULD NOT be used together; however, if both are used, the information they convey MUST be consistent. Applications should specify which of these members they use, if either is to be used by the application.          \n",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "alg": {
+          "description": "The \"alg\" (algorithm) parameter identifies the algorithm intended for use with the key. The values used should either be registered in the IANA \"JSON Web Signature and Encryption Algorithms\" registry established by [JWA] or be a value that contains a Collision-Resistant Name. The \"alg\" value is a case-sensitive ASCII string. Use of this member is OPTIONAL.        \n",
+          "type": "string"
+        },
+        "kid": {
+          "description": "The \"kid\" (key ID) parameter is used to match a specific key. This is used, for instance, to choose among a set of keys within a JWK Set during key rollover. The structure of the \"kid\" value is unspecified. When \"kid\" values are used within a JWK Set, different keys within the JWK Set SHOULD use distinct \"kid\" values. (One example in which different keys might use the same \"kid\" value is if they have different \"kty\" (key type) values but are considered to be equivalent alternatives by the application using them.) The \"kid\" value is a case-sensitive string. Use of this member is OPTIONAL. When used with JWS or JWE, the \"kid\" value is used to match a JWS or JWE \"kid\" Header Parameter value.\n",
+          "type": "string"
+        },
+        "x5u": {
+          "description": "The \"x5u\" (X.509 URL) parameter is a URI [RFC3986] that refers to a resource for an X.509 public key certificate or certificate chain [RFC5280]. The identified resource MUST provide a representation of the certificate or certificate chain that conforms to RFC 5280 [RFC5280] in PEM-encoded form, with each certificate delimited as specified in Section 6.1 of RFC 4945 [RFC4945]. The key in the first certificate MUST match the public key represented by other members of the JWK. The protocol used to acquire the resource MUST provide integrity protection; an HTTP GET request to retrieve the certificate MUST use TLS [RFC2818] [RFC5246]; the identity of the server MUST be validated, as per Section 6 of RFC 6125 [RFC6125]. Use of this member is OPTIONAL.\nWhile there is no requirement that optional JWK members providing key usage, algorithm, or other information be present when the \"x5u\" member is used, doing so may improve interoperability for applications that do not handle PKIX certificates [RFC5280]. If other members are present, the contents of those members MUST be semantically consistent with the related fields in the first certificate. For instance, if the \"use\" member is present, then it MUST correspond to the usage that is specified in the certificate, when it includes this information. Similarly, if the \"alg\" member is present, it MUST correspond to the algorithm specified in the certificate.\n",
+          "type": "string"
+        },
+        "x5c": {
+          "description": "The \"x5c\" (X.509 certificate chain) parameter contains a chain of one or more PKIX certificates [RFC5280]. The certificate chain is represented as a JSON array of certificate value strings. Each string in the array is a base64-encoded (Section 4 of [RFC4648] -- not base64url-encoded) DER [ITU.X690.1994] PKIX certificate value. The PKIX certificate containing the key value MUST be the first certificate. This MAY be followed by additional certificates, with each subsequent certificate being the one used to certify the previous one. The key in the first certificate MUST match the public key represented by other members of the JWK. Use of this member is OPTIONAL.\nAs with the \"x5u\" member, optional JWK members providing key usage, algorithm, or other information MAY also be present when the \"x5c\" member is used. If other members are present, the contents of those members MUST be semantically consistent with the related fields in the first certificate.\n",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "x5t": {
+          "description": "The \"x5t\" (X.509 certificate SHA-1 thumbprint) parameter is a base64url-encoded SHA-1 thumbprint (a.k.a. digest) of the DER encoding of an X.509 certificate [RFC5280]. Note that certificate thumbprints are also sometimes known as certificate fingerprints. The key in the certificate MUST match the public key represented by other members of the JWK. Use of this member is OPTIONAL.\nAs with the \"x5u\" member, optional JWK members providing key usage, algorithm, or other information MAY also be present when the \"x5t\" member is used. If other members are present, the contents of those members MUST be semantically consistent with the related fields in the referenced certificate.\n",
+          "type": "string"
+        },
+        "x5t#S256": {
+          "description": "The \"x5t#S256\" (X.509 certificate SHA-256 thumbprint) parameter is a base64url-encoded SHA-256 thumbprint (a.k.a. digest) of the DER encoding of an X.509 certificate [RFC5280]. Note that certificate thumbprints are also sometimes known as certificate fingerprints. The key in the certificate MUST match the public key represented by other members of the JWK. Use of this member is OPTIONAL. \nAs with the \"x5u\" member, optional JWK members providing key usage, algorithm, or other information MAY also be present when the \"x5t#S256\" member is used. If other members are present, the contents of those members MUST be semantically consistent with the related fields in the referenced certificate.\n",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kty"
+      ]
+    },
+    "JsonWebKeySet": {
+      "description": "A JWK Set is a JSON object that represents a set of JWKs. The JSON object MUST have a \"keys\" member, with its value being an array of JWKs. This JSON object MAY contain whitespace and/or line breaks. \nThe member names within a JWK Set MUST be unique; JWK Set parsers MUST either reject JWK Sets with duplicate member names or use a JSON parser that returns only the lexically last duplicate member name, as specified in Section 15.12 (\"The JSON Object\") of ECMAScript 5.1 [ECMAScript].\nAdditional members can be present in the JWK Set; if not understood by implementations encountering them, they MUST be ignored. Parameters for representing additional properties of JWK Sets should either be registered in the IANA \"JSON Web Key Set Parameters\" registry established by Section 8.4 or be a value that contains a Collision-Resistant Name.\nImplementations SHOULD ignore JWKs within a JWK Set that use \"kty\" (key type) values that are not understood by them, that are missing required members, or for which values are out of the supported ranges.\n",
+      "type": "object",
+      "properties": {
+        "keys": {
+          "description": "The value of the \"keys\" parameter is an array of JWK values. By default, the order of the JWK values within the array does not imply an order of preference among them, although applications of JWK Sets can choose to assign a meaning to the order for their purposes, if desired.\n",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/JsonWebKey"
+          }
+        }
+      },
+      "required": [
+        "keys"
+      ]
+    },
+    "JwksUri": {
+      "description": "URL string referencing the client’s JSON Web Key (JWK) Set [RFC7517] document, which contains the client’s public keys. The value of this field MUST point to a valid JWK Set document. These keys can be used by higher-level protocols that use signing or encryption. For instance, these keys might be used by some applications for validating signed requests made to the token endpoint when using JWTs for client authentication [RFC7523]. Use of this parameter is preferred over the \"jwks\" parameter, as it allows for easier key rotation. The \"jwks_uri\" and \"jwks\" parameters MUST NOT both be present in the same request or response.\nSTET API: cannot be used.\n",
+      "type": "string"
+    },
+    "Logo": {
+      "description": "Extension to RFC7591.\nBase64 encoded value of the client logo.\n",
+      "type": "string"
+    },
+    "LogoUri": {
+      "description": "URL string that references a logo for the client. If present, the server SHOULD display this image to the end-user during approval. The value of this field MUST point to a valid image file. The value of this field MAY be internationalized, as described in Section 2.2.\n",
+      "type": "string"
+    },
+    "PolicyUri": {
+      "description": "URL string that points to a human-readable privacy policy document that describes how the deployment organization collects, uses, retains, and discloses personal data. The authorization server SHOULD display this URL to the end-user if it is provided. The value of this field MUST point to a valid web page. The value of this field MAY be internationalized, as described in Section 2.2.\n",
+      "type": "string"
+    },
+    "ProviderLegalId": {
+      "description": "Extension  to RFC7591.\nAuthorization number of the TPP according to ETSI specification on eIDAS certificates for PSD2.\n",
+      "type": "string"
+    },
+    "RedirectUris": {
+      "description": "Array of redirection URIs for use in redirect-based flows",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ResponseTypes": {
+      "description": "Array of the OAuth 2.0 response type strings that the client can use at the authorization endpoint. These response types are defined as follows:\n* \"code\": The authorization code response type defined in OAuth 2.0, Section 4.1.\n* \"token\": The implicit response type defined in OAuth 2.0, Section 4.2.\nIf the authorization endpoint is used by the grant type, the value of this parameter MUST be the same as the value of the \"response_type\" parameter passed to the authorization endpoint defined in the grant type definition. Authorization servers MAY allow for other values as defined in the grant type extension process is described in OAuth 2.0, Section 4.5. If omitted, the default is that the client will use only the \"code\" response type.\nSTET API: only \"code\" can be used.\n",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "code",
+          "token"
+        ]
+      }
+    },
+    "Scope": {
+      "description": "String containing a space-separated list of scope values (as described in Section 3.3 of OAuth 2.0 [RFC6749]) that the client can use when requesting access tokens. The semantics of values in this list are service specific. If omitted, an authorization server MAY register a client with a default set of scopes.\n",
+      "type": "string"
+    },
+    "SoftwareId": {
+      "description": "A unique identifier string (e.g., a Universally Unique Identifier (UUID)) assigned by the client developer or software publisher used by registration endpoints to identify the client software to be dynamically registered. Unlike \"client_id\", which is issued by the authorization server and SHOULD vary between instances, the \"software_id\" SHOULD remain the same for all instances of the client software. The \"software_id\" SHOULD remain the same across multiple updates or versions of the same piece of software. The value of this field is not intended to be human readable and is usually opaque to the client and authorization server.\nNot used in STET API\n",
+      "type": "string"
+    },
+    "SoftwareVersion": {
+      "description": "A version identifier string for the client software identified by \"software_id\". The value of the \"software_version\" SHOULD change on any update to the client software identified by the same \"software_id\". The value of this field is intended to be compared using string equality matching and no other comparison semantics are defined by this specification. The value of this field is outside the scope of this specification, but it is not intended to be human readable and is usually opaque to the client and authorization server. The definition of what constitutes an update to client software that would trigger a change to this value is specific to the software itself and is outside the scope of this specification.\nNot used in STET API\n",
+      "type": "string"
+    },
+    "TokenEndpointAuthMethod": {
+      "description": "Requested authentication method for the token endpoint.\n* \"none\": The client is a public client as defined in OAuth 2.0, Section 2.1, and does not have a client secret.\n* \"client_secret_post\": The client uses the HTTP POST parameters as defined in OAuth 2.0, Section 2.3.1.\n* \"client_secret_basic\": The client uses HTTP Basic as defined in OAuth 2.0, Section 2.3.1.\n* \"tls_client_auth\": Indicates that client authentication to the authorization server will occur with mutual TLS utilizing the PKI method of associating a certificate to a client.\nSTET API: only \"tls_client_auth\" can be used in order to comply with MTLS method used for PSD2 API.\n",
+      "type": "string",
+      "enum": [
+        "none",
+        "client_secret_post",
+        "client_secret_basic",
+        "tls_client_auth"
+      ]
+    },
+    "TosUri": {
+      "description": "URL string that points to a human-readable terms of service document for the client that describes a contractual relationship between the end-user and the client that the end-user accepts when authorizing the client. The authorization server SHOULD display this URL to the end-user if it is provided. The value of this field MUST point to a valid web page. The value of this field MAY be internationalized, as described in Section 2.2.\n",
+      "type": "string"
+    }
+  }
+}

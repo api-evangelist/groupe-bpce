@@ -1,0 +1,153 @@
+generated: '2026-10-09'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 12
+  own: 4
+  other_domain: 6
+  platform: 2
+  roles:
+  - api
+  - marketing
+  - other
+  - portal
+  - source
+  - website
+hosts:
+- host: api.groupebpce.com
+  found_by:
+  - apis[]
+  - contract-discovery
+  types: []
+  serves:
+  - api
+  registrable_domain: groupebpce.com
+  role: api
+  relation: own
+- host: api.groupebpce.fr
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: groupebpce.fr
+  role: api
+  relation: other-domain
+- host: apistore.groupebpce.com
+  found_by:
+  - pointer
+  - apis[]
+  - probed
+  - docs-index
+  - contract-discovery
+  - well-known
+  types:
+  - Deprecation
+  - DeveloperPortal
+  - APIReference
+  - Documentation
+  - GettingStarted
+  - Support
+  - FAQ
+  - Contact
+  - Login
+  - TermsOfService
+  - PrivacyPolicy
+  serves:
+  - docs
+  registrable_domain: groupebpce.com
+  role: portal
+  relation: own
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - SpectralRules
+  - GitHubOrganization
+  serves: []
+  registrable_domain: github.com
+  role: source
+  relation: platform
+- host: groupebpce.com
+  found_by:
+  - pointer
+  - probed
+  - well-known
+  - vendor-detect
+  types:
+  - Website
+  serves:
+  - cdn
+  vendor: cloudfront
+  registrable_domain: groupebpce.com
+  role: website
+  relation: own
+- host: newsroom.groupebpce.fr
+  found_by:
+  - pointer
+  - probed
+  - contract-discovery
+  - well-known
+  types:
+  - Newsroom
+  serves: []
+  registrable_domain: groupebpce.fr
+  role: marketing
+  relation: other-domain
+- host: www.18919.live.api.natixis.com
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - api
+  registrable_domain: natixis.com
+  role: api
+  relation: other-domain
+- host: www.30007.live.api.natixis.com
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - api
+  registrable_domain: natixis.com
+  role: api
+  relation: other-domain
+- host: www.groupebpce.com
+  found_by:
+  - pointer
+  - probed
+  - contract-discovery
+  - well-known
+  types:
+  - Blog
+  serves: []
+  registrable_domain: groupebpce.com
+  role: marketing
+  relation: own
+- host: www.linkedin.com
+  found_by:
+  - pointer
+  types:
+  - LinkedIn
+  serves: []
+  registrable_domain: linkedin.com
+  role: other
+  relation: platform
+- host: www.{etab}.oba-bad-me-live-api.89c3.com
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - api
+  registrable_domain: 89c3.com
+  role: other
+  relation: other-domain
+- host: www.{etab}.oba-bad-me-live-api.banquepopulaire.fr
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - api
+  registrable_domain: banquepopulaire.fr
+  role: other
+  relation: other-domain

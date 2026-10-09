@@ -1,0 +1,39 @@
+generated: '2026-10-09'
+method: searched
+source: https://apistore.groupebpce.com/api/account-information-services-3
+standards:
+- id: psd2
+  conforms: true
+  evidence: https://apistore.groupebpce.com/solution/psd2-regulatory-apis — "In the context of the 2nd European Directive on Payment Services
+    (PSD2), the BPCE group has made the PSD2 APIs available across all its relevant areas"
+- id: stet-psd2-api
+  conforms: true
+  evidence: https://apistore.groupebpce.com/api/account-information-services-3 — "This REST API complies with the French interbank specification
+    STET ( https://www.stet.eu/en/psd2/ ), version v.1.6.2.0, in order to meet the regulatory requirements of P[SD2]"; openapi/groupe-bpce-psd2-accounts-openapi.yml
+    info.version 1.6.2.0-b
+- id: eidas-qwac-qsealc
+  conforms: true
+  evidence: https://apistore.groupebpce.com/api/psd2-registration — "This OID is also included in eIDAS certificates (QWAC & QSealC) used for
+    PSD2 API access and mutual authentication process (between TPP and ASPSP)"; client_id per ETSI TS 119 495 (securitySchemes description in
+    the PSD2 specs)
+- id: oauth2
+  conforms: true
+  evidence: components.securitySchemes accessCode (authorizationCode) and clientCredentials in openapi/groupe-bpce-psd2-payments-openapi.yml;
+    moneyTransfer uses oauth2-authorizationCodePKCE-moneyTransfer
+- id: iso20022
+  conforms: true
+  evidence: 'openapi/groupe-bpce-psd2-payments-openapi.yml schema descriptions are prefixed "ISO20022:" (e.g. paymentInformationId "ISO20022:
+    Reference assigned by a sending party..."); payment statuses use ISO 20022 codes (ACSP, ACTC, CANC, RJCT, PDNG) per https://apistore.groupebpce.com/api/payment-initiation-3'
+- id: rfc9457
+  conforms: false
+  evidence: 'https://apistore.groupebpce.com/api/payment-initiation-3 error table returns STET-style bodies ("error code : FF01 message : RJCT");
+    https://apistore.groupebpce.com/api/psd2-registration returns fields error and error_description — no application/problem+json'
+- id: openapi-3.0
+  conforms: true
+  evidence: the document declares 3.0.0
+- id: openapi-3.0
+  conforms: true
+  evidence: the document declares 3.0.1
+- id: idempotency
+  conforms: false
+  evidence: no idempotency key parameter on mutating operations

@@ -1,0 +1,16 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist overlay for Natixis Accounts Information (1.6.2.0-a)
+  version: 1.0.0
+extends: ../openapi/_original/groupe-bpce-natixis-psd2-accounts-openapi.yml
+x-generated: '2026-10-09'
+x-method: generated
+x-source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml
+x-rationale: Adds provider metadata and, where the original contract leaves operations untagged, a tag per resource so tooling
+  can group operations. The original openapi file is never mutated.
+actions:
+- target: $.info
+  description: Attach API Evangelist provider metadata.
+  update:
+    x-provider: groupe-bpce
+    x-api-evangelist-profile: https://github.com/api-evangelist/groupe-bpce

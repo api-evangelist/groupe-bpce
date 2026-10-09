@@ -1,0 +1,893 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Funds Availability",
+    "version": "1.6.2.0-b",
+    "description": "This API intends to provide an interface between\n- Account Servicing Payment Service Providers (ASPSP)\n- Third Party (Payment Service) Providers (TPP)\n\nTPP may act with different roles as described below:\n- Account Information Service Providers (AISP)\n- Payment Initiation Service Providers (PISP)\n- Card Based Payment Instrument Issuers (CBPII)\n\nThe Payment Service User (PSU) is the owner of the accounts held by the ASPSP and gives accreditations to the TPP in order to access his accounts information or initiates payment from these accounts\n\nThe API is designed on a REST model using JSON structures.\n\nThe Richardson Maturity Model is applied on level three using HAL HYPERMEDIA links\n",
+    "termsOfService": "https://apistore.groupebpce.com/terms-of-use",
+    "contact": {
+      "name": "BPCE",
+      "url": "https://apistore.groupebpce.com/support-technique"
+    },
+    "license": {
+      "name": "Copyright BPCE",
+      "url": "https://apistore.groupebpce.com/regulatory-information"
+    },
+    "x-business-exposure": true,
+    "x-internal-id": "BDSP2BC1"
+  },
+  "servers": [
+    {
+      "description": "Production - Banque Populaire",
+      "url": "https://www.{etab}.oba-bad-me-live-api.banquepopulaire.fr/stet/psd2/v1.6.2",
+      "variables": {
+        "etab": {
+          "default": "10207",
+          "enum": [
+            "10207",
+            "10807",
+            "10907",
+            "13507",
+            "13807",
+            "14607",
+            "14707",
+            "16607",
+            "16807",
+            "17807",
+            "18707"
+          ]
+        }
+      }
+    },
+    {
+      "description": "Production - Caisse d'Epargne",
+      "url": "https://www.{etab}.oba-bad-me-live-api.caisse-epargne.fr/stet/psd2/v1.6.2",
+      "variables": {
+        "etab": {
+          "default": "11315",
+          "enum": [
+            "11315",
+            "11425",
+            "12135",
+            "13135",
+            "13335",
+            "13485",
+            "13825",
+            "14265",
+            "14445",
+            "14505",
+            "15135",
+            "16275",
+            "17515",
+            "18315",
+            "18715"
+          ]
+        }
+      }
+    },
+    {
+      "description": "Production - Banque BCP",
+      "url": "https://www.12579.oba-bad-me-live-api.banquebcp.fr/stet/psd2/v1.6.2"
+    },
+    {
+      "description": "Production - BTP Banque",
+      "url": "https://www.30258.oba-bad-me-live-api.btp-banque.fr/stet/psd2/v1.6.2"
+    },
+    {
+      "description": "Production - Crédit Coopératif",
+      "url": "https://www.42559.oba-bad-me-live-api.credit-cooperatif.coop/stet/psd2/v1.6.2"
+    },
+    {
+      "description": "Production - Banque Palatine",
+      "url": "https://www.40978.oba-bad-me-live-api.palatine.fr/stet/psd2/v1.6.2"
+    },
+    {
+      "description": "Production - Banque de Savoie",
+      "url": "https://www.10548.oba-bad-me-live-api.banque-de-savoie.fr/stet/psd2/v1.6.2"
+    },
+    {
+      "description": "Sandbox",
+      "url": "https://www.{etab}.sandbox.api.89c3.com/stet/psd2/v1.6.2",
+      "variables": {
+        "etab": {
+          "default": "13807",
+          "enum": [
+            "17515",
+            "13807"
+          ]
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/funds-confirmations": {
+      "post": {
+        "operationId": "fundsConfirmationsPost",
+        "summary": "Payment coverage check request (CBPII)",
+        "description": "### Description\nThe CBPII can ask an ASPSP to check if a given amount can be covered by the liquidity that is available on a PSU cash account or payment card.\n### Prerequisites\n- The TPP was registered by the Registration Authority for the CBPII role\n- The TPP and the PSU have a contract that was registered by the ASPSP\n  - At this step, the ASPSP has delivered an \"Authorization Code\", a \"Resource Owner Password\" or a \"Client Credential\" OAUTH2 access token to the TPP (cf. § 3.4.2).\n  - Each ASPSP has to implement either the \"Authorization Code\"/\"Resource Owner Password\" or the \"Client Credential\" OAUTH2 access token model.\n  - Doing this, it will edit the [security] section on this path in order to specify which model it has chosen\n- The TPP and the ASPSP have successfully processed a mutual check and authentication\n- The TPP has presented its OAUTH2 \"Authorization Code\", \"Resource Owner Password\" or \"Client Credential\" access token which allows the ASPSP to identify the relevant PSU.\n### Business flow\nThe CBPII requests the ASPSP for a payment coverage check against either a bank account or a card primary identifier.\nThis request cannot handle exchange rate and must be specified with the relevant account currency.\nThe ASPSP answers with a structure embedding the original request and the result as a Boolean.\n",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AuthorizationParameter"
+          },
+          {
+            "$ref": "#/components/parameters/PsuIpAddressHeader"
+          },
+          {
+            "$ref": "#/components/parameters/PsuIpPortHeader"
+          },
+          {
+            "$ref": "#/components/parameters/PsuHttpMethodHeader"
+          },
+          {
+            "$ref": "#/components/parameters/PsuDateHeader"
+          },
+          {
+            "$ref": "#/components/parameters/PsuGeoLocation"
+          },
+          {
+            "$ref": "#/components/parameters/PsuUserAgentHeader"
+          },
+          {
+            "$ref": "#/components/parameters/PsuRefererHeader"
+          },
+          {
+            "$ref": "#/components/parameters/PsuAcceptHeader"
+          },
+          {
+            "$ref": "#/components/parameters/PsuAcceptCharsetHeader"
+          },
+          {
+            "$ref": "#/components/parameters/PsuAcceptEncodingHeader"
+          },
+          {
+            "$ref": "#/components/parameters/PsuAcceptLanguageHeader"
+          },
+          {
+            "$ref": "#/components/parameters/PsuDeviceId"
+          },
+          {
+            "$ref": "#/components/parameters/DigestHeader"
+          },
+          {
+            "$ref": "#/components/parameters/SignatureHeader"
+          },
+          {
+            "$ref": "#/components/parameters/Correlation"
+          }
+        ],
+        "requestBody": {
+          "description": "parameters of a payment coverage request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PaymentCoverageRequestResource"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "payment coverage request",
+            "headers": {
+              "X-Request-ID": {
+                "description": "Correlation header to be set in a request and retrieved in the relevant response\n",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Digest": {
+                "description": "Digest of the body",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Signature": {
+                "description": "[http-signature of the response ](https://datatracker.ietf.org/doc/draft-cavage-http-signatures/)\nThe keyId must specify the way to get the relevant qualified certificate. It is requested that this identifier is an URL aiming to provide the relevant Qualified Certificate.\n",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Warning": {
+                "description": "Warning header.\nThis header can be used by the server to inform the client of a deprecated entry-point through the value \"299\" value and a descriptive message.\n",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/HalPaymentCoverageReport"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "405": {
+            "$ref": "#/components/responses/405"
+          },
+          "406": {
+            "$ref": "#/components/responses/406"
+          },
+          "408": {
+            "$ref": "#/components/responses/408"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          }
+        },
+        "security": [
+          {
+            "accessCode": [
+              "cbpii"
+            ]
+          },
+          {
+            "clientCredentials": [
+              "cbpii"
+            ]
+          }
+        ],
+        "tags": [
+          "CBPII"
+        ]
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "AuthorizationParameter": {
+        "name": "Authorization",
+        "description": "Access token to be passed as a header",
+        "in": "header",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Correlation": {
+        "name": "X-Request-ID",
+        "description": "Correlation header to be set in a request and retrieved in the relevant response\n",
+        "in": "header",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "maxLength": 70
+        }
+      },
+      "DigestHeader": {
+        "name": "Digest",
+        "description": "Digest of the body",
+        "in": "header",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PsuAcceptCharsetHeader": {
+        "name": "PSU-Accept-Charset",
+        "description": "\"Accept-Charset\" header field sent by the PSU terminal when connecting to the TPP\n",
+        "in": "header",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PsuAcceptEncodingHeader": {
+        "name": "PSU-Accept-Encoding",
+        "description": "\"Accept-Encoding\" header field sent by the PSU terminal when connecting to the TPP\n",
+        "in": "header",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PsuAcceptHeader": {
+        "name": "PSU-Accept",
+        "description": "\"Accept\" header field sent by the PSU terminal when connecting to the TPP\n",
+        "in": "header",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PsuAcceptLanguageHeader": {
+        "name": "PSU-Accept-Language",
+        "description": "\"Accept-Language\" header field sent by the PSU terminal when connecting to the TPP\n",
+        "in": "header",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PsuDateHeader": {
+        "name": "PSU-Date",
+        "description": "Timestamp of the most relevant PSU’s terminal request to the TTP",
+        "in": "header",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PsuDeviceId": {
+        "name": "PSU-Device-ID",
+        "description": "UUID (Universally Unique Identifier) for a device, which is used by the PSU, if available.\nUUID identifies either a device or a device dependant application installation.\nIn case of installation identification this ID need to be unaltered until removal from device.\n",
+        "in": "header",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PsuGeoLocation": {
+        "name": "PSU-GEO-Location",
+        "description": "Geographical location of the PSU as provided by the PSU mobile terminal if any to the TPP",
+        "in": "header",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PsuHttpMethodHeader": {
+        "name": "PSU-HTTP-Method",
+        "description": "Http method for the most relevant PSU’s terminal request to the TTP",
+        "in": "header",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PsuIpAddressHeader": {
+        "name": "PSU-IP-Address",
+        "description": "IP address used by the PSU's terminal when connecting to the TPP",
+        "in": "header",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PsuIpPortHeader": {
+        "name": "PSU-IP-Port",
+        "description": "IP port used by the PSU's terminal when connecting to the TPP",
+        "in": "header",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PsuRefererHeader": {
+        "name": "PSU-Referer",
+        "description": "\"Referer\" header field sent by the PSU terminal when connecting to the TPP.\nNotice that an initial typo in RFC 1945 specifies that \"referer\" (incorrect spelling) is to be used. The correct spelling \"referrer\" can be used but might not be understood.\n",
+        "in": "header",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PsuUserAgentHeader": {
+        "name": "PSU-User-Agent",
+        "description": "\"User-Agent\" header field sent by the PSU terminal when connecting to the TPP\n",
+        "in": "header",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "SignatureHeader": {
+        "name": "Signature",
+        "description": "[http-signature of the request](https://datatracker.ietf.org/doc/draft-cavage-http-signatures/)\nThe keyId must specify the way to get the relevant qualified certificate. It is requested that this identifier is an URL aiming to provide the relevant Qualified Certificate.\n",
+        "in": "header",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "responses": {
+      "400": {
+        "description": "Invalid status value",
+        "headers": {
+          "X-Request-ID": {
+            "description": "Correlation header to be set in a request and retrieved in the relevant response\n",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "Warning": {
+            "description": "Warning header.\nThis header can be used by the server to inform the client of a deprecated entry-point through the value \"299\" value and a descriptive message.\n",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "content": {
+          "application/json; charset=utf-8": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorModel"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Unauthorized, authentication failure.",
+        "headers": {
+          "X-Request-ID": {
+            "description": "Correlation header to be set in a request and retrieved in the relevant response\n",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "Warning": {
+            "description": "Warning header.\nThis header can be used by the server to inform the client of a deprecated entry-point through the value \"299\" value and a descriptive message.\n",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "content": {
+          "application/json; charset=utf-8": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorModel"
+            }
+          }
+        }
+      },
+      "403": {
+        "description": "Forbidden, authentication successful but access to resource is not allowed.",
+        "headers": {
+          "X-Request-ID": {
+            "description": "Correlation header to be set in a request and retrieved in the relevant response\n",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "Warning": {
+            "description": "Warning header.\nThis header can be used by the server to inform the client of a deprecated entry-point through the value \"299\" value and a descriptive message.\n",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "content": {
+          "application/json; charset=utf-8": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorModel"
+            }
+          }
+        }
+      },
+      "405": {
+        "description": "Method Not Allowed.",
+        "headers": {
+          "X-Request-ID": {
+            "description": "Correlation header to be set in a request and retrieved in the relevant response\n",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "Warning": {
+            "description": "Warning header.\nThis header can be used by the server to inform the client of a deprecated entry-point through the value \"299\" value and a descriptive message.\n",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "content": {
+          "application/json; charset=utf-8": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorModel"
+            }
+          }
+        }
+      },
+      "406": {
+        "description": "Not Acceptable.",
+        "headers": {
+          "X-Request-ID": {
+            "description": "Correlation header to be set in a request and retrieved in the relevant response\n",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "Warning": {
+            "description": "Warning header.\nThis header can be used by the server to inform the client of a deprecated entry-point through the value \"299\" value and a descriptive message.\n",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "content": {
+          "application/json; charset=utf-8": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorModel"
+            }
+          }
+        }
+      },
+      "408": {
+        "description": "Request Timeout.",
+        "headers": {
+          "X-Request-ID": {
+            "description": "Correlation header to be set in a request and retrieved in the relevant response\n",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "Warning": {
+            "description": "Warning header.\nThis header can be used by the server to inform the client of a deprecated entry-point through the value \"299\" value and a descriptive message.\n",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "content": {
+          "application/json; charset=utf-8": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorModel"
+            }
+          }
+        }
+      },
+      "429": {
+        "description": "Too many requests.",
+        "headers": {
+          "X-Request-ID": {
+            "description": "Correlation header to be set in a request and retrieved in the relevant response\n",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "Warning": {
+            "description": "Warning header.\nThis header can be used by the server to inform the client of a deprecated entry-point through the value \"299\" value and a descriptive message.\n",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "content": {
+          "application/json; charset=utf-8": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorModel"
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal server error.",
+        "headers": {
+          "X-Request-ID": {
+            "description": "Correlation header to be set in a request and retrieved in the relevant response\n",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "content": {
+          "application/json; charset=utf-8": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorModel"
+            }
+          }
+        }
+      },
+      "503": {
+        "description": "Service unavailable.",
+        "headers": {
+          "X-Request-ID": {
+            "description": "Correlation header to be set in a request and retrieved in the relevant response\n",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "content": {
+          "application/json; charset=utf-8": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorModel"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "AccountIdentification": {
+        "description": "Unique and unambiguous identification for the account between the account owner and the account servicer.\nCard accounts must provide the identification of the card through the \"other\" substructure by giving, for instance, the masked PAN (MPAN).\nThe currency used for the account, when needed, can be specified through the [currency] field.\n",
+        "type": "object",
+        "properties": {
+          "workspace": {
+            "description": "Workspace to which the account is linked.\nThis workspace might be specified by the AISP when forwarding the consent on accounts.\nIf not provided, the default workspace is computed from the authentication that was used for getting the OAuth2 Access Token.\n",
+            "type": "string",
+            "maxLength": 32
+          },
+          "iban": {
+            "description": "ISO20022: International Bank Account Number (IBAN) - identification used internationally by financial institutions to uniquely identify the account of a customer.\n\nFurther specifications of the format and content of the IBAN can be found in the standard ISO 13616 \"Banking and related financial services - International Bank Account Number (IBAN)\" version 1997-10-01, or later revisions.\n",
+            "type": "string",
+            "pattern": "^[A-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}$"
+          },
+          "other": {
+            "$ref": "#/components/schemas/GenericIdentification"
+          },
+          "currency": {
+            "$ref": "#/components/schemas/CurrencyCode"
+          }
+        },
+        "example": "{\n  \"workspace\": \"PRO_1\",\n  \"iban\" : \"YY64COJH41059545330222956960771321\",\n  \"currency\" : \"EUR\"\n}"
+      },
+      "AmountType": {
+        "description": "Structure aiming to embed the amount and the currency to be used.\n",
+        "type": "object",
+        "properties": {
+          "amount": {
+            "description": "ISO20022: Amount of money to be moved between the debtor and creditor, before deduction of charges, expressed in the currency as ordered by the initiating party.\n",
+            "type": "number",
+            "format": "float",
+            "pattern": "^\\-{0,1}[0-9]{1,13}(\\.[0-9]{0,5}){0,1}$"
+          },
+          "currency": {
+            "$ref": "#/components/schemas/CurrencyCode"
+          }
+        },
+        "required": [
+          "amount",
+          "currency"
+        ],
+        "example": "{\n  \"amount\" : 123.45,\n  \"currency\" : \"EUR\"\n}"
+      },
+      "CurrencyCode": {
+        "description": "Specifies the currency of the amount or of the account.\nA code allocated to a currency by a Maintenance Agency under an international identification scheme, as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\".\n",
+        "type": "string",
+        "pattern": "^[A-Z]{3,3}$"
+      },
+      "ErrorDetail": {
+        "description": "detailed error description",
+        "type": "object",
+        "properties": {
+          "location": {
+            "description": "Location of the erroneous parameter when not in request body",
+            "type": "string",
+            "enum": [
+              "header",
+              "query"
+            ]
+          },
+          "name": {
+            "description": "Name of the erroneous parameter when not in request body",
+            "type": "string"
+          },
+          "path": {
+            "description": "JsonPath of the erroneous request body property",
+            "type": "string"
+          },
+          "erroneousValue": {
+            "description": "Erroneous parameter value",
+            "type": "string"
+          },
+          "message": {
+            "description": "Relevant message for the erroneous parameter",
+            "type": "string"
+          },
+          "expectedPattern": {
+            "description": "Expected pattern, if any, that the erroneous parameter does not match with",
+            "type": "string"
+          },
+          "expectedValueRange": {
+            "description": "Expected value range, if any, that the erroneous parameter does not match with",
+            "type": "object",
+            "example": "{\n  \"minValue\": 1,\n  \"maxValue\": 100\n}        ",
+            "properties": {
+              "minValue": {
+                "type": "integer"
+              },
+              "maxValue": {
+                "type": "integer"
+              }
+            }
+          },
+          "expectedValueCount": {
+            "description": "Expected value count, in the case of an array item, that the erroneous parameter does not match with",
+            "type": "object",
+            "example": "{\n  \"minValue\": \"1\"\n}        ",
+            "properties": {
+              "minValue": {
+                "type": "integer"
+              },
+              "maxValue": {
+                "type": "integer"
+              }
+            }
+          },
+          "expectedEnumeration": {
+            "description": "Expected enumeration, if any, that the erroneous parameter do not match with",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "ErrorModel": {
+        "description": "Generic error report structure",
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "description": "current timestamp",
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "description": "HTTP error code",
+            "type": "integer",
+            "format": "int32"
+          },
+          "error": {
+            "description": "HTTP error text",
+            "type": "string",
+            "maxLength": 140
+          },
+          "message": {
+            "description": "HTTP textual reason phrase",
+            "type": "string",
+            "maxLength": 140
+          },
+          "path": {
+            "description": "Relevant path that was used",
+            "type": "string",
+            "maxLength": 140
+          },
+          "details": {
+            "description": "list of detailed errors that were encountered",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorDetail"
+            },
+            "minItems": 1
+          }
+        },
+        "required": [
+          "status",
+          "message"
+        ],
+        "example": "{\n  \"timestamp\" : \"2021-03-17T16:47:00.187248+01:00\",\n  \"status\" : 400,\n  \"error\" : \"Bad Request\",\n  \"message\" : \"This Authentication Approach is not available\",\n  \"details\" : [ {\n    \"path\" : \"$.supplementaryData.acceptedAuthenticationApproach\",\n    \"erroneousValue\" : \"EMBEDDED\",\n    \"expectedEnumeration\" : [ \"REDIRECT\", \"DECOUPLED\" ]\n  } ]\n}"
+      },
+      "GenericIdentification": {
+        "description": "ISO20022: Unique identification of an account, a person or an organisation, as assigned by an issuer.\nAPI: The ASPSP will document which account reference type it will support.\n",
+        "type": "object",
+        "properties": {
+          "identification": {
+            "description": "API: Identifier\n",
+            "type": "string",
+            "maxLength": 70
+          },
+          "schemeName": {
+            "description": "Name of the identification scheme.\nPossible values for the scheme name, partially based on ISO20022 external code list, are the following:\n| Code | Name | Description |\n| ---- | ---- | ----------- |\n| BANK | BankPartyIdentification | Unique and unambiguous assignment made by a specific bank or similar financial institution to identify a relationship as defined between the bank and its client. |\n| BBAN | BBANIdentifier | Basic Bank Account Number (BBAN) - identifier used nationally by financial institutions, ie, in individual countries, generally as part of a National Account Numbering Scheme(s), to uniquely identify the account of a customer. |\n| COID | CountryIdentificationCode) : Country authority given organisation identification (e.g., corporate registration number) |\n| SREN | SIREN | The SIREN number is a 9 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation in France. |\n| SRET | SIRET | The SIRET number is a 14 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation unit in France. It consists of the SIREN number, followed by a five digit classification number, to identify the local geographical unit of that entity. |\n| NIDN | NationalIdentityNumber | Number assigned by an authority to identify the national identity number of a person. |\nOther values are also permitted, for instance:\n| Code | Name | Description |\n| ---- | ---- | ----------- |\n| OAUT | OAUTH2 | OAUTH2 access token that is owned by the PISP being also an AISP and that can be used in order to identify the PSU |\n| CPAN | CardPan | Card PAN |\n| MPAN | MaskedPan | Card PAN where some digits were replaced for security reason |\n| TPAN | TokenizedPan | Token which was provided by a Token Service Provider (TSP) in order to obfuscate a real card PAN. The TSP must be identified in the issuer field |\n| TBAN | TokenizedIBAN | Token which was provided by a Token Service Provider (TSP) in order to obfuscate an IBAN. The TSP must be identified in the issuer field |\nEach implementation of the STET PSD2 API must specify in its own documentation which schemes can actually been used\n",
+            "type": "string",
+            "maxLength": 70
+          },
+          "issuer": {
+            "description": "ISO20022: Entity that assigns the identification. this could a country code or any organisation name or identifier that can be recognized by both parties\n",
+            "type": "string",
+            "maxLength": 35
+          }
+        },
+        "required": [
+          "identification",
+          "schemeName"
+        ],
+        "example": "{\n  \"identification\" : \"12FR5\",\n  \"schemeName\" : \"COID\",\n  \"issuer\" : \"ACPR\"\n}"
+      },
+      "GenericLink": {
+        "description": "hypertext reference",
+        "type": "object",
+        "properties": {
+          "href": {
+            "description": "URI to be used. HREF stands for Hypertext REFerence.",
+            "type": "string",
+            "maxLength": 2000
+          },
+          "templated": {
+            "description": "This field must be set with \"true\"  when [href] is an URI template, i.e. with parameters that will be set by the client afterwards. Parameter fields must be included by the API server according to RFC6570.\nOtherwise, this property must be absent or set to false\ndefault value: false\n",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "href"
+        ],
+        "example": "{\n  \"href\" : \"/v1/accounts\"\n}"
+      },
+      "HalPaymentCoverageReport": {
+        "description": "HYPERMEDIA structure used for returning the payment coverage report to the CBPII",
+        "type": "object",
+        "properties": {
+          "request": {
+            "$ref": "#/components/schemas/PaymentCoverageRequestResource"
+          },
+          "result": {
+            "description": "Result of the coverage check :\n- true: the payment can be covered\n- false: the payment cannot be covered\n",
+            "type": "boolean"
+          },
+          "_links": {
+            "$ref": "#/components/schemas/PaymentCoverageReportLinks"
+          }
+        },
+        "required": [
+          "request",
+          "result",
+          "_links"
+        ],
+        "example": "{\n  \"request\" : {\n    \"paymentCoverageRequestId\" : \"MyCoverage123456\",\n    \"instructedAmount\" : {\n      \"amount\" : 12345.0,\n      \"currency\" : \"EUR\"\n    },\n    \"accountId\" : {\n      \"iban\" : \"YY13RDHN98392489481620896668799742\"\n    }\n  },\n  \"result\" : true,\n  \"_links\" : {\n    \"self\" : {\n      \"href\" : \"v1/funds-confirmations\"\n    }\n  }\n}"
+      },
+      "PaymentCoverageReportLinks": {
+        "description": "links that can be used for further navigation to post another coverage request.\n",
+        "type": "object",
+        "properties": {
+          "self": {
+            "$ref": "#/components/schemas/GenericLink"
+          }
+        },
+        "required": [
+          "self"
+        ],
+        "readOnly": true,
+        "example": "{\n  \"self\" : {\n    \"href\" : \"v1/funds-confirmations\"\n  }\n}"
+      },
+      "PaymentCoverageRequestResource": {
+        "description": "Payment coverage request structure.\nThe request must rely either on a cash account or a payment card.\nThe [instructedAmount] property is the payment account on wihich the request is processed. This amount must be positive.\nAmounts must always be set as positive values.\n",
+        "type": "object",
+        "properties": {
+          "paymentCoverageRequestId": {
+            "description": "Identification of the payment Coverage Request",
+            "type": "string",
+            "maxLength": 35
+          },
+          "payee": {
+            "description": "The merchant where the card is accepted as information to the PSU.",
+            "type": "string",
+            "maxLength": 70
+          },
+          "instructedAmount": {
+            "$ref": "#/components/schemas/AmountType"
+          },
+          "accountId": {
+            "$ref": "#/components/schemas/AccountIdentification"
+          }
+        },
+        "required": [
+          "paymentCoverageRequestId",
+          "accountId"
+        ],
+        "example": "{\n  \"paymentCoverageRequestId\" : \"MyCoverage123456\",\n  \"instructedAmount\" : {\n    \"amount\" : 12345.0,\n    \"currency\" : \"EUR\"\n  },\n  \"accountId\" : {\n    \"iban\" : \"YY13RDHN98392489481620896668799742\"\n  }\n}"
+      }
+    },
+    "securitySchemes": {
+      "accessCode": {
+        "description": "In order to access the PSU's account information, the AISP needs to get either an authorization code grant or a Client Initiated Backchannel Authentication token.\nIn order to post a funds confirmation request, the CBPII needs to get either an authorization code grant or a Client Initiated Backchannel Authentication token when registration of the account has not been previously processed.\nIn order to confirm a Payment or Transfer Request, the PISP needs to get either an authorization code grant or a Client Initiated Backchannel Authentication token.\nThe client_id field within the token request must be filled with the value of the organization identifier attribute that was set in the distinguished name of eIDAS certificate of the TPP, according to ETSI recommandations.\n(cf §5.2.1 of [ETSI specfication](https://www.etsi.org/standards-search#page=1&search=TS119495))\n",
+        "type": "oauth2",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "/stet/psd2/oauth/authorize",
+            "tokenUrl": "/stet/psd2/oauth/token",
+            "scopes": {
+              "cbpii": "Access by a CBPII to one given PSU's account to check payment coverage"
+            },
+            "refreshUrl": "/stet/psd2/oauth/token"
+          }
+        }
+      },
+      "clientCredentials": {
+        "description": "In order to post, get or cancel a Payment or Transfer Request, the PISP needs to get a client credential OAUTH2 token.\nIn order to confirm a Payment or Transfer Request, the PISP needs to get either an authorization code grant or a client credential OAUTH2 token.\nIn order to post a funds confirmation request, the CBPII needs to get a client credential OAUTH2 token when registration of the account has already been previously processed.\nThe client_id field within the token request must be filled with the value of the organization identifier attribute that was set in the distinguished name of eIDAS certificate of the TPP, according to ETSI recommandations.\n(cf §5.2.1 of [ETSI specfication](https://www.etsi.org/standards-search#page=1&search=TS119495))\n",
+        "type": "oauth2",
+        "flows": {
+          "clientCredentials": {
+            "tokenUrl": "/stet/psd2/oauth/token",
+            "scopes": {
+              "cbpii": "Access by a CBPII to one given PSU's account to check payment coverage"
+            },
+            "refreshUrl": "/stet/psd2/oauth/token"
+          }
+        }
+      }
+    }
+  }
+}

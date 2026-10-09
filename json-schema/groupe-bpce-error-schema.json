@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/groupe-bpce/main/json-schema/groupe-bpce-error-schema.json",
+  "title": "Error",
+  "description": "Error produced during request processing.",
+  "x-generated": "2026-10-09",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/groupe-bpce-open-finance-transfer-openapi.yml#/components/schemas/Error",
+  "type": "object",
+  "properties": {
+    "code": {
+      "description": "Error code.",
+      "type": "string"
+    },
+    "message": {
+      "description": "Error message.",
+      "type": "string"
+    },
+    "attribute": {
+      "description": "Attribute concerned by the error.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "message"
+  ]
+}

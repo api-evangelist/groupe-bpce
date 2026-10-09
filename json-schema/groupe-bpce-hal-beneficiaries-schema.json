@@ -1,0 +1,395 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/groupe-bpce/main/json-schema/groupe-bpce-hal-beneficiaries-schema.json",
+  "title": "HalBeneficiaries",
+  "description": "HYPERMEDIA structure used for returning the list of the whitelisted beneficiaries",
+  "x-generated": "2026-10-09",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/groupe-bpce-psd2-accounts-openapi.yml#/components/schemas/HalBeneficiaries",
+  "type": "object",
+  "properties": {
+    "beneficiaries": {
+      "description": "List of trusted beneficiaries",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Beneficiary"
+      }
+    },
+    "_links": {
+      "$ref": "#/$defs/BeneficiariesLinks"
+    }
+  },
+  "required": [
+    "beneficiaries",
+    "_links"
+  ],
+  "$defs": {
+    "AccountIdentification": {
+      "description": "Unique and unambiguous identification for the account between the account owner and the account servicer.\nCard accounts must provide the identification of the card through the \"other\" substructure by giving, for instance, the masked PAN (MPAN).\nThe currency used for the account, when needed, can be specified through the [currency] field.\n",
+      "type": "object",
+      "properties": {
+        "workspace": {
+          "description": "Workspace to which the account is linked.\nThis workspace might be specified by the AISP when forwarding the consent on accounts.\nIf not provided, the default workspace is computed from the authentication that was used for getting the OAuth2 Access Token.\n",
+          "type": "string",
+          "maxLength": 32
+        },
+        "iban": {
+          "description": "ISO20022: International Bank Account Number (IBAN) - identification used internationally by financial institutions to uniquely identify the account of a customer.\n\nFurther specifications of the format and content of the IBAN can be found in the standard ISO 13616 \"Banking and related financial services - International Bank Account Number (IBAN)\" version 1997-10-01, or later revisions.\n",
+          "type": "string",
+          "pattern": "^[A-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}$"
+        },
+        "other": {
+          "$ref": "#/$defs/GenericIdentification"
+        },
+        "currency": {
+          "$ref": "#/$defs/CurrencyCode"
+        }
+      }
+    },
+    "BeneficiariesLinks": {
+      "description": "links that can be used for further navigation when browsing Account Information at one account level\n| Link | Description |\n| ---- | ----------- |\n| self | link to the list of trusted beneficiaries |\n| accounts | link to the list of all available accounts |\n| consents | link to the consents forwarding |\n| endUserIdentity | link to the end-user identity |\n| first | link to the first page of the beneficiaries result |\n| last | link to the last page of the beneficiaries result |\n| next | link to the next page of the beneficiaries result |\n| prev | link to the previous page of the beneficiaries result |\n",
+      "type": "object",
+      "properties": {
+        "self": {
+          "$ref": "#/$defs/GenericLink"
+        },
+        "accounts": {
+          "$ref": "#/$defs/GenericLink"
+        },
+        "consents": {
+          "$ref": "#/$defs/GenericLink"
+        },
+        "endUserIdentity": {
+          "$ref": "#/$defs/GenericLink"
+        },
+        "first": {
+          "$ref": "#/$defs/GenericLink"
+        },
+        "last": {
+          "$ref": "#/$defs/GenericLink"
+        },
+        "next": {
+          "$ref": "#/$defs/GenericLink"
+        },
+        "prev": {
+          "$ref": "#/$defs/GenericLink"
+        }
+      },
+      "required": [
+        "self"
+      ],
+      "readOnly": true
+    },
+    "Beneficiary": {
+      "description": "Specification of a beneficiary",
+      "type": "object",
+      "properties": {
+        "workspace": {
+          "$ref": "#/$defs/Workspace"
+        },
+        "id": {
+          "description": "Id of the beneficiary",
+          "type": "string",
+          "pattern": "^([a-zA-Z0-9 /\\-?:\\()\\.,']{1,36})$"
+        },
+        "isTrusted": {
+          "description": "The ASPSP having not implemented the trusted beneficiaries list must not set this flag.\nOtherwise, the ASPSP indicates whether or not the beneficiary was registered by the PSU within the trusted beneficiaries list.\n- true: the beneficiary is actually a trusted beneficiary\n- false: the beneficiary is not a trusted beneficiary\n",
+          "type": "boolean",
+          "readOnly": true
+        },
+        "creditorAgent": {
+          "$ref": "#/$defs/FinancialInstitutionIdentification"
+        },
+        "creditor": {
+          "$ref": "#/$defs/PartyIdentification"
+        },
+        "creditorAccount": {
+          "$ref": "#/$defs/AccountIdentification"
+        }
+      },
+      "required": [
+        "creditor"
+      ]
+    },
+    "ClearingSystemMemberIdentification": {
+      "description": "ISO20022: Information used to identify a member within a clearing system.\nAPI: to be used for some specific international credit transfers in order to identify the beneficiary bank\n",
+      "type": "object",
+      "properties": {
+        "clearingSystemId": {
+          "description": "ISO20022: Specification of a pre-agreed offering between clearing agents or the channel through which the payment instruction is processed.\n",
+          "type": "string",
+          "maxLength": 35
+        },
+        "memberId": {
+          "description": "ISO20022: Identification of a member of a clearing system.\n",
+          "type": "string",
+          "maxLength": 35
+        }
+      },
+      "required": [
+        "clearingSystemId",
+        "memberId"
+      ]
+    },
+    "ContactDetails": {
+      "description": "Indicates how to contact the party.\n",
+      "type": "object",
+      "properties": {
+        "phoneNumber": {
+          "$ref": "#/$defs/PhoneNumber"
+        },
+        "faxNumber": {
+          "$ref": "#/$defs/PhoneNumber"
+        },
+        "emailAddress": {
+          "description": "email address of the contact",
+          "type": "string",
+          "pattern": "^.+@.+$",
+          "maxLength": 2048
+        }
+      }
+    },
+    "CurrencyCode": {
+      "description": "Specifies the currency of the amount or of the account.\nA code allocated to a currency by a Maintenance Agency under an international identification scheme, as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\".\n",
+      "type": "string",
+      "pattern": "^[A-Z]{3,3}$"
+    },
+    "DateAndPlaceOfBirth": {
+      "description": "Date and place of birth of a person.\nThis information must be requested for detection of Fraud, Money-Laundering and Terrorism Financing in case of international payment.\n",
+      "type": "object",
+      "properties": {
+        "birthDate": {
+          "description": "Date on which a person is born.",
+          "type": "string",
+          "format": "date"
+        },
+        "cityOfBirth": {
+          "description": "City where a person was born.",
+          "type": "string",
+          "maxLength": 35
+        },
+        "countryOfBirth": {
+          "description": "Country where a person was born.",
+          "type": "string",
+          "pattern": "^[A-Z]{2,2}$"
+        }
+      },
+      "required": [
+        "birthDate",
+        "cityOfBirth",
+        "countryOfBirth"
+      ]
+    },
+    "FinancialInstitutionIdentification": {
+      "description": "ISO20022: Unique and unambiguous identification of a financial institution, as assigned under an internationally recognised or proprietary identification scheme.\n",
+      "type": "object",
+      "properties": {
+        "bicFi": {
+          "description": "ISO20022: Code allocated to a financial institution by the ISO 9362 Registration Authority as described in ISO 9362 \"Banking - Banking telecommunication messages - Business identification code (BIC)\".\n",
+          "type": "string",
+          "pattern": "^[A-Z]{6,6}[A-Z2-9][A-NP-Z0-9]([A-Z0-9]{3,3}){0,1}$"
+        },
+        "clearingSystemMemberId": {
+          "$ref": "#/$defs/ClearingSystemMemberIdentification"
+        },
+        "lei": {
+          "$ref": "#/$defs/LeiIdentification"
+        },
+        "name": {
+          "description": "Name of the financial institution",
+          "type": "string",
+          "maxLength": 140
+        },
+        "postalAddress": {
+          "$ref": "#/$defs/PostalAddress"
+        }
+      },
+      "required": [
+        "bicFi"
+      ]
+    },
+    "GenericIdentification": {
+      "description": "ISO20022: Unique identification of an account, a person or an organisation, as assigned by an issuer.\nAPI: The ASPSP will document which account reference type it will support.\n",
+      "type": "object",
+      "properties": {
+        "identification": {
+          "description": "API: Identifier\n",
+          "type": "string",
+          "maxLength": 70
+        },
+        "schemeName": {
+          "description": "Name of the identification scheme.\nPossible values for the scheme name, partially based on ISO20022 external code list, are the following:\n| Code | Name | Description |\n| ---- | ---- | ----------- |\n| BANK | BankPartyIdentification | Unique and unambiguous assignment made by a specific bank or similar financial institution to identify a relationship as defined between the bank and its client. |\n| BBAN | BBANIdentifier | Basic Bank Account Number (BBAN) - identifier used nationally by financial institutions, ie, in individual countries, generally as part of a National Account Numbering Scheme(s), to uniquely identify the account of a customer. |\n| COID | CountryIdentificationCode) : Country authority given organisation identification (e.g., corporate registration number) |\n| SREN | SIREN | The SIREN number is a 9 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation in France. |\n| SRET | SIRET | The SIRET number is a 14 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation unit in France. It consists of the SIREN number, followed by a five digit classification number, to identify the local geographical unit of that entity. |\n| NIDN | NationalIdentityNumber | Number assigned by an authority to identify the national identity number of a person. |\nOther values are also permitted, for instance:\n| Code | Name | Description |\n| ---- | ---- | ----------- |\n| OAUT | OAUTH2 | OAUTH2 access token that is owned by the PISP being also an AISP and that can be used in order to identify the PSU |\n| CPAN | CardPan | Card PAN |\n| MPAN | MaskedPan | Card PAN where some digits were replaced for security reason |\n| TPAN | TokenizedPan | Token which was provided by a Token Service Provider (TSP) in order to obfuscate a real card PAN. The TSP must be identified in the issuer field |\n| TBAN | TokenizedIBAN | Token which was provided by a Token Service Provider (TSP) in order to obfuscate an IBAN. The TSP must be identified in the issuer field |\nEach implementation of the STET PSD2 API must specify in its own documentation which schemes can actually been used\n",
+          "type": "string",
+          "maxLength": 70
+        },
+        "issuer": {
+          "description": "ISO20022: Entity that assigns the identification. this could a country code or any organisation name or identifier that can be recognized by both parties\n",
+          "type": "string",
+          "maxLength": 35
+        }
+      },
+      "required": [
+        "identification",
+        "schemeName"
+      ]
+    },
+    "GenericLink": {
+      "description": "hypertext reference",
+      "type": "object",
+      "properties": {
+        "href": {
+          "description": "URI to be used. HREF stands for Hypertext REFerence.",
+          "type": "string",
+          "maxLength": 2000
+        },
+        "templated": {
+          "description": "This field must be set with \"true\"  when [href] is an URI template, i.e. with parameters that will be set by the client afterwards. Parameter fields must be included by the API server according to RFC6570.\nOtherwise, this property must be absent or set to false\ndefault value: false\n",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "href"
+      ]
+    },
+    "LeiIdentification": {
+      "description": "Legal Entity Identifier is a code allocated to a party as described in ISO 17442 \"Financial Services - Legal Entity Identifier (LEI)\".\n",
+      "type": "string",
+      "pattern": "^[A-Z0-9]{18,18}[0-9]{2,2}$"
+    },
+    "PartyIdentification": {
+      "description": "API : Description of a Party which can be either a person or an organization.\n",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "ISO20022: Name by which a party is known and which is usually used to identify that party.\nThe [organisationId] property allows the specification of an unique and unambiguous way to identify an organisation.\nThe [privateId] property allows the specification of an unique and unambiguous way to identify a person.\n",
+          "type": "string",
+          "maxLength": 140
+        },
+        "dateAndPlaceOfBirth": {
+          "$ref": "#/$defs/DateAndPlaceOfBirth"
+        },
+        "postalAddress": {
+          "$ref": "#/$defs/PostalAddress"
+        },
+        "contactDetails": {
+          "$ref": "#/$defs/ContactDetails"
+        },
+        "organisationId": {
+          "$ref": "#/$defs/GenericIdentification"
+        },
+        "privateId": {
+          "$ref": "#/$defs/GenericIdentification"
+        },
+        "lei": {
+          "$ref": "#/$defs/LeiIdentification"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "PhoneNumber": {
+      "description": "The collection of information which identifies a specific phone or FAX number as defined by telecom services.\nIt consists of a \"+\" followed by the country code (from 1 to 3 characters) then a \"-\" and finally, any combination of numbers, \"(\", \")\", \"+\" and \"-\" (up to 30 characters).\n",
+      "type": "string",
+      "pattern": "^\\+[0-9]{1,3}-[0-9()+\\-]{1,30}$"
+    },
+    "PostalAddress": {
+      "description": "ISO20022: Information that locates and identifies a specific address, as defined by postal services.\n",
+      "type": "object",
+      "properties": {
+        "addressType": {
+          "description": "ISO20022: Identifies the nature of the postal address.\nAPI: Cannot be used for SEPA payments. Proprietary codes can be specified and documented if needed.\n| Code | Name | Description |\n| ---- | ---- | ----------- |\n| BIZZ | Business | Address is the business address |\n| DLVY | Delivery | Address is the address to which delivery is to take place |\n| MLTO | Mail To | Address is the  address to which mail is sent |\n| PBOX | PO Box | Address is is a postal office (PO) box |\n| ADDR | Postal | Address is the complete postal address |\n| HOME | Business | Address is the home address |\n",
+          "type": "string",
+          "enum": [
+            "BIZZ",
+            "DLVY",
+            "MLTO",
+            "PBOX",
+            "ADDR",
+            "HOME"
+          ]
+        },
+        "department": {
+          "description": "ISO20022: Identification of a division of a large organisation or building.\nAPI: Cannot be used for SEPA payments.\n",
+          "type": "string",
+          "maxLength": 70
+        },
+        "subDepartment": {
+          "description": "ISO20022: Identification of a sub-division of a large organisation or building.\nAPI: Cannot be used for SEPA payments.\n",
+          "type": "string",
+          "maxLength": 70
+        },
+        "streetName": {
+          "description": "ISO20022: Name of a street or thoroughfare.\nAPI: Cannot be used for SEPA payments.\n",
+          "type": "string",
+          "maxLength": 70
+        },
+        "buildingNumber": {
+          "description": "ISO20022: Number that identifies the position of a building on a street.\nAPI: Cannot be used for SEPA payments.\n",
+          "type": "string",
+          "maxLength": 16
+        },
+        "buildingName": {
+          "description": "ISO20022: Name of the building or house.\nAPI: Cannot be used for SEPA payments.\n",
+          "type": "string",
+          "maxLength": 16
+        },
+        "postCode": {
+          "description": "ISO20022: Identifier consisting of a group of letters and/or numbers that is added to a postal address to assist the sorting of mail.\nAPI: Cannot be used for SEPA payments.\n",
+          "type": "string",
+          "maxLength": 16
+        },
+        "townName": {
+          "description": "ISO20022: Name of a built-up area, with defined boundaries, and a local government.\nAPI: Cannot be used for SEPA payments.\n",
+          "type": "string",
+          "maxLength": 35
+        },
+        "countrySubDivision": {
+          "description": "ISO20022: Identifies a subdivision of a country such as state, region, county.\nAPI: Cannot be used for SEPA payments.\n",
+          "type": "string",
+          "maxLength": 35
+        },
+        "country": {
+          "description": "ISO20022: Country in which a person resides (the place of a person's home). In the case of a company, it is the country from which the affairs of that company are directed.\n",
+          "type": "string",
+          "pattern": "^([A-Z]{2,2})$"
+        },
+        "addressLine": {
+          "description": "Unstructured address. The lines must embed zip code and town name.\nFor SEPA payments, only two address lines are allowed.\n",
+          "type": "array",
+          "items": {
+            "description": "Address line",
+            "type": "string",
+            "maxLength": 70
+          },
+          "minItems": 1,
+          "maxItems": 7
+        }
+      },
+      "required": [
+        "country"
+      ]
+    },
+    "Workspace": {
+      "description": "Some ASPSP may provide different user workspaces that can be accessed by the same authenticated PSU. In this case, the AISP is able to retrieve the different pieces of account information by specifying the relevant workspace as a QUERY parameter. Identification of the workspace to be used when processing the request. If not present, the default workspace to be used is the one that is linked to the authentication processed during the OAuth2 access token request.",
+      "type": "object",
+      "properties": {
+        "identification": {
+          "description": "identification of the workspace to be used as an optional query parameter for some AISP queries",
+          "type": "string",
+          "maxLength": 32
+        },
+        "label": {
+          "description": "textual description of the workspace as specified by the ASPSP in relationship wth the PSU",
+          "type": "string",
+          "maxLength": 128
+        }
+      },
+      "required": [
+        "identification",
+        "label"
+      ]
+    }
+  }
+}

@@ -1,0 +1,48 @@
+generated: '2026-10-09'
+method: generated
+source: Packaged Agent Skills generated from the Groupe BPCE OpenAPI contracts under openapi/; no provider-published skills
+  or AGENTS.md found (apistore.groupebpce.com/AGENTS.md returned 404 on 2026-10-09).
+skills:
+- file: groupe-bpce-psd2-account-information.md
+  name: Retrieve PSD2 account information (AISP)
+  api: openapi/groupe-bpce-psd2-accounts-openapi.yml
+  operations:
+  - accountsGet
+  - consentsPut
+  - accountsBalancesGet
+  - accountsTransactionsGet
+  - accountsTransactionsDetailsGet
+- file: groupe-bpce-psd2-payment-initiation.md
+  name: Initiate and confirm a PSD2 payment (PISP)
+  api: openapi/groupe-bpce-psd2-payments-openapi.yml
+  operations:
+  - paymentRequestsPost
+  - paymentRequestConfirmationPost
+  - paymentRequestsGet
+  - paymentRequestTransactionsGet
+  - paymentRequestPut
+- file: groupe-bpce-psd2-funds-confirmation.md
+  name: Check funds availability (CBPII)
+  api: openapi/groupe-bpce-psd2-funds-availability-openapi.yml
+  operations:
+  - fundsConfirmationsPost
+- file: groupe-bpce-psd2-tpp-registration.md
+  name: Register a TPP client for the PSD2 APIs
+  api: openapi/groupe-bpce-psd2-registration-openapi.yml
+  operations:
+  - registrationPost
+  - registrationGet
+  - registrationPut
+  - registrationDelete
+- file: groupe-bpce-open-finance-transfer.md
+  name: Move money between accounts (Open Finance Transfer)
+  api: openapi/groupe-bpce-open-finance-transfer-openapi.yml
+  operations:
+  - getInternalAccounts
+  - getExternalAccounts
+  - createExternalAccount
+  - createTransferRequest
+  - createTransferRequestTransferRequestLine
+  - createTransferRequestConfirmation
+  - getTransferRequest
+  - getTransferRequestErrors

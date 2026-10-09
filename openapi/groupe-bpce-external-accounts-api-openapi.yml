@@ -1,0 +1,745 @@
+openapi: 3.2.0
+info:
+  title: Groupe Bpce External Accounts API
+  version: 1.1.1
+  contact:
+    name: BPCE
+    url: https://developer.bpce.fr/support/
+  license:
+    name: Copyright BPCE
+    url: https://developer.bpce.fr/mentions-legales/
+  termsOfService: https://developer.bpce.fr/mentions-legales/
+  x-internal-id: RMT001
+  description: 'Operations tagged External Accounts across 2 of this provider''s published API definitions: moneytransfer-oas3-public-v1.1.1.json, groupe-bpce-open-finance-transfer-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- description: prod
+  url: https://api.groupebpce.com/{domain}/moneyTransfer/v1
+  variables:
+    domain:
+      default: retail
+tags:
+- name: External Accounts
+  description: 'External Accounts Management: Searching for accounts or declaring new ones.'
+paths:
+  /externalAccounts:
+    parameters: []
+    get:
+      operationId: getExternalAccounts
+      summary: Get the external accounts
+      description: Get the external accounts (usable for credit within a transfer) of the current user
+      parameters:
+      - name: designationLabel
+        in: query
+        description: Designation of the account holder (partial search is allowed). The caller must provide for the complete entry of the label sought before calling this filtered search method (i.e. it is prohibited to call this service each time a character is entered in order to avoid abusive calls. Otherwise, an error is returned)
+        schema:
+          type: string
+        example: DURAND
+      - name: accountStatus
+        in: query
+        description: 'External account activation status : activated or activation in progress'
+        schema:
+          $ref: '#/components/schemas/ExternalAccountStatus'
+        example: ACTIVATED
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageNumber'
+      - $ref: '#/components/parameters/After'
+      responses:
+        '200':
+          description: OK Response, returning a paginated list of external accounts.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    description: List of available recipient accounts for transfers
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ExternalAccount'
+                  page:
+                    $ref: '#/components/schemas/Page'
+                required:
+                - items
+              examples:
+                External Accounts for BPGO - owns the first two ones:
+                  value:
+                    items:
+                    - accountId: 13807-2-193718-0000001-00000014-c2a2be1ce821792bb54f50786e971e65718d9bf09f137a5097e3a5fe85f3e9b2
+                      label: Donnees de commentaire p
+                      accountNumber: FR7613807000343179999999943
+                      iban: FR7613807000343179999999943
+                      financialInstitution:
+                        id: 1-CCBPFRPPNAN
+                        label: BANQUE POPULAIRE GRAND OUEST
+                        identifiers:
+                        - value: CCBPFRPPNAN
+                          type: BIC
+                      currencies:
+                      - code: EUR
+                        label: EUR
+                      status: ACTIVATED
+                      isHolder: true
+                      groupLabels:
+                      - ListeParDefaut
+                    - accountId: 13807-2-193718-0000001-00000001-f9474ca8c5cf68bd0ff056ac80277b618c6f90f5b5bc7d96b57e34f950db439f
+                      label: Donnees de commentaire 2
+                      accountNumber: FR7630003000100009999999966
+                      iban: FR7630003000100009999999966
+                      financialInstitution:
+                        id: 1-SOGEFRPPXXX
+                        label: SOCIETE GENERALE
+                        identifiers:
+                        - value: SOGEFRPPXXX
+                          type: BIC
+                      currencies:
+                      - code: EUR
+                        label: EUR
+                      status: ACTIVATED
+                      isHolder: true
+                      groupLabels:
+                      - ListeParDefaut
+                    - accountId: 13807-2-193718-0000001-00000013-c1efb0849373569ad48683e4149c5c485ab3f8c4202329d2eb16ae27637fb083
+                      label: benef de test 3
+                      accountNumber: FR7630004000030009999999911
+                      iban: FR7630004000030009999999911
+                      financialInstitution:
+                        id: 1-BNPAFRPPXXX
+                        label: BNP PARIBAS
+                        identifiers:
+                        - value: BNPAFRPPXXX
+                          type: BIC
+                      currencies:
+                      - code: EUR
+                        label: EUR
+                      status: ACTIVATED
+                      isHolder: false
+                      groupLabels:
+                      - ListeParDefaut
+                    - accountId: 13807-2-193718-0000001-00000012-f9474ca8c5cf68bd0ff056ac80277b618c6f90f5b5bc7d96b57e34f950db439f
+                      label: Donnees de commentaire p
+                      accountNumber: FR7630003000100009999999953
+                      iban: FR7630003000100009999999953
+                      financialInstitution:
+                        id: 1-SOGEFRPPXXX
+                        label: SOCIETE GENERALE
+                        identifiers:
+                        - value: SOGEFRPPXXX
+                          type: BIC
+                      currencies:
+                      - code: EUR
+                        label: EUR
+                      status: ACTIVATED
+                      isHolder: false
+                      groupLabels:
+                      - ListeParDefaut
+                    - accountId: 13807-2-193718-0000001-00000011-f3edd0f24018e6807c9c4d916e7d820772e12d0bcf613de65054a6abce494d84
+                      label: Donnees de commentaire p
+                      accountNumber: FR7630047000060009999999972
+                      iban: FR7630047000060009999999972
+                      financialInstitution:
+                        id: 1-CMCIFRPPXXX
+                        label: CM - CIC BANQUES
+                        identifiers:
+                        - value: CMCIFRPPXXX
+                          type: BIC
+                      currencies:
+                      - code: EUR
+                        label: EUR
+                      status: ACTIVATED
+                      isHolder: false
+                      groupLabels:
+                      - ListeParDefaut
+                    - accountId: 13807-2-193718-0000001-00000009-3da2d1997b53b0bc0b1317bf979493818c5c0845eedcddcf54d5975d016edfdc
+                      label: Donnees de commentaire p
+                      accountNumber: FR7614706000007399999999931
+                      iban: FR7614706000007399999999931
+                      financialInstitution:
+                        id: 1-AGRIFRPP847
+                        label: CREDIT AGRICOLE
+                        identifiers:
+                        - value: AGRIFRPP847
+                          type: BIC
+                      currencies:
+                      - code: EUR
+                        label: EUR
+                      status: ACTIVATED
+                      isHolder: false
+                      groupLabels:
+                      - ListeParDefaut
+                    - accountId: 13807-2-193718-0000001-00000008-3a935364c3cd5797317cc2c0368c02a52abca8ffed46cbb0158eaf75ff4ee08f
+                      label: Donnees de commentaire p
+                      accountNumber: FR7617515000920489999999910
+                      iban: FR7617515000920489999999910
+                      financialInstitution:
+                        id: 1-CEPAFRPP751
+                        label: CAISSE D'EPARGNE ILE DE FRANCE
+                        identifiers:
+                        - value: CEPAFRPP751
+                          type: BIC
+                      currencies:
+                      - code: EUR
+                        label: EUR
+                      status: ACTIVATED
+                      isHolder: false
+                      groupLabels:
+                      - ListeParDefaut
+                    - accountId: 13807-2-193718-0000001-00000006-f8ac21260554886ec422f984390edbce8b9d74b80df5e893ee52dc87ac59613f
+                      label: Donnees de commentaire p
+                      accountNumber: FR7630077010003569999999946
+                      iban: FR7630077010003569999999946
+                      financialInstitution:
+                        id: 1-SMCTFR2AXXX
+                        label: SOCIETE GENERALE (FORMERLY SOCIETE
+                        identifiers:
+                        - value: SMCTFR2AXXX
+                          type: BIC
+                      currencies:
+                      - code: EUR
+                        label: EUR
+                      status: ACTIVATED
+                      isHolder: false
+                      groupLabels:
+                      - ListeParDefaut
+                    - accountId: 13807-2-193718-0000001-00000005-e8373a33f22d670e297c1e1838a75f68483649b39ed284466dfba834ee5c9226
+                      label: Donnees de commentaire p
+                      accountNumber: FR7614445852270429999999916
+                      iban: FR7614445852270429999999916
+                      financialInstitution:
+                        id: 1-CEPAFRPP444
+                        label: CAISSE D'EPARGNE BRETAGNE PAYS DE L
+                        identifiers:
+                        - value: CEPAFRPP444
+                          type: BIC
+                      currencies:
+                      - code: EUR
+                        label: EUR
+                      status: ACTIVATED
+                      isHolder: false
+                      groupLabels:
+                      - ListeParDefaut
+                    - accountId: 13807-2-193718-0000001-00000002-f02027167b723e9290d8f82a2b2d4318869214dc5b1c506c837b90693e90e163
+                      label: Donnees de commentaire p
+                      accountNumber: FR7616275000100419999999911
+                      iban: FR7616275000100419999999911
+                      financialInstitution:
+                        id: 1-CEPAFRPP627
+                        label: CAISSE D EPARGNE ET DE PREVOYANCE H
+                        identifiers:
+                        - value: CEPAFRPP627
+                          type: BIC
+                      currencies:
+                      - code: EUR
+                        label: EUR
+                      status: ACTIVATED
+                      isHolder: false
+                      groupLabels:
+                      - ListeParDefaut
+                    page:
+                      pageSize: 10
+                      pageNumber: 1
+                      totalElements: 10
+                      totalPages: 1
+                External Accounts for BPGO - last one not yet activated:
+                  value:
+                    items:
+                    - accountId: 13807-2-193718-0000001-00000002-f02027167b723e9290d8f82a2b2d4318869214dc5b1c506c837b90693e90e163
+                      label: Donnees de commentaire p
+                      accountNumber: FR7613807000043169999999971
+                      iban: FR7613807000043169999999971
+                      financialInstitution:
+                        id: 1-CCBPFRPPNAN
+                        label: BANQUE POPULAIRE GRAND OUEST
+                        identifiers:
+                        - value: CCBPFRPPNAN
+                          type: BIC
+                      currencies:
+                      - code: EUR
+                        label: EUR
+                      status: ACTIVATED
+                      isHolder: true
+                      groupLabels:
+                      - ListeParDefaut
+                    - accountId: 13807-2-193718-0000001-00000004-68c275ecd058d5fb923f0d67cd69cb36893a41be98782954707e3a57a9215505
+                      label: Donnees de commentaire p
+                      accountNumber: FR7616275000100419999999911
+                      iban: FR7616275000100419999999911
+                      financialInstitution:
+                        id: 1-CEPAFRPP627
+                        label: CAISSE D EPARGNE ET DE PREVOYANCE H
+                        identifiers:
+                        - value: CEPAFRPP627
+                          type: BIC
+                      currencies:
+                      - code: EUR
+                        label: EUR
+                      status: ACTIVATION_IN_PROGRESS
+                      isHolder: false
+                      groupLabels:
+                      - ListeParDefaut
+                    page:
+                      pageSize: 2
+                      pageNumber: 1
+                      totalElements: 2
+                      totalPages: 1
+                External Accounts for BPGO - first one deleted:
+                  value:
+                    items:
+                    - accountId: 13807-2-193718-0000001-00000002-f02027167b723e9290d8f82a2b2d4318869214dc5b1c506c837b90693e90e163
+                      label: Donnees de commentaire p
+                      accountNumber: FR7613807000043169999999971
+                      iban: FR7613807000043169999999971
+                      financialInstitution:
+                        id: 1-CCBPFRPPNAN
+                        label: BANQUE POPULAIRE GRAND OUEST
+                        identifiers:
+                        - value: CCBPFRPPNAN
+                          type: BIC
+                      currencies:
+                      - code: EUR
+                        label: EUR
+                      status: DELETED
+                      isHolder: true
+                      groupLabels:
+                      - ListeParDefaut
+                    - accountId: 13807-2-193718-0000001-00000001-f9474ca8c5cf68bd0ff056ac80277b618c6f90f5b5bc7d96b57e34f950db439f
+                      label: Donnees de commentaire 2
+                      accountNumber: FR7630003000100009999999953
+                      iban: FR7630003000100009999999953
+                      financialInstitution:
+                        id: 1-SOGEFRPPXXX
+                        label: SOCIETE GENERALE
+                        identifiers:
+                        - value: SOGEFRPPXXX
+                          type: BIC
+                      currencies:
+                      - code: EUR
+                        label: EUR
+                      status: ACTIVATED
+                      isHolder: true
+                      groupLabels:
+                      - ListeParDefaut
+                    - accountId: 13807-2-193718-0000001-00000004-68c275ecd058d5fb923f0d67cd69cb36893a41be98782954707e3a57a9215505
+                      label: benef de test 3
+                      accountNumber: FR7630004000030009999999911
+                      iban: FR7630004000030009999999911
+                      financialInstitution:
+                        id: 1-BNPAFRPPXXX
+                        label: BNP PARIBAS
+                        identifiers:
+                        - value: BNPAFRPPXXX
+                          type: BIC
+                      currencies:
+                      - code: EUR
+                        label: EUR
+                      status: ACTIVATED
+                      isHolder: false
+                      groupLabels:
+                      - ListeParDefaut
+                    page:
+                      pageSize: 3
+                      pageNumber: 1
+                      totalElements: 3
+                      totalPages: 1
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/Unexpected'
+        '503':
+          $ref: '#/components/responses/Unavailable'
+      security:
+      - oauth2-authorizationCodePKCE-moneyTransfer:
+        - moneyTransfer.externalAccounts:READ
+      tags:
+      - External Accounts
+      deprecated: false
+    post:
+      operationId: createExternalAccount
+      summary: Create a new external account
+      description: Create a new external account. This external account will be usable for credit within a transfer.
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalAccount'
+            examples:
+              Banque Populaire - Adding an external account:
+                value:
+                  accountNumber: FR7613807109548069999999961
+                  iban: FR7613807109548069999999961
+                  label: Jacky Mutel (ami)
+              Banque Populaire - Adding my account at SOCIETE GENERALE:
+                value:
+                  accountNumber: FR7630003000100009999999953
+                  iban: FR7630003000100009999999953
+                  label: Mon Compte a la SG
+                  isHolder: true
+        required: true
+      responses:
+        '201':
+          description: The external account is created and may be activated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalAccount'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/ForbiddenDueToRequiredStepup'
+        '500':
+          $ref: '#/components/responses/Unexpected'
+        '503':
+          $ref: '#/components/responses/Unavailable'
+      security:
+      - oauth2-authorizationCodePKCE-moneyTransfer:
+        - moneyTransfer.externalAccounts:WRITE
+      tags:
+      - External Accounts
+      deprecated: false
+    servers:
+    - description: prod
+      url: https://api.groupebpce.com/{domain}/moneyTransfer/v1
+      variables:
+        domain:
+          default: retail
+components:
+  schemas:
+    ExternalAccount:
+      description: Characteristics of an account beneficiary for making transfers, authorized to the user of the subscription. This may be an IBAN registered by the subscriber to make transfers to third parties, but also a subset of his own accounts in the banking establishment and which are eligible for credit as part of a transfer account to account.
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Account'
+      - type: object
+        properties:
+          status:
+            $ref: '#/components/schemas/ExternalAccountStatus'
+          activationDateTime:
+            description: If the beneficiary account is being activated, indicates the date from which it will be usable.
+            type: string
+            format: date-time
+            readOnly: true
+          isHolder:
+            description: Indicates whether the subscriber is the owner or co-owner of the beneficiary account. Declarative data.
+            type: boolean
+            default: false
+          groupLabels:
+            description: Name of the beneficiary groups to which the account is attached.
+            type: array
+            items:
+              type: string
+              maxLength: 32
+            readOnly: true
+        required:
+        - status
+    Error:
+      description: Error produced during request processing.
+      type: object
+      properties:
+        code:
+          description: Error code.
+          type: string
+          example: bpce.accountDebtor
+        message:
+          description: Error message.
+          type: string
+          example: Le compte émetteur n'a pas été trouvé ou a été clôturé.
+        attribute:
+          description: Attribute concerned by the error.
+          type: string
+          example: error.attribute
+      required:
+      - code
+      - message
+    Errors:
+      description: List of errors
+      type: object
+      properties:
+        errors:
+          description: List of errors
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          example:
+          - code: bpce.accountDebtor
+            message: Le compte émetteur n'a pas été trouvé ou a été clôturé.
+      required:
+      - errors
+      example:
+        errors:
+        - code: bpce.accountDebtor
+          message: Le compte émetteur n'a pas été trouvé ou a été clôturé.
+    Currency:
+      title: Currency
+      description: A Currency object, with a code and an optional label.
+      type: object
+      properties:
+        code:
+          description: An ISO 3166 3-char code for a currency.
+          type: string
+          example: EUR
+        label:
+          description: A human readable label for the currency.
+          type: string
+          example: Euro
+      required:
+      - code
+    PaginationByIndex:
+      title: PaginationByIndex
+      description: Pagination by index of page.
+      type: object
+      properties:
+        pageSize:
+          description: Number of items by page
+          type: integer
+          format: int64
+          minimum: 1
+          example: 50
+        pageNumber:
+          description: Page number requested.
+          type: integer
+          format: int64
+          minimum: 1
+          example: 1
+        totalElements:
+          description: Number of items matching the query
+          type: integer
+          format: int64
+          minimum: 0
+          example: 20
+        totalPages:
+          description: Number of pages of items matching the query
+          type: integer
+          format: int64
+          minimum: 0
+          example: 1
+      required:
+      - pageSize
+      - pageNumber
+    PaginationByCursor:
+      description: Pagination via cursor of the last element of the previous call.
+      type: object
+      properties:
+        pageSize:
+          description: Number of items by page
+          type: integer
+          format: int64
+          minimum: 0
+          example: 50
+        after:
+          description: 'Cursor of the last element of the previous call.
+
+            Used to get the next page.'
+          type: string
+          example: 13807-1-CPT31719694553
+      required:
+      - pageSize
+      - after
+    ExternalAccountStatus:
+      title: ExternalAccountStatus
+      description: Status of the external account (beneficiary). <table><tr><td>Code</td> <td>Meaning</td></tr><tr><td>DELETED</td> <td>The external account has been canceled. It will not be usable anymore.</td></tr><tr><td>ACTIVATION_IN_PROGRESS</td> <td>The external account has been created but is not usable yet.</td></tr><tr><td>ACTIVATED</td> <td>The external account can be used for a new transfer.</td></tr></table>
+      type: string
+      enum:
+      - DELETED
+      - ACTIVATION_IN_PROGRESS
+      - ACTIVATED
+      readOnly: true
+      example: ACTIVATED
+    Page:
+      description: A pagination structure. This may be a pagination by index or by cursor.
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/PaginationByIndex'
+      - $ref: '#/components/schemas/PaginationByCursor'
+    Account:
+      title: Account
+      description: This object stands for an bank account.
+      type: object
+      properties:
+        accountId:
+          description: Identifier of the account
+          type: string
+          readOnly: true
+          example: 13807-1-CPT31719694553
+        label:
+          description: Label of the account.
+          type: string
+          example: DUPONT JEAN
+        accountNumber:
+          description: Number of the account.
+          type: string
+          example: '31719694553'
+        iban:
+          description: ISO 13616 format for a bank account.
+          type: string
+          example: FR7613807000343179999999943
+        financialInstitution:
+          $ref: '#/components/schemas/FinancialInstitution'
+        currencies:
+          description: Currencies of the account.
+          type: array
+          items:
+            $ref: '#/components/schemas/Currency'
+          readOnly: true
+          example:
+          - code: EUR
+            label: Euro
+      required:
+      - accountId
+      - label
+      - accountNumber
+    FinancialInstitution:
+      title: Financial Institution
+      description: A financial Institution is a legitimate organization contributing to financial operations. It is not necessarily a Bank.
+      type: object
+      properties:
+        id:
+          description: Financial institution identifier.
+          type: string
+          readOnly: true
+          example: 1-CCBPFRPPNAN
+        label:
+          description: Financial institution label
+          type: string
+          readOnly: true
+          example: BANQUE POPULAIRE GRAND OUEST
+        identifiers:
+          description: Financial institution identifier value and type.
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              type:
+                type: string
+                enum:
+                - SWIFT
+                - BIC
+                - BANQUE_DE_FRANCE
+                - ABA
+          example:
+          - value: CCBPFRPPNAN
+            type: BIC
+      required:
+      - id
+      - label
+      - identifiers
+      readOnly: true
+      example:
+        id: 1-CCBPFRPPNAN
+        label: BANQUE POPULAIRE GRAND OUEST
+        identifiers:
+        - value: CCBPFRPPNAN
+          type: BIC
+  responses:
+    Unavailable:
+      description: Service Unavailable - HTTP 503.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Forbidden:
+      description: Forbidden - HTTP 403
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Unauthorized:
+      description: Unauthorized - HTTP 401
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Unexpected:
+      description: Internal Server Error - HTTP 500.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    BadRequest:
+      description: Bad Request - HTTP 400
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          examples:
+            closed source account:
+              value:
+                errors:
+                - code: bpce.accountDebtor
+                  message: Le compte émetteur n'a pas été trouvé ou a été clôturé.
+                  attribute: string
+            Refusal for confirming a transfer request due to delegation issue:
+              value:
+                errors:
+                - code: bpce.delegation.hasToBeDoneOnBankWebSite
+                  message: le lot de virement doit être validé sur le site WEB de la Banque à Distance
+    ForbiddenDueToRequiredStepup:
+      description: Forbidden - HTTP 403
+      headers:
+        X-StepUp-Token:
+          schema:
+            type: string
+          description: token for stepup process. This token must be passed in the xstepuptoken parameter of the next request (GET /stepup)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          examples:
+            A stepup is required to do this action:
+              value:
+                errors:
+                - code: insufficientAuthLevel
+                  message: Niveau d'authentification insuffisant
+  parameters:
+    After:
+      name: after
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Cursor of the last element of the previous call. Used to get the next page. Default value point to the first element
+    PageSize:
+      name: pageSize
+      in: query
+      example: 50
+      required: false
+      schema:
+        type: integer
+        format: int32
+      description: Number of elements per page
+    PageNumber:
+      name: pageNumber
+      in: query
+      example: 2
+      required: false
+      schema:
+        type: integer
+        format: int32
+      description: Number of the current page
+  securitySchemes:
+    oauth2-authorizationCodePKCE-moneyTransfer:
+      type: oauth2
+      flows:
+        authorizationCode:
+          scopes:
+            moneyTransfer.externalAccounts:READ: Scope for read External accounts
+            moneyTransfer.externalAccounts:WRITE: Scope for write External accounts
+            moneyTransfer.internalAccounts:READ: Scope for read Internal accounts
+            moneyTransfer.transferRequests:READ: Minimal scope for consultation of transfer requests
+            moneyTransfer.transferRequests:WRITE: Scope to create or modify transfer requests
+            moneyTransfer.transferRequests:DELETE: Scope to delete transfer requests.
+            moneyTransfer.transferRequests.confirmations:WRITE: Scope for transfer requests confirmations.
+          authorizationUrl: /api/oauth/authorize
+          refreshUrl: /api/oauth/refresh
+          tokenUrl: /api/oauth/token
+      description: ''
+x-refined-from:
+- moneytransfer-oas3-public-v1.1.1.json
+- groupe-bpce-open-finance-transfer-openapi.yml

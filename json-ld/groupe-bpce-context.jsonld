@@ -1,0 +1,1244 @@
+{
+  "@context": {
+    "@vocab": "https://groupebpce.com/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "groupe": "https://groupebpce.com/schema#",
+    "Access": "groupe:Access",
+    "owners": {
+      "@id": "groupe:owners",
+      "@type": "@id"
+    },
+    "balances": {
+      "@id": "groupe:balances",
+      "@type": "@id"
+    },
+    "transactions": {
+      "@id": "groupe:transactions",
+      "@type": "@id"
+    },
+    "overdrafts": {
+      "@id": "groupe:overdrafts",
+      "@type": "@id"
+    },
+    "trustedBeneficiaries": {
+      "@id": "groupe:trustedBeneficiaries",
+      "@type": "xsd:boolean"
+    },
+    "trustedWorkspaceBeneficiaries": {
+      "@id": "groupe:trustedWorkspaceBeneficiaries",
+      "@container": "@list"
+    },
+    "psuIdentity": {
+      "@id": "groupe:psuIdentity",
+      "@type": "xsd:boolean"
+    },
+    "AccessibleTrustedBeneficiaries": "groupe:AccessibleTrustedBeneficiaries",
+    "workspace": {
+      "@id": "groupe:workspace",
+      "@type": "xsd:string"
+    },
+    "access": {
+      "@id": "groupe:access",
+      "@type": "xsd:boolean"
+    },
+    "AccountIdentification": "groupe:AccountIdentification",
+    "iban": {
+      "@id": "groupe:iban",
+      "@type": "xsd:string"
+    },
+    "other": {
+      "@id": "groupe:other",
+      "@type": "@id"
+    },
+    "currency": {
+      "@id": "groupe:currency",
+      "@type": "@id"
+    },
+    "AccountLinks": "groupe:AccountLinks",
+    "AccountListLinks": "groupe:AccountListLinks",
+    "self": {
+      "@id": "groupe:self",
+      "@type": "@id"
+    },
+    "consents": {
+      "@id": "groupe:consents",
+      "@type": "@id"
+    },
+    "endUserIdentity": {
+      "@id": "groupe:endUserIdentity",
+      "@type": "@id"
+    },
+    "workspaces": {
+      "@id": "groupe:workspaces",
+      "@container": "@list"
+    },
+    "first": {
+      "@id": "groupe:first",
+      "@type": "@id"
+    },
+    "last": {
+      "@id": "groupe:last",
+      "@type": "@id"
+    },
+    "next": {
+      "@id": "groupe:next",
+      "@type": "@id"
+    },
+    "prev": {
+      "@id": "groupe:prev",
+      "@type": "@id"
+    },
+    "AccountResource": "groupe:AccountResource",
+    "resourceId": {
+      "@id": "groupe:resourceId",
+      "@type": "@id"
+    },
+    "bicFi": {
+      "@id": "groupe:bicFi",
+      "@type": "xsd:string"
+    },
+    "accountId": {
+      "@id": "groupe:accountId",
+      "@type": "@id"
+    },
+    "name": {
+      "@id": "groupe:name",
+      "@type": "xsd:string"
+    },
+    "details": {
+      "@id": "groupe:details",
+      "@type": "xsd:string"
+    },
+    "linkedAccount": {
+      "@id": "groupe:linkedAccount",
+      "@type": "xsd:string"
+    },
+    "usage": {
+      "@id": "groupe:usage",
+      "@type": "xsd:string"
+    },
+    "cashAccountType": {
+      "@id": "groupe:cashAccountType",
+      "@type": "xsd:string"
+    },
+    "product": {
+      "@id": "groupe:product",
+      "@type": "xsd:string"
+    },
+    "psuStatus": {
+      "@id": "groupe:psuStatus",
+      "@type": "@id"
+    },
+    "_links": {
+      "@id": "groupe:_links",
+      "@type": "@id"
+    },
+    "AmountAndCurrencyExchange": "groupe:AmountAndCurrencyExchange",
+    "instructedAmount": {
+      "@id": "groupe:instructedAmount",
+      "@type": "@id"
+    },
+    "transactionAmount": {
+      "@id": "groupe:transactionAmount",
+      "@type": "@id"
+    },
+    "counterValueAmount": {
+      "@id": "groupe:counterValueAmount",
+      "@type": "@id"
+    },
+    "announcedPostingAmount": {
+      "@id": "groupe:announcedPostingAmount",
+      "@type": "@id"
+    },
+    "proprietaryAmount": {
+      "@id": "groupe:proprietaryAmount",
+      "@container": "@list"
+    },
+    "AmountAndCurrencyExchangeDetails": "groupe:AmountAndCurrencyExchangeDetails",
+    "type": {
+      "@id": "groupe:type",
+      "@type": "xsd:string"
+    },
+    "amount": {
+      "@id": "groupe:amount",
+      "@type": "@id"
+    },
+    "sourceCurrency": {
+      "@id": "groupe:sourceCurrency",
+      "@type": "@id"
+    },
+    "targetCurrency": {
+      "@id": "groupe:targetCurrency",
+      "@type": "@id"
+    },
+    "unitCurrency": {
+      "@id": "groupe:unitCurrency",
+      "@type": "@id"
+    },
+    "exchangeRate": {
+      "@id": "groupe:exchangeRate",
+      "@type": "xsd:decimal"
+    },
+    "contractIdentification": {
+      "@id": "groupe:contractIdentification",
+      "@type": "xsd:string"
+    },
+    "quotationDate": {
+      "@id": "groupe:quotationDate",
+      "@type": "xsd:date"
+    },
+    "AmountType": "groupe:AmountType",
+    "BalanceResource": "groupe:BalanceResource",
+    "balanceAmount": {
+      "@id": "groupe:balanceAmount",
+      "@type": "@id"
+    },
+    "balanceType": {
+      "@id": "groupe:balanceType",
+      "@type": "@id"
+    },
+    "lastChangeDateTime": {
+      "@id": "groupe:lastChangeDateTime",
+      "@type": "xsd:dateTime"
+    },
+    "referenceDate": {
+      "@id": "groupe:referenceDate",
+      "@type": "xsd:dateTime"
+    },
+    "lastCommittedTransaction": {
+      "@id": "groupe:lastCommittedTransaction",
+      "@type": "xsd:string"
+    },
+    "BalanceStatus": "groupe:BalanceStatus",
+    "BalancesLinks": "groupe:BalancesLinks",
+    "parent-list": {
+      "@id": "groupe:parent-list",
+      "@type": "@id"
+    },
+    "BankTransactionCode": "groupe:BankTransactionCode",
+    "domain": {
+      "@id": "groupe:domain",
+      "@type": "xsd:string"
+    },
+    "family": {
+      "@id": "groupe:family",
+      "@type": "xsd:string"
+    },
+    "subFamily": {
+      "@id": "groupe:subFamily",
+      "@type": "xsd:string"
+    },
+    "code": {
+      "@id": "groupe:code",
+      "@type": "xsd:string"
+    },
+    "issuer": {
+      "@id": "groupe:issuer",
+      "@type": "xsd:string"
+    },
+    "BeneficiariesLinks": "groupe:BeneficiariesLinks",
+    "accounts": {
+      "@id": "groupe:accounts",
+      "@type": "@id"
+    },
+    "Beneficiary": "groupe:Beneficiary",
+    "id": {
+      "@id": "groupe:id",
+      "@type": "xsd:string"
+    },
+    "isTrusted": {
+      "@id": "groupe:isTrusted",
+      "@type": "xsd:boolean"
+    },
+    "creditorAgent": {
+      "@id": "groupe:creditorAgent",
+      "@type": "@id"
+    },
+    "creditor": {
+      "@id": "groupe:creditor",
+      "@type": "@id"
+    },
+    "creditorAccount": {
+      "@id": "groupe:creditorAccount",
+      "@type": "@id"
+    },
+    "ChargeBearerCode": "groupe:ChargeBearerCode",
+    "Charges": "groupe:Charges",
+    "totalChargesAndTaxAmount": {
+      "@id": "groupe:totalChargesAndTaxAmount",
+      "@type": "@id"
+    },
+    "record": {
+      "@id": "groupe:record",
+      "@container": "@list"
+    },
+    "ChargesRecord": "groupe:ChargesRecord",
+    "creditDebitIndicator": {
+      "@id": "groupe:creditDebitIndicator",
+      "@type": "@id"
+    },
+    "chargeIncludedIndicator": {
+      "@id": "groupe:chargeIncludedIndicator",
+      "@type": "xsd:boolean"
+    },
+    "rate": {
+      "@id": "groupe:rate",
+      "@type": "@id"
+    },
+    "bearer": {
+      "@id": "groupe:bearer",
+      "@type": "@id"
+    },
+    "agent": {
+      "@id": "groupe:agent",
+      "@type": "@id"
+    },
+    "tax": {
+      "@id": "groupe:tax",
+      "@type": "@id"
+    },
+    "ClearingSystemMemberIdentification": "groupe:ClearingSystemMemberIdentification",
+    "clearingSystemId": {
+      "@id": "groupe:clearingSystemId",
+      "@type": "xsd:string"
+    },
+    "memberId": {
+      "@id": "groupe:memberId",
+      "@type": "xsd:string"
+    },
+    "CodeAndIssuer": "groupe:CodeAndIssuer",
+    "ContactDetails": "groupe:ContactDetails",
+    "phoneNumber": {
+      "@id": "groupe:phoneNumber",
+      "@type": "@id"
+    },
+    "faxNumber": {
+      "@id": "groupe:faxNumber",
+      "@type": "@id"
+    },
+    "emailAddress": {
+      "@id": "groupe:emailAddress",
+      "@type": "xsd:string"
+    },
+    "CreditDebitIndicator": "groupe:CreditDebitIndicator",
+    "CreditorReferenceInformation": "groupe:CreditorReferenceInformation",
+    "reference": {
+      "@id": "groupe:reference",
+      "@type": "xsd:string"
+    },
+    "DateAndPlaceOfBirth": "groupe:DateAndPlaceOfBirth",
+    "birthDate": {
+      "@id": "groupe:birthDate",
+      "@type": "xsd:date"
+    },
+    "cityOfBirth": {
+      "@id": "groupe:cityOfBirth",
+      "@type": "xsd:string"
+    },
+    "countryOfBirth": {
+      "@id": "groupe:countryOfBirth",
+      "@type": "xsd:string"
+    },
+    "DocumentAdjustment": "groupe:DocumentAdjustment",
+    "reason": {
+      "@id": "groupe:reason",
+      "@type": "xsd:string"
+    },
+    "additionalInformation": {
+      "@id": "groupe:additionalInformation",
+      "@type": "xsd:string"
+    },
+    "DocumentLineIdentification": "groupe:DocumentLineIdentification",
+    "number": {
+      "@id": "groupe:number",
+      "@type": "xsd:string"
+    },
+    "relatedDate": {
+      "@id": "groupe:relatedDate",
+      "@type": "xsd:date"
+    },
+    "EndUserIdentityLinks": "groupe:EndUserIdentityLinks",
+    "ErrorDetail": "groupe:ErrorDetail",
+    "location": {
+      "@id": "groupe:location",
+      "@type": "xsd:string"
+    },
+    "path": {
+      "@id": "groupe:path",
+      "@type": "xsd:string"
+    },
+    "erroneousValue": {
+      "@id": "groupe:erroneousValue",
+      "@type": "xsd:string"
+    },
+    "message": {
+      "@id": "groupe:message",
+      "@type": "xsd:string"
+    },
+    "expectedPattern": {
+      "@id": "groupe:expectedPattern",
+      "@type": "xsd:string"
+    },
+    "expectedValueRange": {
+      "@id": "groupe:expectedValueRange"
+    },
+    "expectedValueCount": {
+      "@id": "groupe:expectedValueCount"
+    },
+    "expectedEnumeration": {
+      "@id": "groupe:expectedEnumeration",
+      "@container": "@list"
+    },
+    "ErrorModel": "groupe:ErrorModel",
+    "timestamp": {
+      "@id": "groupe:timestamp",
+      "@type": "xsd:dateTime"
+    },
+    "status": {
+      "@id": "groupe:status",
+      "@type": "xsd:integer"
+    },
+    "error": {
+      "@id": "groupe:error",
+      "@type": "xsd:string"
+    },
+    "ExecutionRule": "groupe:ExecutionRule",
+    "FinancialInstitutionIdentification": "groupe:FinancialInstitutionIdentification",
+    "clearingSystemMemberId": {
+      "@id": "groupe:clearingSystemMemberId",
+      "@type": "@id"
+    },
+    "lei": {
+      "@id": "groupe:lei",
+      "@type": "@id"
+    },
+    "postalAddress": {
+      "@id": "groupe:postalAddress",
+      "@type": "@id"
+    },
+    "FrequencyCode": "groupe:FrequencyCode",
+    "GenericIdentification": "groupe:GenericIdentification",
+    "identification": {
+      "@id": "groupe:identification",
+      "@type": "xsd:string"
+    },
+    "schemeName": {
+      "@id": "groupe:schemeName",
+      "@type": "xsd:string"
+    },
+    "GenericLink": "groupe:GenericLink",
+    "href": {
+      "@id": "groupe:href",
+      "@type": "xsd:string"
+    },
+    "templated": {
+      "@id": "groupe:templated",
+      "@type": "xsd:boolean"
+    },
+    "HalAccounts": "groupe:HalAccounts",
+    "HalBalances": "groupe:HalBalances",
+    "HalBeneficiaries": "groupe:HalBeneficiaries",
+    "beneficiaries": {
+      "@id": "groupe:beneficiaries",
+      "@container": "@list"
+    },
+    "HalEndUserIdentity": "groupe:HalEndUserIdentity",
+    "identity": {
+      "@id": "groupe:identity",
+      "@type": "@id"
+    },
+    "HalOverdrafts": "groupe:HalOverdrafts",
+    "HalOwners": "groupe:HalOwners",
+    "company": {
+      "@id": "groupe:company",
+      "@type": "@id"
+    },
+    "identities": {
+      "@id": "groupe:identities",
+      "@container": "@list"
+    },
+    "HalTransactionDetails": "groupe:HalTransactionDetails",
+    "HalTransactions": "groupe:HalTransactions",
+    "Identity": "groupe:Identity",
+    "fullName": {
+      "@id": "groupe:fullName",
+      "@type": "xsd:string"
+    },
+    "namePrefix": {
+      "@id": "groupe:namePrefix",
+      "@type": "@id"
+    },
+    "firstName": {
+      "@id": "groupe:firstName",
+      "@type": "xsd:string"
+    },
+    "lastName": {
+      "@id": "groupe:lastName",
+      "@type": "xsd:string"
+    },
+    "LineDetail": "groupe:LineDetail",
+    "description": {
+      "@id": "groupe:description",
+      "@type": "xsd:string"
+    },
+    "NamePrefixCode": "groupe:NamePrefixCode",
+    "Overdraft": "groupe:Overdraft",
+    "allowedAmount": {
+      "@id": "groupe:allowedAmount",
+      "@type": "@id"
+    },
+    "OverdraftsLinks": "groupe:OverdraftsLinks",
+    "OwnersLinks": "groupe:OwnersLinks",
+    "PartyIdentification": "groupe:PartyIdentification",
+    "dateAndPlaceOfBirth": {
+      "@id": "groupe:dateAndPlaceOfBirth",
+      "@type": "@id"
+    },
+    "contactDetails": {
+      "@id": "groupe:contactDetails",
+      "@type": "@id"
+    },
+    "organisationId": {
+      "@id": "groupe:organisationId",
+      "@type": "@id"
+    },
+    "privateId": {
+      "@id": "groupe:privateId",
+      "@type": "@id"
+    },
+    "Period": "groupe:Period",
+    "startDate": {
+      "@id": "groupe:startDate",
+      "@type": "@id"
+    },
+    "endDate": {
+      "@id": "groupe:endDate",
+      "@type": "@id"
+    },
+    "PostalAddress": "groupe:PostalAddress",
+    "addressType": {
+      "@id": "groupe:addressType",
+      "@type": "xsd:string"
+    },
+    "department": {
+      "@id": "groupe:department",
+      "@type": "xsd:string"
+    },
+    "subDepartment": {
+      "@id": "groupe:subDepartment",
+      "@type": "xsd:string"
+    },
+    "streetName": {
+      "@id": "groupe:streetName",
+      "@type": "xsd:string"
+    },
+    "buildingNumber": {
+      "@id": "groupe:buildingNumber",
+      "@type": "xsd:string"
+    },
+    "buildingName": {
+      "@id": "groupe:buildingName",
+      "@type": "xsd:string"
+    },
+    "postCode": {
+      "@id": "groupe:postCode",
+      "@type": "xsd:string"
+    },
+    "townName": {
+      "@id": "groupe:townName",
+      "@type": "xsd:string"
+    },
+    "countrySubDivision": {
+      "@id": "groupe:countrySubDivision",
+      "@type": "xsd:string"
+    },
+    "country": {
+      "@id": "groupe:country",
+      "@type": "xsd:string"
+    },
+    "addressLine": {
+      "@id": "groupe:addressLine",
+      "@container": "@list"
+    },
+    "ReferredDocumentInformation": "groupe:ReferredDocumentInformation",
+    "lineDetails": {
+      "@id": "groupe:lineDetails",
+      "@container": "@list"
+    },
+    "RelatedParties": "groupe:RelatedParties",
+    "initiatingParty": {
+      "@id": "groupe:initiatingParty",
+      "@type": "@id"
+    },
+    "debtorAgent": {
+      "@id": "groupe:debtorAgent",
+      "@type": "@id"
+    },
+    "debtor": {
+      "@id": "groupe:debtor",
+      "@type": "@id"
+    },
+    "debtorAccount": {
+      "@id": "groupe:debtorAccount",
+      "@type": "@id"
+    },
+    "ultimateDebtor": {
+      "@id": "groupe:ultimateDebtor",
+      "@type": "@id"
+    },
+    "ultimateCreditor": {
+      "@id": "groupe:ultimateCreditor",
+      "@type": "@id"
+    },
+    "RemittanceAmount": "groupe:RemittanceAmount",
+    "duePayableAmount": {
+      "@id": "groupe:duePayableAmount",
+      "@type": "@id"
+    },
+    "discountAppliedAmount": {
+      "@id": "groupe:discountAppliedAmount",
+      "@type": "@id"
+    },
+    "creditNoteAmount": {
+      "@id": "groupe:creditNoteAmount",
+      "@type": "@id"
+    },
+    "taxAmount": {
+      "@id": "groupe:taxAmount",
+      "@type": "@id"
+    },
+    "adjustmentAmountAndReason": {
+      "@id": "groupe:adjustmentAmountAndReason",
+      "@type": "@id"
+    },
+    "remittedAmount": {
+      "@id": "groupe:remittedAmount",
+      "@type": "@id"
+    },
+    "RemittanceInformation": "groupe:RemittanceInformation",
+    "unstructured": {
+      "@id": "groupe:unstructured",
+      "@container": "@list"
+    },
+    "structured": {
+      "@id": "groupe:structured",
+      "@container": "@list"
+    },
+    "StandingOrderCharacteristics": "groupe:StandingOrderCharacteristics",
+    "executionRule": {
+      "@id": "groupe:executionRule",
+      "@type": "@id"
+    },
+    "frequency": {
+      "@id": "groupe:frequency",
+      "@type": "@id"
+    },
+    "StructuredRemittanceInformation": "groupe:StructuredRemittanceInformation",
+    "referredDocumentInformation": {
+      "@id": "groupe:referredDocumentInformation",
+      "@type": "@id"
+    },
+    "referredDocumentAmount": {
+      "@id": "groupe:referredDocumentAmount",
+      "@type": "@id"
+    },
+    "creditorReferenceInformation": {
+      "@id": "groupe:creditorReferenceInformation",
+      "@type": "@id"
+    },
+    "invoicer": {
+      "@id": "groupe:invoicer",
+      "@type": "@id"
+    },
+    "invoicee": {
+      "@id": "groupe:invoicee",
+      "@type": "@id"
+    },
+    "taxRemittance": {
+      "@id": "groupe:taxRemittance",
+      "@type": "@id"
+    },
+    "TaxAmount": "groupe:TaxAmount",
+    "taxableBaseAmount": {
+      "@id": "groupe:taxableBaseAmount",
+      "@type": "@id"
+    },
+    "totalAmount": {
+      "@id": "groupe:totalAmount",
+      "@type": "@id"
+    },
+    "TaxCharges": "groupe:TaxCharges",
+    "TaxInformation": "groupe:TaxInformation",
+    "administrationZone": {
+      "@id": "groupe:administrationZone",
+      "@type": "xsd:string"
+    },
+    "referenceNumber": {
+      "@id": "groupe:referenceNumber",
+      "@type": "xsd:string"
+    },
+    "method": {
+      "@id": "groupe:method",
+      "@type": "xsd:string"
+    },
+    "totalTaxableBaseAmount": {
+      "@id": "groupe:totalTaxableBaseAmount",
+      "@type": "@id"
+    },
+    "totalTaxAmount": {
+      "@id": "groupe:totalTaxAmount",
+      "@type": "@id"
+    },
+    "date": {
+      "@id": "groupe:date",
+      "@type": "xsd:date"
+    },
+    "sequenceNumber": {
+      "@id": "groupe:sequenceNumber",
+      "@type": "xsd:integer"
+    },
+    "TaxParty": "groupe:TaxParty",
+    "taxIdentification": {
+      "@id": "groupe:taxIdentification",
+      "@type": "xsd:string"
+    },
+    "registrationIdentification": {
+      "@id": "groupe:registrationIdentification",
+      "@type": "xsd:string"
+    },
+    "taxType": {
+      "@id": "groupe:taxType",
+      "@type": "xsd:string"
+    },
+    "authorisation": {
+      "@id": "groupe:authorisation",
+      "@type": "@id"
+    },
+    "TaxPeriod": "groupe:TaxPeriod",
+    "year": {
+      "@id": "groupe:year",
+      "@type": "xsd:string"
+    },
+    "fromDate": {
+      "@id": "groupe:fromDate",
+      "@type": "xsd:date"
+    },
+    "toDate": {
+      "@id": "groupe:toDate",
+      "@type": "xsd:date"
+    },
+    "TaxRecord": "groupe:TaxRecord",
+    "category": {
+      "@id": "groupe:category",
+      "@type": "xsd:string"
+    },
+    "categoryDetails": {
+      "@id": "groupe:categoryDetails",
+      "@type": "xsd:string"
+    },
+    "debtorStatus": {
+      "@id": "groupe:debtorStatus",
+      "@type": "xsd:string"
+    },
+    "certificateIdentification": {
+      "@id": "groupe:certificateIdentification",
+      "@type": "xsd:string"
+    },
+    "formsCode": {
+      "@id": "groupe:formsCode",
+      "@type": "xsd:string"
+    },
+    "period": {
+      "@id": "groupe:period",
+      "@type": "@id"
+    },
+    "TaxRecordDetails": "groupe:TaxRecordDetails",
+    "TaxRecordPeriodCode": "groupe:TaxRecordPeriodCode",
+    "TitleAndName": "groupe:TitleAndName",
+    "title": {
+      "@id": "groupe:title",
+      "@type": "xsd:string"
+    },
+    "TransactionDetailsLinks": "groupe:TransactionDetailsLinks",
+    "TransactionLinks": "groupe:TransactionLinks",
+    "TransactionResource": "groupe:TransactionResource",
+    "entryReference": {
+      "@id": "groupe:entryReference",
+      "@type": "xsd:string"
+    },
+    "transactionAmountDetails": {
+      "@id": "groupe:transactionAmountDetails",
+      "@type": "@id"
+    },
+    "endToEndId": {
+      "@id": "groupe:endToEndId",
+      "@type": "@id"
+    },
+    "expectedBookingDate": {
+      "@id": "groupe:expectedBookingDate",
+      "@type": "xsd:dateTime"
+    },
+    "bookingDate": {
+      "@id": "groupe:bookingDate",
+      "@type": "xsd:dateTime"
+    },
+    "valueDate": {
+      "@id": "groupe:valueDate",
+      "@type": "xsd:dateTime"
+    },
+    "transactionDate": {
+      "@id": "groupe:transactionDate",
+      "@type": "xsd:dateTime"
+    },
+    "bankTransactionCode": {
+      "@id": "groupe:bankTransactionCode",
+      "@type": "@id"
+    },
+    "charges": {
+      "@id": "groupe:charges",
+      "@type": "@id"
+    },
+    "relatedParties": {
+      "@id": "groupe:relatedParties",
+      "@type": "@id"
+    },
+    "remittanceInformation": {
+      "@id": "groupe:remittanceInformation",
+      "@type": "@id"
+    },
+    "additionalTransactionInformation": {
+      "@id": "groupe:additionalTransactionInformation",
+      "@type": "xsd:string"
+    },
+    "standingOrderCharacteristics": {
+      "@id": "groupe:standingOrderCharacteristics",
+      "@type": "@id"
+    },
+    "merchantCategoryCode": {
+      "@id": "groupe:merchantCategoryCode",
+      "@type": "xsd:string"
+    },
+    "bookingPeriod": {
+      "@id": "groupe:bookingPeriod",
+      "@type": "@id"
+    },
+    "cardId": {
+      "@id": "groupe:cardId",
+      "@type": "@id"
+    },
+    "TransactionStatus": "groupe:TransactionStatus",
+    "TransactionsLinks": "groupe:TransactionsLinks",
+    "TypedAmount": "groupe:TypedAmount",
+    "Workspace": "groupe:Workspace",
+    "label": {
+      "@id": "groupe:label",
+      "@type": "xsd:string"
+    },
+    "Account": "groupe:Account",
+    "accountNumber": {
+      "@id": "groupe:accountNumber",
+      "@type": "xsd:string"
+    },
+    "financialInstitution": {
+      "@id": "groupe:financialInstitution",
+      "@type": "@id"
+    },
+    "currencies": {
+      "@id": "groupe:currencies",
+      "@container": "@list"
+    },
+    "AllTheWayToRecipientInformation": "groupe:AllTheWayToRecipientInformation",
+    "endToEndReference": {
+      "@id": "groupe:endToEndReference",
+      "@type": "xsd:string"
+    },
+    "categoryPurposeType": {
+      "@id": "groupe:categoryPurposeType",
+      "@type": "xsd:string"
+    },
+    "Amount": "groupe:Amount",
+    "value": {
+      "@id": "groupe:value",
+      "@type": "xsd:decimal"
+    },
+    "currencyCode": {
+      "@id": "groupe:currencyCode",
+      "@type": "xsd:string"
+    },
+    "Currency": "groupe:Currency",
+    "DebitEntry": "groupe:DebitEntry",
+    "debitMode": {
+      "@id": "groupe:debitMode",
+      "@type": "@id"
+    },
+    "Error": "groupe:Error",
+    "attribute": {
+      "@id": "groupe:attribute",
+      "@type": "xsd:string"
+    },
+    "Errors": "groupe:Errors",
+    "errors": {
+      "@id": "groupe:errors",
+      "@container": "@list"
+    },
+    "ExecutionDeadlineType": "groupe:ExecutionDeadlineType",
+    "ExecutionFrequency": "groupe:ExecutionFrequency",
+    "ExecutionSettlement": "groupe:ExecutionSettlement",
+    "ExecutionStatus": "groupe:ExecutionStatus",
+    "ExternalAccountStatus": "groupe:ExternalAccountStatus",
+    "FinancialInstitution": "groupe:FinancialInstitution",
+    "identifiers": {
+      "@id": "groupe:identifiers",
+      "@container": "@list"
+    },
+    "PaginationByCursor": "groupe:PaginationByCursor",
+    "pageSize": {
+      "@id": "groupe:pageSize",
+      "@type": "xsd:integer"
+    },
+    "after": {
+      "@id": "groupe:after",
+      "@type": "xsd:string"
+    },
+    "PaginationByIndex": "groupe:PaginationByIndex",
+    "pageNumber": {
+      "@id": "groupe:pageNumber",
+      "@type": "xsd:integer"
+    },
+    "totalElements": {
+      "@id": "groupe:totalElements",
+      "@type": "xsd:integer"
+    },
+    "totalPages": {
+      "@id": "groupe:totalPages",
+      "@type": "xsd:integer"
+    },
+    "RequestedTransferRequestDebitMode": "groupe:RequestedTransferRequestDebitMode",
+    "StandingTransfer": "groupe:StandingTransfer",
+    "lastExecutionDate": {
+      "@id": "groupe:lastExecutionDate",
+      "@type": "xsd:date"
+    },
+    "TransferRequestDebitMode": "groupe:TransferRequestDebitMode",
+    "TransferRequestLineSummary": "groupe:TransferRequestLineSummary",
+    "transferRequestLineId": {
+      "@id": "groupe:transferRequestLineId",
+      "@type": "xsd:string"
+    },
+    "transferRequestId": {
+      "@id": "groupe:transferRequestId",
+      "@type": "xsd:string"
+    },
+    "creationDateTime": {
+      "@id": "groupe:creationDateTime",
+      "@type": "xsd:dateTime"
+    },
+    "frequencyType": {
+      "@id": "groupe:frequencyType",
+      "@type": "@id"
+    },
+    "requestedExecutionDate": {
+      "@id": "groupe:requestedExecutionDate",
+      "@type": "xsd:date"
+    },
+    "executionDate": {
+      "@id": "groupe:executionDate",
+      "@type": "xsd:date"
+    },
+    "sourceAccount": {
+      "@id": "groupe:sourceAccount",
+      "@type": "@id"
+    },
+    "recipientAccount": {
+      "@id": "groupe:recipientAccount",
+      "@type": "@id"
+    },
+    "TransferRequestStatus": "groupe:TransferRequestStatus",
+    "TransferRequestSummary": "groupe:TransferRequestSummary",
+    "globalAmount": {
+      "@id": "groupe:globalAmount"
+    },
+    "transferRequestStatus": {
+      "@id": "groupe:transferRequestStatus",
+      "@type": "@id"
+    },
+    "transfersCount": {
+      "@id": "groupe:transfersCount",
+      "@type": "xsd:integer"
+    },
+    "modificationDateTime": {
+      "@id": "groupe:modificationDateTime",
+      "@type": "xsd:dateTime"
+    },
+    "requestedDebitMode": {
+      "@id": "groupe:requestedDebitMode",
+      "@type": "@id"
+    },
+    "globalFee": {
+      "@id": "groupe:globalFee"
+    },
+    "HalPaymentCoverageReport": "groupe:HalPaymentCoverageReport",
+    "request": {
+      "@id": "groupe:request",
+      "@type": "@id"
+    },
+    "result": {
+      "@id": "groupe:result",
+      "@type": "xsd:boolean"
+    },
+    "PaymentCoverageReportLinks": "groupe:PaymentCoverageReportLinks",
+    "PaymentCoverageRequestResource": "groupe:PaymentCoverageRequestResource",
+    "paymentCoverageRequestId": {
+      "@id": "groupe:paymentCoverageRequestId",
+      "@type": "xsd:string"
+    },
+    "payee": {
+      "@id": "groupe:payee",
+      "@type": "xsd:string"
+    },
+    "AuthenticationApproach": "groupe:AuthenticationApproach",
+    "CategoryPurposeCode": "groupe:CategoryPurposeCode",
+    "ConfirmationResource": "groupe:ConfirmationResource",
+    "nonce": {
+      "@id": "groupe:nonce",
+      "@type": "@id"
+    },
+    "psuAuthenticationFactor": {
+      "@id": "groupe:psuAuthenticationFactor",
+      "@type": "xsd:string"
+    },
+    "CreditTransferTransactionLinks": "groupe:CreditTransferTransactionLinks",
+    "parent": {
+      "@id": "groupe:parent",
+      "@type": "@id"
+    },
+    "CreditTransferTransactionResource": "groupe:CreditTransferTransactionResource",
+    "paymentId": {
+      "@id": "groupe:paymentId",
+      "@type": "@id"
+    },
+    "cancellableTill": {
+      "@id": "groupe:cancellableTill",
+      "@type": "xsd:dateTime"
+    },
+    "acceptanceDateTime": {
+      "@id": "groupe:acceptanceDateTime",
+      "@type": "xsd:dateTime"
+    },
+    "debtorDecisionDate": {
+      "@id": "groupe:debtorDecisionDate",
+      "@type": "xsd:dateTime"
+    },
+    "appliedExecutionDate": {
+      "@id": "groupe:appliedExecutionDate",
+      "@type": "xsd:dateTime"
+    },
+    "equivalentAmount": {
+      "@id": "groupe:equivalentAmount",
+      "@type": "@id"
+    },
+    "exchangeRateInformation": {
+      "@id": "groupe:exchangeRateInformation",
+      "@type": "@id"
+    },
+    "intermediaryAgent": {
+      "@id": "groupe:intermediaryAgent",
+      "@type": "@id"
+    },
+    "beneficiary": {
+      "@id": "groupe:beneficiary",
+      "@type": "@id"
+    },
+    "instructionForCreditorAgent": {
+      "@id": "groupe:instructionForCreditorAgent",
+      "@container": "@list"
+    },
+    "purpose": {
+      "@id": "groupe:purpose",
+      "@type": "@id"
+    },
+    "regulatoryReportingCodes": {
+      "@id": "groupe:regulatoryReportingCodes",
+      "@type": "@id"
+    },
+    "transactionStatus": {
+      "@id": "groupe:transactionStatus",
+      "@type": "@id"
+    },
+    "statusReasonInformation": {
+      "@id": "groupe:statusReasonInformation",
+      "@type": "@id"
+    },
+    "supplementaryData": {
+      "@id": "groupe:supplementaryData",
+      "@type": "@id"
+    },
+    "EquivalentAmountType": "groupe:EquivalentAmountType",
+    "currencyOfTransfer": {
+      "@id": "groupe:currencyOfTransfer",
+      "@type": "@id"
+    },
+    "ExchangeRate": "groupe:ExchangeRate",
+    "rateType": {
+      "@id": "groupe:rateType",
+      "@type": "xsd:string"
+    },
+    "estimatedPayerAmount": {
+      "@id": "groupe:estimatedPayerAmount",
+      "@type": "@id"
+    },
+    "estimatedPayeeAmount": {
+      "@id": "groupe:estimatedPayeeAmount",
+      "@type": "@id"
+    },
+    "HalAuthenticationRequest": "groupe:HalAuthenticationRequest",
+    "appliedAuthenticationApproach": {
+      "@id": "groupe:appliedAuthenticationApproach",
+      "@type": "@id"
+    },
+    "HalCreditTransfertTransactions": "groupe:HalCreditTransfertTransactions",
+    "creditTransferTransaction": {
+      "@id": "groupe:creditTransferTransaction",
+      "@container": "@list"
+    },
+    "HalPaymentRequest": "groupe:HalPaymentRequest",
+    "paymentRequest": {
+      "@id": "groupe:paymentRequest",
+      "@type": "@id"
+    },
+    "InstructionForCreditorAgent": "groupe:InstructionForCreditorAgent",
+    "instructionInformation": {
+      "@id": "groupe:instructionInformation",
+      "@type": "xsd:string"
+    },
+    "IntermediaryAgent": "groupe:IntermediaryAgent",
+    "agentAccount": {
+      "@id": "groupe:agentAccount",
+      "@type": "@id"
+    },
+    "PaymentIdentification": "groupe:PaymentIdentification",
+    "instructionId": {
+      "@id": "groupe:instructionId",
+      "@type": "xsd:string"
+    },
+    "uetr": {
+      "@id": "groupe:uetr",
+      "@type": "xsd:string"
+    },
+    "PaymentInformationStatusCode": "groupe:PaymentInformationStatusCode",
+    "PaymentRequestLinks": "groupe:PaymentRequestLinks",
+    "confirmation": {
+      "@id": "groupe:confirmation",
+      "@type": "@id"
+    },
+    "PaymentRequestResource": "groupe:PaymentRequestResource",
+    "paymentInformationId": {
+      "@id": "groupe:paymentInformationId",
+      "@type": "@id"
+    },
+    "batchBooking": {
+      "@id": "groupe:batchBooking",
+      "@type": "@id"
+    },
+    "numberOfTransactions": {
+      "@id": "groupe:numberOfTransactions",
+      "@type": "xsd:integer"
+    },
+    "acceptDebtorAccountChange": {
+      "@id": "groupe:acceptDebtorAccountChange",
+      "@type": "xsd:boolean"
+    },
+    "acceptChargeHandlingChange": {
+      "@id": "groupe:acceptChargeHandlingChange",
+      "@type": "xsd:boolean"
+    },
+    "acceptInstantPaymentDowngrade": {
+      "@id": "groupe:acceptInstantPaymentDowngrade",
+      "@type": "xsd:boolean"
+    },
+    "paymentTypeInformation": {
+      "@id": "groupe:paymentTypeInformation",
+      "@type": "@id"
+    },
+    "chargeBearer": {
+      "@id": "groupe:chargeBearer",
+      "@type": "@id"
+    },
+    "paymentInformationStatus": {
+      "@id": "groupe:paymentInformationStatus",
+      "@type": "@id"
+    },
+    "fundsAvailability": {
+      "@id": "groupe:fundsAvailability",
+      "@type": "@id"
+    },
+    "booking": {
+      "@id": "groupe:booking",
+      "@type": "@id"
+    },
+    "PaymentRequestResourceCreationLinks": "groupe:PaymentRequestResourceCreationLinks",
+    "consentApproval": {
+      "@id": "groupe:consentApproval",
+      "@type": "@id"
+    },
+    "PaymentTypeInformation": "groupe:PaymentTypeInformation",
+    "instructionPriority": {
+      "@id": "groupe:instructionPriority",
+      "@type": "@id"
+    },
+    "serviceLevel": {
+      "@id": "groupe:serviceLevel",
+      "@type": "@id"
+    },
+    "localInstrument": {
+      "@id": "groupe:localInstrument",
+      "@type": "@id"
+    },
+    "categoryPurpose": {
+      "@id": "groupe:categoryPurpose",
+      "@type": "@id"
+    },
+    "PriorityCode": "groupe:PriorityCode",
+    "PurposeCode": "groupe:PurposeCode",
+    "ServiceLevelCode": "groupe:ServiceLevelCode",
+    "StatusReasonInformation": "groupe:StatusReasonInformation",
+    "SupplementaryData": "groupe:SupplementaryData",
+    "acceptedAuthenticationApproach": {
+      "@id": "groupe:acceptedAuthenticationApproach",
+      "@type": "@id"
+    },
+    "appliedAuthentication": {
+      "@id": "groupe:appliedAuthentication",
+      "@type": "xsd:string"
+    },
+    "scaHint": {
+      "@id": "groupe:scaHint",
+      "@type": "xsd:string"
+    },
+    "successfulReportUrl": {
+      "@id": "groupe:successfulReportUrl",
+      "@type": "xsd:string"
+    },
+    "unsuccessfulReportUrl": {
+      "@id": "groupe:unsuccessfulReportUrl",
+      "@type": "xsd:string"
+    },
+    "nextStatusRequestHint": {
+      "@id": "groupe:nextStatusRequestHint",
+      "@type": "xsd:dateTime"
+    }
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Groupe BPCE API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Groupe BPCE's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-09) from openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml, openapi/groupe-bpce-natixis-wealth-management-psd2-accounts-openapi.yml, openapi/groupe-bpce-open-finance-transfer-openapi.yml.",
+  "dcterms:created": "2026-10-09",
+  "dcterms:source": [
+    "openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml",
+    "openapi/groupe-bpce-natixis-wealth-management-psd2-accounts-openapi.yml",
+    "openapi/groupe-bpce-open-finance-transfer-openapi.yml",
+    "openapi/groupe-bpce-psd2-accounts-openapi.yml",
+    "openapi/groupe-bpce-psd2-funds-availability-openapi.yml"
+  ]
+}

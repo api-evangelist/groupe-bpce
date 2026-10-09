@@ -1,0 +1,489 @@
+generated: '2026-10-09'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml
+- openapi/groupe-bpce-natixis-wealth-management-psd2-accounts-openapi.yml
+- openapi/groupe-bpce-open-finance-transfer-openapi.yml
+- openapi/groupe-bpce-psd2-accounts-openapi.yml
+- openapi/groupe-bpce-psd2-funds-availability-openapi.yml
+vocabulary:
+  name: Groupe BPCE Domain Vocabulary
+  description: 'Terms declared by Groupe BPCE''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-09'
+  terms:
+  - term: External Accounts
+    definition: 'External Accounts Management: Searching for accounts or declaring new ones.'
+    tags:
+    - Resource Group
+    source: openapi/groupe-bpce-open-finance-transfer-openapi.yml
+  - term: Internal Accounts
+    definition: Internal Accounts Management.
+    tags:
+    - Resource Group
+    source: openapi/groupe-bpce-open-finance-transfer-openapi.yml
+  - term: Transfers
+    definition: Creating and validating transfers.
+    tags:
+    - Resource Group
+    source: openapi/groupe-bpce-open-finance-transfer-openapi.yml
+  - term: Registration
+    definition: OAuth2 Dynamic Client Registration & Management
+    tags:
+    - Resource Group
+    source: openapi/groupe-bpce-psd2-registration-openapi.yml
+  - term: Access
+    definition: Requested access services.
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/Access
+  - term: AccessibleAccounts
+    definition: List of accessible accounts for one given functionality
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/AccessibleAccounts
+  - term: AccessibleTrustedBeneficiaries
+    definition: list of workspaces for which the PSU has given consent to the access by the AISP
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/AccessibleTrustedBeneficiaries
+  - term: AccountIdentification
+    definition: Unique and unambiguous identification for the account between the account owner and the account servicer. Card accounts must provide
+      the identification of the card through the "other" substructure by giving, for instance, the masked PAN (MPAN). The currency used for the
+      account, when needed, can be specified through the [currency] field.
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/AccountIdentification
+  - term: AccountLinks
+    definition: links that can be used for further navigation when browsing Account Information at one account level | Link | Description | |
+      ---- | ----------- | | owners | link to the owners identities for a given account | | balances | link to the balances of a given account
+      | | transactions | link to the transactions of a given account | | overdrafts | link to the lists of overdrafts of a given account |
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/AccountLinks
+  - term: AccountListLinks
+    definition: Links that can be used for further navigation when browsing Account Information at top level | Link | Description | | ---- | -----------
+      | | self | link to the list of all available accounts | | consents | link to the consents forwarding | | endUserIdentity | link to the end-user
+      identity| | trustedBeneficiaries | link to the list of trusted beneficiaries | | worspaces | array of link to each rele
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/AccountListLinks
+  - term: AccountResource
+    definition: PSU account that is made available to the TPP. The ASPSP is able to set up specific accounts in order to provide card transactions
+      with a delayed debit. This account must be specific to a given card. Consequently, when the card is renewed, a new account will be set up.
+      ASPSP might also set-up different accounts for one given card but with different imputation dates. The remanence of these accounts
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/AccountResource
+  - term: AmountAndCurrencyExchange
+    definition: Provides detailed information on the original amount. The [instructedAmount] property identifies the amount of money to be moved
+      between the debtor and creditor, before deduction of charges, expressed in the currency as ordered by the initiating party and provides
+      currency exchange information in case the instructed amount and/or currency is/are different from the entry amount and/or currency. The
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/AmountAndCurrencyExchange
+  - term: AmountAndCurrencyExchangeDetails
+    definition: 'ISO20022: details on amount and currency exchange The [amount] property is the amount of money to be exchanged against another
+      amount of money in the counter currency. The [sourceCurency] property indicates the currency from which an amount is to be converted in
+      a currency conversion. The [targetCurrency] property indicates the currency into which an amount is to be converted in a currency convers'
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/AmountAndCurrencyExchangeDetails
+  - term: AmountType
+    definition: Structure aiming to embed the amount and the currency to be used.
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/AmountType
+  - term: BalanceResource
+    definition: Structure of an account balance
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/BalanceResource
+  - term: BalanceStatus
+    definition: Type of balance | Code | Name | Description | | ---- | ---- | ----------- | | CLBD | ISO20022 ClosingBooked | Balance of the account
+      at the end of the pre-agreed account reporting period. It is the sum of the opening booked balance at the beginning of the period and all
+      entries booked to the account during the pre-agreed account reporting period. | | PRCD | ISO20022 PreviouslyClosedBooked | Balanc
+    tags:
+    - Enumeration
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/BalanceStatus
+  - term: BalancesLinks
+    definition: links that can be used for further navigation when browsing balances Information at one account level | Link | Description | |
+      ---- | ----------- | | self | link to the balances of a given account | | parent-list | link to the list of all available accounts | | owners
+      | link to the owners identities for a given account | | transactions | link to the transactions of a given account | | overdrafts |
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/BalancesLinks
+  - term: BankTransactionCode
+    definition: Set of elements used to fully identify the type of underlying transaction resulting in an entry. ISO20022 provides a list of [possible
+      Bank Transaction Code combinations](https://www.iso20022.org/external_code_list.page) Transaction codification might also be specified at
+      national community level. For instance a French Transaction codification is [available](https://www.cfonb.org/fichiers/20190913
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/BankTransactionCode
+  - term: BeneficiariesLinks
+    definition: links that can be used for further navigation when browsing Account Information at one account level | Link | Description | |
+      ---- | ----------- | | self | link to the list of trusted beneficiaries | | accounts | link to the list of all available accounts | | consents
+      | link to the consents forwarding | | endUserIdentity | link to the end-user identity | | first | link to the first page of the ben
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/BeneficiariesLinks
+  - term: Beneficiary
+    definition: Specification of a beneficiary
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/Beneficiary
+  - term: ChargeBearerCode
+    definition: 'ISO20022: Specifies which party/parties will bear the charges associated with the processing of the payment transaction. The
+      following values are allowed: | Code | Name | Description | | ---- | ---- | ---------- | | DEBT | BorneByDebtor | All transaction charges
+      are to be borne by the debtor. | | CRED | BorneByCreditor | All transaction charges are to be borne by the creditor. | | SHAR | Shared | '
+    tags:
+    - Enumeration
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/ChargeBearerCode
+  - term: Charges
+    definition: 'ISO20022: Provides further details on the charges related to the payment transaction. API: Amounts must always be set as positive
+      values.'
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/Charges
+  - term: ChargesRecord
+    definition: 'ISO20022: Provides further individual record details on the charges related to the payment transaction. - The [amount] proprty
+      specifies the transaction charges to be paid by the charge bearer. - The [creditDebitIndicator] property indicates whether the charges amount
+      is a credit or a debit amount. A zero amount is considered to be a credit. - the [code] property is the charge type, in a coded for'
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/ChargesRecord
+  - term: ClearingSystemMemberIdentification
+    definition: 'ISO20022: Information used to identify a member within a clearing system. API: to be used for some specific international credit
+      transfers in order to identify the beneficiary bank'
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/ClearingSystemMemberIdentification
+  - term: CodeAndIssuer
+    definition: Specifies a code and the issuer of this code.
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/CodeAndIssuer
+  - term: ContactDetails
+    definition: Indicates how to contact the party.
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/ContactDetails
+  - term: CreditDebitIndicator
+    definition: Accounting flow of the amount | Code | Description | | ---- | ----------- | | CRDT | Credit type amount | | DBIT | Debit type
+      amount |
+    tags:
+    - Enumeration
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/CreditDebitIndicator
+  - term: CreditorReferenceInformation
+    definition: Reference information provided by the creditor to allow the identification of the underlying documents.
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/CreditorReferenceInformation
+  - term: CurrencyCode
+    definition: Specifies the currency of the amount or of the account. A code allocated to a currency by a Maintenance Agency under an international
+      identification scheme, as described in the latest edition of the international standard ISO 4217 "Codes for the representation of currencies
+      and funds".
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/CurrencyCode
+  - term: DateAndPlaceOfBirth
+    definition: Date and place of birth of a person. This information must be requested for detection of Fraud, Money-Laundering and Terrorism
+      Financing in case of international payment.
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/DateAndPlaceOfBirth
+  - term: DocumentAdjustment
+    definition: 'ISO20022: Specifies detailed information on the amount and reason of the adjustment. API: Amounts must always be set as positive
+      values.'
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/DocumentAdjustment
+  - term: DocumentLineIdentification
+    definition: Provides identification of the document line. the [type] property must be used for specifying the type of referred document type.
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/DocumentLineIdentification
+  - term: EndDate
+    definition: The last applicable day of execution for a given period. If not given, the period is considered as endless.
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/EndDate
+  - term: EndToEndId
+    definition: 'ISO20022: Unique identification assigned by the initiating party to unambiguously identify the transaction. This identification
+      is passed on, unchanged, throughout the entire end-to-end chain.'
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/EndToEndId
+  - term: EndUserIdentityLinks
+    definition: links that can be used for further navigation after retrieving end-user identity | Link | Description | | ---- | ----------- |
+      | self | link to the end-user identity | | accounts | link to the list of all available accounts | | consents | link to the consents forwarding
+      | | trustedBeneficiaries | link to the list of trusted beneficiaries |
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/EndUserIdentityLinks
+  - term: ErrorDetail
+    definition: detailed error description
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/ErrorDetail
+  - term: ErrorModel
+    definition: Generic error report structure
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/ErrorModel
+  - term: ExecutionRule
+    definition: Execution date shifting rule for standing orders This data attribute defines the behaviour when recurring payment dates falls
+      on a weekend or bank holiday. The payment is then executed either the "preceding" or "following" working day. ASPSP might reject the request
+      due to the communicated value, if rules in Online-Banking are not supporting this execution rule. | Code | Description | | ---- | ---
+    tags:
+    - Enumeration
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/ExecutionRule
+  - term: FinancialInstitutionIdentification
+    definition: 'ISO20022: Unique and unambiguous identification of a financial institution, as assigned under an internationally recognised or
+      proprietary identification scheme.'
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/FinancialInstitutionIdentification
+  - term: FrequencyCode
+    definition: Frequency rule for standing orders. The following codes from the "EventFrequency7Code" of ISO 20022 are supported. | Code | Description
+      | | ---- | ----------- | | DAIL | Daily | | WEEK | Weekly | | TOWK | EveryTwoWeeks | | MNTH | Monthly | | TOMN | EveryTwoMonths | | QUTR
+      | Quarterly | | SEMI | SemiAnnual | | YEAR | Annual | However, each ASPSP might restrict these values into a subset if needed.
+    tags:
+    - Enumeration
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/FrequencyCode
+  - term: GenericIdentification
+    definition: 'ISO20022: Unique identification of an account, a person or an organisation, as assigned by an issuer. API: The ASPSP will document
+      which account reference type it will support.'
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/GenericIdentification
+  - term: GenericLink
+    definition: hypertext reference
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/GenericLink
+  - term: HalAccounts
+    definition: HYPERMEDIA structure used for returning the list of the available accounts to the AISP
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/HalAccounts
+  - term: HalBalances
+    definition: HYPERMEDIA structure used for returning the list of the relevant balances for a given account to the AISP
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/HalBalances
+  - term: HalBeneficiaries
+    definition: HYPERMEDIA structure used for returning the list of the whitelisted beneficiaries
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/HalBeneficiaries
+  - term: HalEndUserIdentity
+    definition: HYPERMEDIA structure used for returning the identity of the PSU. The [identity] property specifies the identity of the PSU which
+      has granted access to the AISP on the accounts data This information can be retrieved based on the PSU's authentication that occurred during
+      the OAUTH2 access token initialisation.
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/HalEndUserIdentity
+  - term: HalOverdrafts
+    definition: HYPERMEDIA structure used for returning the list of the overdrafts that can apply on a given account to the AISP
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/HalOverdrafts
+  - term: HalOwners
+    definition: HYPERMEDIA structure used for returning the identities of the account owners. These owners are either real persons or a company.
+      - in the first case, the [identities] block must be used - in the second cas, the [company] property specifies the identity of the company
+      owning the account.
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/HalOwners
+  - term: HalTransactionDetails
+    definition: HYPERMEDIA structure used for returning the details of a given transaction
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/HalTransactionDetails
+  - term: HalTransactions
+    definition: HYPERMEDIA structure used for returning the list of the transactions for a given account to the AISP
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/HalTransactions
+  - term: Identity
+    definition: HYPERMEDIA structure used for returning the identity of the PSU
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/Identity
+  - term: LeiIdentification
+    definition: Legal Entity Identifier is a code allocated to a party as described in ISO 17442 "Financial Services - Legal Entity Identifier
+      (LEI)".
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/LeiIdentification
+  - term: LineDetail
+    definition: Set of elements used to provide the content of the referred document line.
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/LineDetail
+  - term: NamePrefixCode
+    definition: Specifies the terms used to formally address a person. This field accepts the following code values | Code | Description | | ----
+      | ---------- | | DOCT | Doctor | | MADM | Madam | | MISS | Miss | | MIST | Mister |
+    tags:
+    - Enumeration
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/NamePrefixCode
+  - term: Overdraft
+    definition: 'ISO20022: Overdraft characteristics API: Amounts must always be set as positive values.'
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/Overdraft
+  - term: OverdraftsLinks
+    definition: links that can be used for further navigation when browsing overdrafts Information at one account level | Link | Description |
+      | ---- | ----------- | | self | link to the overdrafts of a given account | | parent-list | link to the list of all available accounts |
+      | owners | link to the owners identities for a given account | | balances | link to the balances of a given account | | transactions | l
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/OverdraftsLinks
+  - term: OwnersLinks
+    definition: 'links that can be used for further navigation when browsing balances Information at one account level | Link | Description |
+      | ---- | ----------- | | self | link to the owners of a given account | | parent-list | link to the list of all available accounts | | balances
+      | link to the balances for a given account | | transactions | link to the transactions of a given account | | overdrafts | link to '
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/OwnersLinks
+  - term: PartyIdentification
+    definition: 'API : Description of a Party which can be either a person or an organization.'
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/PartyIdentification
+  - term: PercentageRate
+    definition: Rate expressed as a percentage, ie, in hundredths, eg, 0.7 is 7/10 of a percent, and 7.0 is 7%.
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/PercentageRate
+  - term: Period
+    definition: definition of a time period
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/Period
+  - term: PhoneNumber
+    definition: The collection of information which identifies a specific phone or FAX number as defined by telecom services. It consists of a
+      "+" followed by the country code (from 1 to 3 characters) then a "-" and finally, any combination of numbers, "(", ")", "+" and "-" (up
+      to 30 characters).
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/PhoneNumber
+  - term: PostalAddress
+    definition: 'ISO20022: Information that locates and identifies a specific address, as defined by postal services.'
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/PostalAddress
+  - term: PsuStatusType
+    definition: 'ISO20022: Specifies the type of account ownership. | Name | Description | | ---- | ---------- | | Account Holder | Person which
+      is the sole holder of the account. | | Account Co-Holder | Person which shares with others the holding of the account. | | Attorney | Generic
+      case of a person having a mandate to access the account data. | | Custodian For Minor | Entity that holds shares/units on behalf o'
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/PsuStatusType
+  - term: ReferredDocumentInformation
+    definition: Provides the identification and the content of the referred document.
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/ReferredDocumentInformation
+  - term: ReferredDocumentInformations
+    definition: Provides the identification and the content of the referred documents.
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/ReferredDocumentInformations
+  - term: RelatedParties
+    definition: information about the parties that are related to the transaction
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/RelatedParties
+  - term: RemittanceAmount
+    definition: 'ISO20022: Provides details on the amounts of the document line. API: Amounts must always be set as positive values. | Property
+      | Description | | -------- | ----------- | | duePayableAmount | Amount specified is the exact amount due and payable to the creditor. |
+      | discountAppliedAmount | Amount of discount to be applied to the amount due and payable to the creditor. | | creditNoteAmount | Amount
+      o'
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/RemittanceAmount
+  - term: RemittanceInformation
+    definition: 'ISO20022: Information supplied to enable the matching of an entry with the items that the transfer is intended to settle, such
+      as commercial invoices in an accounts'' receivable system. API: - Only one occurrence of the unstructured information is allowed. - Only
+      one occurrence of the structured information is allowed. - Structured and unstructured information can coexist.'
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/RemittanceInformation
+  - term: ResourceId
+    definition: 'API: Identifier assigned by the ASPSP for further use of the created resource through API calls. The API client cannot set or
+      modify the value of this field. Since this value can be exchanged between the server and the client as an URL element or for support information,
+      it must not contain sensitive value such as personal or business data. However it is the duty of each ASPSP to perform its own r'
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/ResourceId
+  - term: StandingOrderCharacteristics
+    definition: Specifies the characteristics of a standing order.
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/StandingOrderCharacteristics
+  - term: StartDate
+    definition: The first applicable day of execution for a given period.
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/StartDate
+  - term: StructuredRemittanceInformation
+    definition: Information supplied to enable the matching/reconciliation of an entry with the items that the payment is intended to settle,
+      such as commercial invoices in an accounts' receivable system, in a structured form.
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/StructuredRemittanceInformation
+  - term: TaxAmount
+    definition: 'ISO20022: Set of elements used to provide information on the amount of the tax record. API: Amounts must always be set as positive
+      values. | Property | Description | | -------- | ----------- | | rate | Rate used to calculate the tax. | | taxableBaseAmount | Amount of
+      money on which the tax is based. | | totalAmount | Total amount that is the result of the calculation of the tax for the record. | |'
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/TaxAmount
+  - term: TaxCharges
+    definition: 'ISO20022: Provides details on the tax applied to charges. - The [rate] property is the rate used to calculate the tax. - the
+      [amount] property is the amount of money resulting from the calculation of the tax. API: Amounts must always be set as positive values.'
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/TaxCharges
+  - term: TaxInformation
+    definition: 'ISO20022: Details about tax paid, or to be paid, to the government in accordance with the law, including pre-defined parameters
+      such as thresholds and type of account. API: Amounts must always be set as positive values. The [totalTaxableBaseAmount] property indicates
+      the total amount of money on which the tax is based. The [totalTaxAmount] property indicates the total amount of money as result of '
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/TaxInformation
+  - term: TaxParty
+    definition: Set of elements used to identify a party of the transaction to which the tax applies. The [authorization] property aims to provide
+      the details of the authorised tax paying party.
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/TaxParty
+  - term: TaxPeriod
+    definition: Set of elements used to provide details on the period of time related to the tax payment. The [type] property aims to identify
+      the period related to the tax payment.
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/TaxPeriod
+  - term: TaxRecord
+    definition: Record of tax details the [period] property embbeds the set of elements used to provide details on the period of time related
+      to the tax payment. the [amount] property embbeds the set of elements used to provide information on the amount of the tax record.
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/TaxRecord
+  - term: TaxRecordDetails
+    definition: 'ISO20022: Elements used to provide details on the tax period and amount. API: Amounts must always be set as positive values.
+      | Property | Description | | -------- | ----------- | | period | Set of elements used to provide details on the period of time related to
+      the tax payment. | | amount | Underlying tax amount related to the specified period. |'
+    tags:
+    - Object
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/TaxRecordDetails
+  - term: TaxRecordPeriodCode
+    definition: Identification of the period related to the tax payment. | Code | Description | | ---- | ---------- | | MM01 | FirstMonth Tax
+      is related to the second month of the period. | | MM02 | SecondMonth Tax is related to the first month of the period. | | MM03 | ThirdMonth
+      Tax is related to the third month of the period. | | MM04 | FourthMonth Tax is related to the fourth month of the period. | | MM05 | F
+    tags:
+    - Enumeration
+    source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml#/components/schemas/TaxRecordPeriodCode

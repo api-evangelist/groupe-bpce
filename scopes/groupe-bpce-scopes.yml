@@ -1,0 +1,230 @@
+generated: '2026-10-09'
+method: searched
+source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml, openapi/groupe-bpce-natixis-wealth-management-psd2-accounts-openapi.yml,
+  openapi/groupe-bpce-open-finance-transfer-openapi.yml, openapi/groupe-bpce-psd2-accounts-openapi.yml, openapi/groupe-bpce-psd2-funds-availability-openapi.yml,
+  openapi/groupe-bpce-psd2-payments-openapi.yml, https://apistore.groupebpce.com/api/psd2-registration, https://apistore.groupebpce.com/api/account-information-services-3
+schemes:
+- name: accessCode
+  source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: /stet/psd2/oauth/authorize
+    tokenUrl: /stet/psd2/oauth/token
+  description: 'In order to access the PSU''s account information, the AISP needs to get either an authorization
+    code grant or a Client Initiated Backchannel Authentication token.
+
+    In order to post a funds confirmation request, the CBPII needs to get either an authorization code grant or
+    a Client Initiated Backchannel Authentication token when registration of the account has not been previously
+    processed.
+
+    In order to confirm a Payment or Transfer Request, the PISP needs to get either an authorization code grant
+    or a Client Initiated Backchannel Authentication token.
+
+    The client_id field within the token request must be filled with the value of the organization identifier attribute
+    that was set in the distinguished name of eIDAS certificate of the TPP, according to ETSI recommandations.
+
+    (cf §5.2.1 of [ETSI specfication](https://www.etsi.org/standards-search#page=1&search=TS119495))'
+- name: accessCode
+  source: openapi/groupe-bpce-natixis-wealth-management-psd2-accounts-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: /stet/psd2/oauth/authorize
+    tokenUrl: /stet/psd2/oauth/token
+  description: 'In order to access the PSU''s account information, the AISP needs to get either an authorization
+    code grant or a Client Initiated Backchannel Authentication token.
+
+    In order to post a funds confirmation request, the CBPII needs to get either an authorization code grant or
+    a Client Initiated Backchannel Authentication token when registration of the account has not been previously
+    processed.
+
+    In order to confirm a Payment or Transfer Request, the PISP needs to get either an authorization code grant
+    or a Client Initiated Backchannel Authentication token.
+
+    The client_id field within the token request must be filled with the value of the organization identifier attribute
+    that was set in the distinguished name of eIDAS certificate of the TPP, according to ETSI recommandations.
+
+    (cf §5.2.1 of [ETSI specfication](https://www.etsi.org/standards-search#page=1&search=TS119495))'
+- name: oauth2-authorizationCodePKCE-moneyTransfer
+  source: openapi/groupe-bpce-open-finance-transfer-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: /api/oauth/authorize
+    tokenUrl: /api/oauth/token
+- name: accessCode
+  source: openapi/groupe-bpce-psd2-accounts-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: /stet/psd2/oauth/authorize
+    tokenUrl: /stet/psd2/oauth/token
+  description: 'In order to access the PSU''s account information, the AISP needs to get either an authorization
+    code grant or a Client Initiated Backchannel Authentication token.
+
+    In order to post a funds confirmation request, the CBPII needs to get either an authorization code grant or
+    a Client Initiated Backchannel Authentication token when registration of the account has not been previously
+    processed.
+
+    In order to confirm a Payment or Transfer Request, the PISP needs to get either an authorization code grant
+    or a Client Initiated Backchannel Authentication token.
+
+    The client_id field within the token request must be filled with the value of the organization identifier attribute
+    that was set in the distinguished name of eIDAS certificate of the TPP, according to ETSI recommandations.
+
+    (cf §5.2.1 of [ETSI specfication](https://www.etsi.org/standards-search#page=1&search=TS119495))'
+- name: accessCode
+  source: openapi/groupe-bpce-psd2-funds-availability-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: /stet/psd2/oauth/authorize
+    tokenUrl: /stet/psd2/oauth/token
+  description: 'In order to access the PSU''s account information, the AISP needs to get either an authorization
+    code grant or a Client Initiated Backchannel Authentication token.
+
+    In order to post a funds confirmation request, the CBPII needs to get either an authorization code grant or
+    a Client Initiated Backchannel Authentication token when registration of the account has not been previously
+    processed.
+
+    In order to confirm a Payment or Transfer Request, the PISP needs to get either an authorization code grant
+    or a Client Initiated Backchannel Authentication token.
+
+    The client_id field within the token request must be filled with the value of the organization identifier attribute
+    that was set in the distinguished name of eIDAS certificate of the TPP, according to ETSI recommandations.
+
+    (cf §5.2.1 of [ETSI specfication](https://www.etsi.org/standards-search#page=1&search=TS119495))'
+- name: clientCredentials
+  source: openapi/groupe-bpce-psd2-funds-availability-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: /stet/psd2/oauth/token
+  description: 'In order to post, get or cancel a Payment or Transfer Request, the PISP needs to get a client credential
+    OAUTH2 token.
+
+    In order to confirm a Payment or Transfer Request, the PISP needs to get either an authorization code grant
+    or a client credential OAUTH2 token.
+
+    In order to post a funds confirmation request, the CBPII needs to get a client credential OAUTH2 token when
+    registration of the account has already been previously processed.
+
+    The client_id field within the token request must be filled with the value of the organization identifier attribute
+    that was set in the distinguished name of eIDAS certificate of the TPP, according to ETSI recommandations.
+
+    (cf §5.2.1 of [ETSI specfication](https://www.etsi.org/standards-search#page=1&search=TS119495))'
+- name: accessCode
+  source: openapi/groupe-bpce-psd2-payments-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: /psd2/oauth/authorize
+    tokenUrl: /stet/psd2/oauth/token
+  description: 'In order to access the PSU''s account information, the AISP needs to get either an authorization
+    code grant or a Client Initiated Backchannel Authentication token.
+
+    In order to post a funds confirmation request, the CBPII needs to get either an authorization code grant or
+    a Client Initiated Backchannel Authentication token when registration of the account has not been previously
+    processed.
+
+    In order to confirm a Payment or Transfer Request, the PISP needs to get either an authorization code grant
+    or a Client Initiated Backchannel Authentication token.
+
+    The client_id field within the token request must be filled with the value of the organization identifier attribute
+    that was set in the distinguished name of eIDAS certificate of the TPP, according to ETSI recommandations.
+
+    (cf §5.2.1 of [ETSI specfication](https://www.etsi.org/standards-search#page=1&search=TS119495))'
+- name: clientCredentials
+  source: openapi/groupe-bpce-psd2-payments-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: /stet/psd2/oauth/token
+  description: 'In order to post, get or cancel a Payment or Transfer Request, the PISP needs to get a client credential
+    OAUTH2 token.
+
+    In order to confirm a Payment or Transfer Request, the PISP needs to get either an authorization code grant
+    or a client credential OAUTH2 token.
+
+    In order to post a funds confirmation request, the CBPII needs to get a client credential OAUTH2 token when
+    registration of the account has already been previously processed.
+
+    The client_id field within the token request must be filled with the value of the organization identifier attribute
+    that was set in the distinguished name of eIDAS certificate of the TPP, according to ETSI recommandations.
+
+    (cf §5.2.1 of [ETSI specfication](https://www.etsi.org/standards-search#page=1&search=TS119495))'
+scopes:
+- scope: aisp
+  description: Access by an AISP to one given PSU's account
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml
+  - openapi/groupe-bpce-natixis-wealth-management-psd2-accounts-openapi.yml
+  - openapi/groupe-bpce-psd2-accounts-openapi.yml
+- scope: cbpii
+  description: Access by a CBPII to one given PSU's account to check payment coverage
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/groupe-bpce-psd2-funds-availability-openapi.yml
+- scope: extended_transaction_history
+  description: Access by an AISP to a transaction history over more than the 90 last days
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml
+  - openapi/groupe-bpce-natixis-wealth-management-psd2-accounts-openapi.yml
+  - openapi/groupe-bpce-psd2-accounts-openapi.yml
+- scope: moneyTransfer.externalAccounts:READ
+  description: Scope for read External accounts
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/groupe-bpce-open-finance-transfer-openapi.yml
+- scope: moneyTransfer.externalAccounts:WRITE
+  description: Scope for write External accounts
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/groupe-bpce-open-finance-transfer-openapi.yml
+- scope: moneyTransfer.internalAccounts:READ
+  description: Scope for read Internal accounts
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/groupe-bpce-open-finance-transfer-openapi.yml
+- scope: moneyTransfer.transferRequests.confirmations:WRITE
+  description: Scope for transfer requests confirmations.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/groupe-bpce-open-finance-transfer-openapi.yml
+- scope: moneyTransfer.transferRequests:DELETE
+  description: Scope to delete transfer requests.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/groupe-bpce-open-finance-transfer-openapi.yml
+- scope: moneyTransfer.transferRequests:READ
+  description: Minimal scope for consultation of transfer requests
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/groupe-bpce-open-finance-transfer-openapi.yml
+- scope: moneyTransfer.transferRequests:WRITE
+  description: Scope to create or modify transfer requests
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/groupe-bpce-open-finance-transfer-openapi.yml
+- scope: pisp
+  description: Access by a PISP for posting a confirmation after authentication of the PSU through OAUTH2 Authorization
+    Code
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/groupe-bpce-psd2-payments-openapi.yml
+- name: manageRegistration
+  description: Client-credentials scope for the PSD2 Registration API token (POST /token with generic client_id
+    "PSD2_TPPRegister", mutual TLS with QWAC). Not declared in the registration spec.
+  source: https://apistore.groupebpce.com/api/psd2-registration
+docs: https://apistore.groupebpce.com/api/psd2-registration
+notes: 'Registration payload field "scope": "TPP scopes are comma separated, and possible values are : “aisp” and/or
+  “pisp” and/or “cbpii”". AIS docs: Authorization Code /token requests "shall be sent WITHOUT the « scope » parameter";
+  client_credentials uses scope=aisp.'

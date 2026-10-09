@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/groupe-bpce/main/json-schema/groupe-bpce-hal-balances-schema.json",
+  "title": "HalBalances",
+  "description": "HYPERMEDIA structure used for returning the list of the relevant balances for a given account to the AISP",
+  "x-generated": "2026-10-09",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/groupe-bpce-psd2-accounts-openapi.yml#/components/schemas/HalBalances",
+  "type": "object",
+  "properties": {
+    "balances": {
+      "description": "List of account balances",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/BalanceResource"
+      },
+      "minItems": 1
+    },
+    "_links": {
+      "$ref": "#/$defs/BalancesLinks"
+    }
+  },
+  "required": [
+    "balances",
+    "_links"
+  ],
+  "$defs": {
+    "AmountType": {
+      "description": "Structure aiming to embed the amount and the currency to be used.\n",
+      "type": "object",
+      "properties": {
+        "amount": {
+          "description": "ISO20022: Amount of money to be moved between the debtor and creditor, before deduction of charges, expressed in the currency as ordered by the initiating party.\n",
+          "type": "number",
+          "format": "float",
+          "pattern": "^\\-{0,1}[0-9]{1,13}(\\.[0-9]{0,5}){0,1}$"
+        },
+        "currency": {
+          "$ref": "#/$defs/CurrencyCode"
+        }
+      },
+      "required": [
+        "amount",
+        "currency"
+      ]
+    },
+    "BalanceResource": {
+      "description": "Structure of an account balance",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Label of the balance",
+          "type": "string",
+          "maxLength": 70
+        },
+        "balanceAmount": {
+          "$ref": "#/$defs/AmountType"
+        },
+        "balanceType": {
+          "$ref": "#/$defs/BalanceStatus"
+        },
+        "lastChangeDateTime": {
+          "description": "Timestamp of the last change of the balance amount",
+          "type": "string",
+          "format": "date-time"
+        },
+        "referenceDate": {
+          "description": "Reference date for the balance",
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastCommittedTransaction": {
+          "description": "Identification of the last committed transaction. This is actually useful for instant balance.\n",
+          "type": "string",
+          "maxLength": 40
+        }
+      },
+      "required": [
+        "name",
+        "balanceAmount",
+        "balanceType"
+      ]
+    },
+    "BalanceStatus": {
+      "description": "Type of balance\n| Code | Name | Description |\n| ---- | ---- | ----------- |\n| CLBD | ISO20022 ClosingBooked | Balance of the account at the end of the pre-agreed account reporting period. It is the sum of the opening booked balance at the beginning of the period and all entries booked to the account during the pre-agreed account reporting period.  |\n| PRCD | ISO20022 PreviouslyClosedBooked | Balance of the account at the previously closed account reporting period. The opening booked balance for the new period has to be equal to this balance. Usage: the previously booked closing balance should equal (inclusive date) the booked closing balance of the date it references and equal the actual booked opening balance of the current date. |\n| ITAV | ISO20022 InterimAvailable | Available balance calculated in the course of the account servicer's business day, at the time specified, and subject to further changes during the business day. The interim balance is calculated on the basis of booked credit and debit items during the calculation time/period specified.  |\n| XPCD | ISO20022 Expected | Balance, composed of booked entries and pending items known at the time of calculation, which projects the end of day balance if everything is booked on the account and no other entry is posted.  |\n| VALU | (None) | Value-date balance |\n| OTHR | (None) | Other Balance |\n",
+      "type": "string",
+      "enum": [
+        "CLBD",
+        "XPCD",
+        "VALU",
+        "OTHR",
+        "PRCD",
+        "ITAV"
+      ]
+    },
+    "BalancesLinks": {
+      "description": "links that can be used for further navigation when browsing balances Information at one account level\n| Link | Description |\n| ---- | ----------- |\n| self | link to the balances of a given account |\n| parent-list | link to the list of all available accounts |\n| owners | link to the owners identities for a given account |\n| transactions | link to the transactions of a given account |\n| overdrafts | link to the lists of overdrafts of a given account |\n",
+      "type": "object",
+      "properties": {
+        "self": {
+          "$ref": "#/$defs/GenericLink"
+        },
+        "parent-list": {
+          "$ref": "#/$defs/GenericLink"
+        },
+        "owners": {
+          "$ref": "#/$defs/GenericLink"
+        },
+        "transactions": {
+          "$ref": "#/$defs/GenericLink"
+        },
+        "overdrafts": {
+          "$ref": "#/$defs/GenericLink"
+        }
+      },
+      "required": [
+        "self"
+      ],
+      "readOnly": true
+    },
+    "CurrencyCode": {
+      "description": "Specifies the currency of the amount or of the account.\nA code allocated to a currency by a Maintenance Agency under an international identification scheme, as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\".\n",
+      "type": "string",
+      "pattern": "^[A-Z]{3,3}$"
+    },
+    "GenericLink": {
+      "description": "hypertext reference",
+      "type": "object",
+      "properties": {
+        "href": {
+          "description": "URI to be used. HREF stands for Hypertext REFerence.",
+          "type": "string",
+          "maxLength": 2000
+        },
+        "templated": {
+          "description": "This field must be set with \"true\"  when [href] is an URI template, i.e. with parameters that will be set by the client afterwards. Parameter fields must be included by the API server according to RFC6570.\nOtherwise, this property must be absent or set to false\ndefault value: false\n",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "href"
+      ]
+    }
+  }
+}

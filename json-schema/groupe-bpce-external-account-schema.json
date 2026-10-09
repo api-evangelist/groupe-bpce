@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/groupe-bpce/main/json-schema/groupe-bpce-external-account-schema.json",
+  "title": "ExternalAccount",
+  "description": "Characteristics of an account beneficiary for making transfers, authorized to the user of the subscription. This may be an IBAN registered by the subscriber to make transfers to third parties, but also a subset of his own accounts in the banking establishment and which are eligible for credit as part of a transfer account to account.",
+  "x-generated": "2026-10-09",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/groupe-bpce-open-finance-transfer-openapi.yml#/components/schemas/ExternalAccount",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/$defs/Account"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/$defs/ExternalAccountStatus"
+        },
+        "activationDateTime": {
+          "description": "If the beneficiary account is being activated, indicates the date from which it will be usable.",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "isHolder": {
+          "description": "Indicates whether the subscriber is the owner or co-owner of the beneficiary account. Declarative data.",
+          "type": "boolean",
+          "default": false
+        },
+        "groupLabels": {
+          "description": "Name of the beneficiary groups to which the account is attached.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 32
+          },
+          "readOnly": true
+        }
+      },
+      "required": [
+        "status"
+      ]
+    }
+  ],
+  "$defs": {
+    "Account": {
+      "title": "Account",
+      "description": "This object stands for an bank account.",
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "description": "Identifier of the account",
+          "type": "string",
+          "readOnly": true
+        },
+        "label": {
+          "description": "Label of the account.",
+          "type": "string"
+        },
+        "accountNumber": {
+          "description": "Number of the account.",
+          "type": "string"
+        },
+        "iban": {
+          "description": "ISO 13616 format for a bank account.",
+          "type": "string"
+        },
+        "financialInstitution": {
+          "$ref": "#/$defs/FinancialInstitution"
+        },
+        "currencies": {
+          "description": "Currencies of the account.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Currency"
+          },
+          "readOnly": true
+        }
+      },
+      "required": [
+        "accountId",
+        "label",
+        "accountNumber"
+      ]
+    },
+    "Currency": {
+      "title": "Currency",
+      "description": "A Currency object, with a code and an optional label.",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "An ISO 3166 3-char code for a currency.",
+          "type": "string"
+        },
+        "label": {
+          "description": "A human readable label for the currency.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code"
+      ]
+    },
+    "ExternalAccountStatus": {
+      "title": "ExternalAccountStatus",
+      "description": "Status of the external account (beneficiary). <table><tr><td>Code</td> <td>Meaning</td></tr><tr><td>DELETED</td> <td>The external account has been canceled. It will not be usable anymore.</td></tr><tr><td>ACTIVATION_IN_PROGRESS</td> <td>The external account has been created but is not usable yet.</td></tr><tr><td>ACTIVATED</td> <td>The external account can be used for a new transfer.</td></tr></table>",
+      "type": "string",
+      "enum": [
+        "DELETED",
+        "ACTIVATION_IN_PROGRESS",
+        "ACTIVATED"
+      ],
+      "readOnly": true
+    },
+    "FinancialInstitution": {
+      "title": "Financial Institution",
+      "description": "A financial Institution is a legitimate organization contributing to financial operations. It is not necessarily a Bank.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Financial institution identifier.",
+          "type": "string",
+          "readOnly": true
+        },
+        "label": {
+          "description": "Financial institution label",
+          "type": "string",
+          "readOnly": true
+        },
+        "identifiers": {
+          "description": "Financial institution identifier value and type.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "SWIFT",
+                  "BIC",
+                  "BANQUE_DE_FRANCE",
+                  "ABA"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "identifiers"
+      ],
+      "readOnly": true
+    }
+  }
+}

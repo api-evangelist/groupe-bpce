@@ -1,0 +1,40 @@
+generated: '2026-10-09'
+method: searched
+source: https://apistore.groupebpce.com/api/account-information-services-3; https://apistore.groupebpce.com/api/payment-initiation-3
+description: Per-product "Release notes" tables on the API Store product pages.
+docs: https://apistore.groupebpce.com/api/account-information-services-3
+versioning:
+  scheme: STET-aligned product versions
+  current: 1.6.2
+entries:
+- version: 1.6.2
+  date: '2026-01-27'
+  product: Payment Initiation
+  breaking: false
+  highlights:
+  - 'Portal documentation : change URL from www.<cdetab>.oba-bad-me-live.api.89c3.com to www.<cdetab>.oba-bad-me-live-api.89c3.com'
+  source: https://apistore.groupebpce.com/api/payment-initiation-3
+- version: 1.6.2
+  date: '2026-01-26'
+  product: Account Information Services
+  breaking: false
+  highlights:
+  - 'Documentation : correction of the URL from oba-bad-me-live.api to oba-bad-me-live-api'
+  source: https://apistore.groupebpce.com/api/account-information-services-3
+- version: 1.6.2
+  date: '2022-11-16'
+  product: Payment Initiation
+  breaking: true
+  highlights:
+  - Alignment on PSD2 API STET v1.6.2.0
+  source: https://apistore.groupebpce.com/api/payment-initiation-3
+- version: 1.6.2
+  date: '2022-10-20'
+  product: Account Information Services
+  breaking: true
+  highlights:
+  - Alignment on PSD2 API STET v1.6.2.0
+  - New consent management
+  - New methods supported (overdrafts & transaction details if available)
+  note: 'Roadmap: Dev Portal & Sandbox October 20, 2022; BPCE Live API Gateway Februray 08, 2023'
+  source: https://apistore.groupebpce.com/api/account-information-services-3

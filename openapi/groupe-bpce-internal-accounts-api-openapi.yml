@@ -1,0 +1,418 @@
+openapi: 3.2.0
+info:
+  title: Groupe Bpce Internal Accounts API
+  version: 1.1.1
+  contact:
+    name: BPCE
+    url: https://developer.bpce.fr/support/
+  license:
+    name: Copyright BPCE
+    url: https://developer.bpce.fr/mentions-legales/
+  termsOfService: https://developer.bpce.fr/mentions-legales/
+  x-internal-id: RMT001
+  description: 'Operations tagged Internal Accounts across 2 of this provider''s published API definitions: moneytransfer-oas3-public-v1.1.1.json, groupe-bpce-open-finance-transfer-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- description: prod
+  url: https://api.groupebpce.com/{domain}/moneyTransfer/v1
+  variables:
+    domain:
+      default: retail
+tags:
+- name: Internal Accounts
+  description: Internal Accounts Management.
+paths:
+  /internalAccounts:
+    parameters: []
+    get:
+      operationId: getInternalAccounts
+      summary: Get the internal accounts
+      description: Get the internal accounts. These accounts are usable for debit within a transfer of the current subscriber.
+      parameters:
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageNumber'
+      - $ref: '#/components/parameters/After'
+      responses:
+        '200':
+          description: Response object that embeds internal accounts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    description: List of available internal accounts for source accounts within transfers
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/InternalAccount'
+                  page:
+                    $ref: '#/components/schemas/Page'
+                required:
+                - items
+              examples:
+                Banque Populaire - one current account:
+                  value:
+                    items:
+                    - accountId: 13807-1-CPT31719694553
+                      label: DUPONT JEAN
+                      accountNumber: '31719694553'
+                      iban: FR7613807000343179999999943
+                      financialInstitution:
+                        id: 1-CCBPFRPPNAN
+                        label: BANQUE POPULAIRE GRAND OUEST
+                        identifiers:
+                        - value: CCBPFRPPNAN
+                          type: BIC
+                      currencies:
+                      - code: EUR
+                        label: EUR
+                      productLabel: COMPTE CHEQUE
+                      ownerLabel: DUPONT JEAN
+                      balance:
+                        value: 2729.81
+                        currencyCode: EUR
+                    page:
+                      pageSize: 1
+                      pageNumber: 1
+                      totalElements: 1
+                      totalPages: 1
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/Unexpected'
+        '503':
+          $ref: '#/components/responses/Unavailable'
+      security:
+      - oauth2-authorizationCodePKCE-moneyTransfer:
+        - moneyTransfer.internalAccounts:READ
+      tags:
+      - Internal Accounts
+      deprecated: false
+    servers:
+    - description: prod
+      url: https://api.groupebpce.com/{domain}/moneyTransfer/v1
+      variables:
+        domain:
+          default: retail
+components:
+  schemas:
+    Currency:
+      title: Currency
+      description: A Currency object, with a code and an optional label.
+      type: object
+      properties:
+        code:
+          description: An ISO 3166 3-char code for a currency.
+          type: string
+          example: EUR
+        label:
+          description: A human readable label for the currency.
+          type: string
+          example: Euro
+      required:
+      - code
+    Page:
+      description: A pagination structure. This may be a pagination by index or by cursor.
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/PaginationByIndex'
+      - $ref: '#/components/schemas/PaginationByCursor'
+    Error:
+      description: Error produced during request processing.
+      type: object
+      properties:
+        code:
+          description: Error code.
+          type: string
+          example: bpce.accountDebtor
+        message:
+          description: Error message.
+          type: string
+          example: Le compte émetteur n'a pas été trouvé ou a été clôturé.
+        attribute:
+          description: Attribute concerned by the error.
+          type: string
+          example: error.attribute
+      required:
+      - code
+      - message
+    Account:
+      title: Account
+      description: This object stands for an bank account.
+      type: object
+      properties:
+        accountId:
+          description: Identifier of the account
+          type: string
+          readOnly: true
+          example: 13807-1-CPT31719694553
+        label:
+          description: Label of the account.
+          type: string
+          example: DUPONT JEAN
+        accountNumber:
+          description: Number of the account.
+          type: string
+          example: '31719694553'
+        iban:
+          description: ISO 13616 format for a bank account.
+          type: string
+          example: FR7613807000343179999999943
+        financialInstitution:
+          $ref: '#/components/schemas/FinancialInstitution'
+        currencies:
+          description: Currencies of the account.
+          type: array
+          items:
+            $ref: '#/components/schemas/Currency'
+          readOnly: true
+          example:
+          - code: EUR
+            label: Euro
+      required:
+      - accountId
+      - label
+      - accountNumber
+    PaginationByIndex:
+      title: PaginationByIndex
+      description: Pagination by index of page.
+      type: object
+      properties:
+        pageSize:
+          description: Number of items by page
+          type: integer
+          format: int64
+          minimum: 1
+          example: 50
+        pageNumber:
+          description: Page number requested.
+          type: integer
+          format: int64
+          minimum: 1
+          example: 1
+        totalElements:
+          description: Number of items matching the query
+          type: integer
+          format: int64
+          minimum: 0
+          example: 20
+        totalPages:
+          description: Number of pages of items matching the query
+          type: integer
+          format: int64
+          minimum: 0
+          example: 1
+      required:
+      - pageSize
+      - pageNumber
+    Errors:
+      description: List of errors
+      type: object
+      properties:
+        errors:
+          description: List of errors
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          example:
+          - code: bpce.accountDebtor
+            message: Le compte émetteur n'a pas été trouvé ou a été clôturé.
+      required:
+      - errors
+      example:
+        errors:
+        - code: bpce.accountDebtor
+          message: Le compte émetteur n'a pas été trouvé ou a été clôturé.
+    InternalAccount:
+      description: Account contract authorized to the user of the subscription and debitable as part of a transfer
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Account'
+      - type: object
+        properties:
+          productLabel:
+            description: Product commercial name
+            type: string
+            example: Compte courant
+          ownerLabel:
+            description: Designates the owner of the account. Can be a group label if there is several owners.
+            type: string
+            example: PAUL DURAND
+          balance:
+            $ref: '#/components/schemas/Amount'
+        required:
+        - productLabel
+    Amount:
+      description: Default objet which stands for an amount (number value + currency code).
+      type: object
+      properties:
+        value:
+          description: Value of the amount.
+          type: number
+          format: double
+          example: 3.18
+        currencyCode:
+          description: Alphabetical code of the currency code (ISO 4217)
+          type: string
+          example: EUR
+      required:
+      - value
+      - currencyCode
+      example:
+        value: 517.14
+        currencyCode: EUR
+    PaginationByCursor:
+      description: Pagination via cursor of the last element of the previous call.
+      type: object
+      properties:
+        pageSize:
+          description: Number of items by page
+          type: integer
+          format: int64
+          minimum: 0
+          example: 50
+        after:
+          description: 'Cursor of the last element of the previous call.
+
+            Used to get the next page.'
+          type: string
+          example: 13807-1-CPT31719694553
+      required:
+      - pageSize
+      - after
+    FinancialInstitution:
+      title: Financial Institution
+      description: A financial Institution is a legitimate organization contributing to financial operations. It is not necessarily a Bank.
+      type: object
+      properties:
+        id:
+          description: Financial institution identifier.
+          type: string
+          readOnly: true
+          example: 1-CCBPFRPPNAN
+        label:
+          description: Financial institution label
+          type: string
+          readOnly: true
+          example: BANQUE POPULAIRE GRAND OUEST
+        identifiers:
+          description: Financial institution identifier value and type.
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              type:
+                type: string
+                enum:
+                - SWIFT
+                - BIC
+                - BANQUE_DE_FRANCE
+                - ABA
+          example:
+          - value: CCBPFRPPNAN
+            type: BIC
+      required:
+      - id
+      - label
+      - identifiers
+      readOnly: true
+      example:
+        id: 1-CCBPFRPPNAN
+        label: BANQUE POPULAIRE GRAND OUEST
+        identifiers:
+        - value: CCBPFRPPNAN
+          type: BIC
+  responses:
+    Unauthorized:
+      description: Unauthorized - HTTP 401
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Unexpected:
+      description: Internal Server Error - HTTP 500.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Forbidden:
+      description: Forbidden - HTTP 403
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    BadRequest:
+      description: Bad Request - HTTP 400
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          examples:
+            closed source account:
+              value:
+                errors:
+                - code: bpce.accountDebtor
+                  message: Le compte émetteur n'a pas été trouvé ou a été clôturé.
+                  attribute: string
+            Refusal for confirming a transfer request due to delegation issue:
+              value:
+                errors:
+                - code: bpce.delegation.hasToBeDoneOnBankWebSite
+                  message: le lot de virement doit être validé sur le site WEB de la Banque à Distance
+    Unavailable:
+      description: Service Unavailable - HTTP 503.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+  parameters:
+    PageSize:
+      name: pageSize
+      in: query
+      example: 50
+      required: false
+      schema:
+        type: integer
+        format: int32
+      description: Number of elements per page
+    After:
+      name: after
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Cursor of the last element of the previous call. Used to get the next page. Default value point to the first element
+    PageNumber:
+      name: pageNumber
+      in: query
+      example: 2
+      required: false
+      schema:
+        type: integer
+        format: int32
+      description: Number of the current page
+  securitySchemes:
+    oauth2-authorizationCodePKCE-moneyTransfer:
+      type: oauth2
+      flows:
+        authorizationCode:
+          scopes:
+            moneyTransfer.externalAccounts:READ: Scope for read External accounts
+            moneyTransfer.externalAccounts:WRITE: Scope for write External accounts
+            moneyTransfer.internalAccounts:READ: Scope for read Internal accounts
+            moneyTransfer.transferRequests:READ: Minimal scope for consultation of transfer requests
+            moneyTransfer.transferRequests:WRITE: Scope to create or modify transfer requests
+            moneyTransfer.transferRequests:DELETE: Scope to delete transfer requests.
+            moneyTransfer.transferRequests.confirmations:WRITE: Scope for transfer requests confirmations.
+          authorizationUrl: /api/oauth/authorize
+          refreshUrl: /api/oauth/refresh
+          tokenUrl: /api/oauth/token
+      description: ''
+x-refined-from:
+- moneytransfer-oas3-public-v1.1.1.json
+- groupe-bpce-open-finance-transfer-openapi.yml

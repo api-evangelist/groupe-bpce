@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/groupe-bpce/main/json-schema/groupe-bpce-confirmation-resource-schema.json",
+  "title": "ConfirmationResource",
+  "description": "Confirmation request resource",
+  "x-generated": "2026-10-09",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/groupe-bpce-psd2-payments-openapi.yml#/components/schemas/ConfirmationResource",
+  "type": "object",
+  "properties": {
+    "nonce": {
+      "$ref": "#/$defs/Nonce"
+    },
+    "psuAuthenticationFactor": {
+      "description": "authentication factor forwarded by the TPP to the ASPSP in order to fulfil the strong customer authentication process",
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "Nonce": {
+      "description": "Challenge to be sent in order to avoid replay of the authentication process.\n",
+      "type": "string",
+      "maxLength": 70
+    }
+  }
+}

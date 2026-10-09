@@ -1,0 +1,51 @@
+generated: '2026-10-09'
+method: searched
+source: https://apistore.groupebpce.com/api/payment-initiation-3; https://apistore.groupebpce.com/api/psd2-registration
+format: STET PSD2 error body (status/message/error code) — not RFC 9457
+envelope:
+  pis: 'error code / message (e.g. "error code : FF01 message : RJCT")'
+  registration: error, error_description
+problems:
+- status: 400
+  title: Bad request
+  type: FF01
+  description: 'Generic, bad structure; also wrong format for BIC, serviceLevel (SEPA, NURG), chargeBearer (SLEV),
+    schemeName, purpose, categoryPurpose — "error code : FF01 message : RJCT"'
+  remediation: Fix the request body against the documented enums/formats.
+  source: https://apistore.groupebpce.com/api/payment-initiation-3
+- status: 403
+  title: Forbidden
+  description: Wrong access token, authentication issue
+  remediation: Obtain a valid OAuth2 token with the right scope (aisp/pisp/cbpii).
+  source: https://apistore.groupebpce.com/api/payment-initiation-3
+- status: 404
+  title: Not Found
+  description: Unknown request resource
+  source: https://apistore.groupebpce.com/api/payment-initiation-3
+- status: 405
+  title: Method not allowed
+  description: Wrong request, or request out of authorized scope
+  source: https://apistore.groupebpce.com/api/payment-initiation-3
+- status: 500
+  title: Internal server error
+  description: Generic message
+  source: https://apistore.groupebpce.com/api/payment-initiation-3
+- status: 500
+  title: Internal server error (duplicate)
+  description: 'Duplicate request — "error : Database insertion problem, duplicate unique key"'
+  remediation: Do not resend an already-accepted payment request.
+  source: https://apistore.groupebpce.com/api/payment-initiation-3
+- status: 400
+  title: Bad request (registration)
+  description: Error is supplied in fields error and error_description.
+  source: https://apistore.groupebpce.com/api/psd2-registration
+- status: 404
+  title: Resource not allowed (registration)
+  source: https://apistore.groupebpce.com/api/psd2-registration
+- status: 405
+  title: Method not allowed (registration)
+  description: A method other than those described here was used.
+  source: https://apistore.groupebpce.com/api/psd2-registration
+- status: 500
+  title: Internal server error (registration)
+  source: https://apistore.groupebpce.com/api/psd2-registration

@@ -1,0 +1,95 @@
+generated: '2026-10-09'
+method: searched
+probe: true
+source: https://apistore.groupebpce.com/protection-of-personal-data
+scope_note: >-
+  Groupe BPCE (controller BPCE SA) is a French banking group. These pages govern the API Store
+  developer portal apistore.groupebpce.com (privacy notice dated April 30, 2026; terms of use latest
+  version 13/04/2026; RGAA accessibility statement). The terms of use
+  (https://apistore.groupebpce.com/terms-of-use) were read and contain no clause on incident
+  notification, retention, exit or subprocessors. No trust center, subprocessor list, transparency
+  report, AI or SBOM statement was found.
+signals:
+  data_subject_request:
+    url: https://apistore.groupebpce.com/protection-of-personal-data
+    section: '6. Your Rights'
+    channel: delegue-protection-donnees@bpce.fr (subject "APISTORE GROUPE BPCE") or post to the BPCE Data Protection Officer
+    rights_named: [access, rectification, erasure, restriction, portability, objection, withdraw consent, post-mortem instructions]
+    escalation: CNIL
+    evidence:
+    - source: https://apistore.groupebpce.com/protection-of-personal-data
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: >-
+        In accordance with the GDPR and the French Data Protection Act (“Informatique et Libertés”), you
+        have the following rights: right of access, right to rectification, right to erasure, right to
+        restriction of processing, right to data portability, and right to object.
+    - source: https://apistore.groupebpce.com/protection-of-personal-data
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: >-
+        If, after contacting us, you consider that your “Informatique et Libertés” rights have not been
+        respected, you may lodge a complaint with the Commission Nationale de l’Informatique et des
+        Libertés (CNIL), 3 place de Fontenoy, TSA 80715, 75334 PARIS Cedex 07, France.
+    note: >-
+      A published DPO email and postal channel with the GDPR rights listed and CNIL as escalation. No
+      response period is stated and there is no request API. Data portability appears here only as a
+      GDPR data-subject right, not as service exit assistance.
+  data_retention:
+    url: https://apistore.groupebpce.com/protection-of-personal-data
+    section: '4. Data Retention Period'
+    stated_period: one year from the closure of the request
+    evidence:
+    - source: https://apistore.groupebpce.com/protection-of-personal-data
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: >-
+        The personal data will be retained for one year from the closure of the request. Once the
+        retention periods indicated above have expired, the data are deleted or anonymised.
+    note: A concrete retention period for enquiry data on the portal, with deletion or anonymisation after.
+  data_residency:
+    url: https://apistore.groupebpce.com/protection-of-personal-data
+    section: '5. Data Transfers'
+    evidence:
+    - source: https://apistore.groupebpce.com/protection-of-personal-data
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: >-
+        In the context of the provision of the service, the processing of personal data carried out may
+        result in transfers of personal data to countries located outside the European Economic Area
+        (EEA).
+    note: >-
+      Not a residency commitment: the notice says data may leave the EEA under unnamed "appropriate
+      safeguards". No destination countries or region choice are stated.
+  subprocessors:
+    url: https://apistore.groupebpce.com/protection-of-personal-data
+    section: '3. Recipients of the Data'
+    evidence:
+    - source: https://apistore.groupebpce.com/protection-of-personal-data
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: >-
+        The data are disclosed to the following recipients: Staff of BPCE SA, as well as its processors
+        involved in the provision of the services.
+    note: The notice says processors are used but names none. No subprocessor list was found.
+  accessibility_conformance:
+    url: https://apistore.groupebpce.com/accessibilite
+    section: 'Compliance Status'
+    standard: RGAA 4.1.2
+    conformance: partial
+    evidence:
+    - source: https://apistore.groupebpce.com/accessibilite
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: >-
+        API Store Groupe BPCE is partially compliant with the RGAA (General Accessibility Improvement
+        Framework) - version 4.1.2. due to non-conformances listed below:
+    - source: https://apistore.groupebpce.com/accessibilite
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: >-
+        The compliance assessment carried out by Temesis reveals that: 78,57% of the RGAA criteria are
+        met.
+    note: >-
+      A formal RGAA statement under Article 47 of French Law No. 2005-102. Audited by Temesis: 55 criteria
+      compliant, 15 non-compliant, 36 not applicable. The non-compliant criteria are listed.

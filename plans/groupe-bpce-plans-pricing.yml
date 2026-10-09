@@ -1,0 +1,18 @@
+generated: '2026-10-09'
+method: searched
+source: https://apistore.groupebpce.com/api/moneytransfer
+name: Groupe BPCE API Store pricing
+audience: developer-api
+pricing_basis: usage-other
+published: false
+delivery:
+  delivery: managed
+note: No numeric prices are published on the API Store. The FAQ says each product page carries "pricing"; only the
+  moneyTransfer page states a model. PSD2 regulatory APIs show no price.
+plans:
+- name: Money Transfer API
+  description: Pay-per-use; contact the product managers.
+  price_text: The service offering of the Money Transfer API is based on a pay-per-use model.
+  features:
+  - Costs may vary depending on the transaction volume and any additional services subscribed to.
+  limits: []

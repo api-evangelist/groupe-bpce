@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/groupe-bpce/main/json-schema/groupe-bpce-transfer-request-summary-schema.json",
+  "title": "TransferRequestSummary",
+  "description": "Summary of a transfer request. This resource includes only global information of the request. There is no information about the lines details here. The globalAmount property is a free of charge amount.",
+  "x-generated": "2026-10-09",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/groupe-bpce-open-finance-transfer-openapi.yml#/components/schemas/TransferRequestSummary",
+  "type": "object",
+  "properties": {
+    "transferRequestId": {
+      "description": "Identifier related to the transfer request",
+      "type": "string",
+      "readOnly": true
+    },
+    "globalAmount": {
+      "description": "Global amount of the transfer request.",
+      "readOnly": true,
+      "allOf": [
+        {
+          "$ref": "#/$defs/Amount"
+        }
+      ]
+    },
+    "transferRequestStatus": {
+      "$ref": "#/$defs/TransferRequestStatus"
+    },
+    "transfersCount": {
+      "description": "Number of transfers included in this request.",
+      "type": "integer",
+      "format": "int32",
+      "minimum": 1,
+      "readOnly": true
+    },
+    "creationDateTime": {
+      "description": "Date and time of creation for the request.",
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true
+    },
+    "modificationDateTime": {
+      "description": "Date and time of modification for the request.",
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true
+    },
+    "requestedDebitMode": {
+      "$ref": "#/$defs/RequestedTransferRequestDebitMode"
+    },
+    "globalFee": {
+      "description": "Global fees of the transfer request.",
+      "readOnly": true,
+      "allOf": [
+        {
+          "$ref": "#/$defs/Amount"
+        }
+      ]
+    }
+  },
+  "required": [
+    "transferRequestId",
+    "transferRequestStatus",
+    "transfersCount",
+    "creationDateTime"
+  ],
+  "$defs": {
+    "Amount": {
+      "description": "Default objet which stands for an amount (number value + currency code).",
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "Value of the amount.",
+          "type": "number",
+          "format": "double"
+        },
+        "currencyCode": {
+          "description": "Alphabetical code of the currency code (ISO 4217)",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "currencyCode"
+      ]
+    },
+    "RequestedTransferRequestDebitMode": {
+      "title": "RequestedTransferRequestDebitMode",
+      "description": "Indicates how the caller wishes the set of transfer request lines to be debited from the source account ; that is if there should be only one global accounting entry with the global amount or alternatively there should be n single transfers (one accounting entry for one transfer request line). <table><tr><td>Code</td> <td>Meaning</td></tr><tr><td>GROUPED</td> <td>One global accounting entry with the global amount.</td></tr><tr><td>SINGLE</td> <td>One accounting entry for each transfer request line.</td></tr></table>",
+      "type": "string",
+      "enum": [
+        "SINGLE",
+        "GROUPED"
+      ],
+      "default": "GROUPED",
+      "writeOnly": true
+    },
+    "TransferRequestStatus": {
+      "title": "TransferRequestStatus",
+      "description": "State of the transfer request. This state is useful to follow and manage a transfer request only during the entry phase. Once confirmed, rejected or canceled, the transfer request is in a terminal state and will not change, so that it is the state of the transfer request line one must then examinate to know if a transfer have been well processed or not.<table><tr><td>Code</td> <td>Meaning</td></tr><tr><td>INITIALIZED</td> <td>The transfer request has been accepted but all transfer lines has not been processed so that the transfer request confirmation step is not yet available.</td></tr><tr><td>CONFIRMABLE</td> <td>The transfer request has been accepted and all transfer lines has been processed so that the transfer request confirmation step is available.</td></tr><tr><td>CONFIRMED</td> <td>The transfer request has been confirmed. One cannot add additional transfer lines to the transfer request anymore.</td></tr><tr><td>REJECTED</td> <td>The BPCE system has rejected all the lines (for a common cause).</td></tr><tr><td>DELETED</td> <td>The subscriber has canceled the transfer request (all lines are canceled).</td></tr></table>",
+      "type": "string",
+      "enum": [
+        "INITIALIZED",
+        "CONFIRMABLE",
+        "CONFIRMED",
+        "REJECTED",
+        "DELETED"
+      ],
+      "readOnly": true
+    }
+  }
+}

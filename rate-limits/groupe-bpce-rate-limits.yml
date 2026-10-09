@@ -1,0 +1,20 @@
+generated: '2026-10-09'
+method: searched
+source: https://apistore.groupebpce.com/api/account-information-services-3
+name: Groupe BPCE PSD2 access limits
+note: Only the RTS batch-access frequency limit is documented. 429 is declared in the PSD2 specs; no rate-limit
+  response headers are documented.
+limits:
+- name: AISP batch access (no PSU present)
+  window: 1 day
+  max: 4
+  scope: per TPP + ASPSP + account + PSU
+  limit_text: Access to this method is limited to a maximum of 4 batch per day for a given TPP + ASPSP + account
+    + PSU (except if the PSU is connected and has requested this operation)
+  endpoint: GET /balances, GET /transactions, GET /details & GET /overdrafts
+- name: AISP batch mode per IBAN
+  window: 1 day
+  max: 4
+  scope: per TPP per ASPSP per IBAN per PSU
+  limit_text: This method can be called in batch mode up to 4 times per day (per TPP per ASPSP per IBAN per PSU).
+    If the PSU is connected to the TPP, no limits apply.

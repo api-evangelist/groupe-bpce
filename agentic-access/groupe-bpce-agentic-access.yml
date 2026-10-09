@@ -1,0 +1,714 @@
+generated: '2026-10-09'
+method: generated
+source: openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml, openapi/groupe-bpce-natixis-wealth-management-psd2-accounts-openapi.yml,
+  openapi/groupe-bpce-open-finance-transfer-openapi.yml, openapi/groupe-bpce-psd2-accounts-openapi.yml,
+  openapi/groupe-bpce-psd2-funds-availability-openapi.yml, openapi/groupe-bpce-psd2-payments-openapi.yml,
+  openapi/groupe-bpce-psd2-registration-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 49
+  by_action_class:
+    connected: 33
+    acting: 16
+  by_consequence:
+    read: 33
+    write: 7
+    physical: 9
+  human_in_the_loop_required: 0
+operations:
+- path: /accounts
+  method: get
+  operationId: accountsGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - aisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /accounts/{accountResourceId}/owners
+  method: get
+  operationId: accountsOwnersGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - aisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /accounts/{accountResourceId}/balances
+  method: get
+  operationId: accountsBalancesGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - aisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /accounts/{accountResourceId}/transactions
+  method: get
+  operationId: accountsTransactionsGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - aisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /accounts/{accountResourceId}/transactions/{transactionResourceId}/details
+  method: get
+  operationId: accountsTransactionsDetailsGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - aisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /accounts/{accountResourceId}/overdrafts
+  method: get
+  operationId: accountsOverdraftsGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - aisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consents
+  method: put
+  operationId: consentsPut
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - aisp
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /end-user-identity
+  method: get
+  operationId: EndUserIdentityGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - aisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /trusted-beneficiaries
+  method: get
+  operationId: trustedBeneficiariesGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - aisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /accounts
+  method: get
+  operationId: accountsGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - aisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /accounts/{accountResourceId}/owners
+  method: get
+  operationId: accountsOwnersGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - aisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /accounts/{accountResourceId}/balances
+  method: get
+  operationId: accountsBalancesGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - aisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /accounts/{accountResourceId}/transactions
+  method: get
+  operationId: accountsTransactionsGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - aisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /accounts/{accountResourceId}/transactions/{transactionResourceId}/details
+  method: get
+  operationId: accountsTransactionsDetailsGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - aisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /accounts/{accountResourceId}/overdrafts
+  method: get
+  operationId: accountsOverdraftsGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - aisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consents
+  method: put
+  operationId: consentsPut
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - aisp
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /end-user-identity
+  method: get
+  operationId: EndUserIdentityGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - aisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /trusted-beneficiaries
+  method: get
+  operationId: trustedBeneficiariesGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - aisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /internalAccounts
+  method: get
+  operationId: getInternalAccounts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - moneyTransfer.internalAccounts:READ
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /externalAccounts
+  method: get
+  operationId: getExternalAccounts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - moneyTransfer.externalAccounts:READ
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /externalAccounts
+  method: post
+  operationId: createExternalAccount
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - moneyTransfer.externalAccounts:WRITE
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /transferRequests
+  method: post
+  operationId: createTransferRequest
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - moneyTransfer.transferRequests:WRITE
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /transferRequests/{transferRequestId}/errors
+  method: get
+  operationId: getTransferRequestErrors
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - moneyTransfer.transferRequests:READ
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /transferRequests/{transferRequestId}
+  method: get
+  operationId: getTransferRequest
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - moneyTransfer.transferRequests:READ
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /transferRequests/{transferRequestId}
+  method: delete
+  operationId: deleteTransferRequest
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - moneyTransfer.transferRequests:DELETE
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /transferRequests/{transferRequestId}/confirmations
+  method: post
+  operationId: createTransferRequestConfirmation
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - moneyTransfer.transferRequests.confirmations:WRITE
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /transferRequests/{transferRequestId}/transferRequestLines
+  method: post
+  operationId: createTransferRequestTransferRequestLine
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - moneyTransfer.transferRequests:WRITE
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /transferRequests/{transferRequestId}/transferRequestLines
+  method: get
+  operationId: getTransferRequestTransferRequestLines
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - moneyTransfer.transferRequests:READ
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /transferRequests/{transferRequestId}/transferRequestLines/{transferRequestLineId}
+  method: get
+  operationId: getTransferRequestTransferRequestLine
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - moneyTransfer.transferRequests:READ
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /transferRequests/{transferRequestId}/transferRequestLines/{transferRequestLineId}
+  method: delete
+  operationId: deleteTransferRequestTransferRequestLine
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - moneyTransfer.transferRequests:DELETE
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /accounts
+  method: get
+  operationId: accountsGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - aisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /accounts/{accountResourceId}/owners
+  method: get
+  operationId: accountsOwnersGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - aisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /accounts/{accountResourceId}/balances
+  method: get
+  operationId: accountsBalancesGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - aisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /accounts/{accountResourceId}/transactions
+  method: get
+  operationId: accountsTransactionsGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - aisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /accounts/{accountResourceId}/transactions/{transactionResourceId}/details
+  method: get
+  operationId: accountsTransactionsDetailsGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - aisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /accounts/{accountResourceId}/overdrafts
+  method: get
+  operationId: accountsOverdraftsGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - aisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consents
+  method: put
+  operationId: consentsPut
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - aisp
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /end-user-identity
+  method: get
+  operationId: EndUserIdentityGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - aisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /trusted-beneficiaries
+  method: get
+  operationId: trustedBeneficiariesGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - aisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /funds-confirmations
+  method: post
+  operationId: fundsConfirmationsPost
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - cbpii
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /payment-requests
+  method: post
+  operationId: paymentRequestsPost
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - pisp
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /payment-requests/{paymentRequestResourceId}
+  method: get
+  operationId: paymentRequestsGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - pisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /payment-requests/{paymentRequestResourceId}
+  method: put
+  operationId: paymentRequestPut
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - pisp
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /payment-requests/{paymentRequestResourceId}/confirmation
+  method: post
+  operationId: paymentRequestConfirmationPost
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - pisp
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /payment-requests/{paymentRequestResourceId}/transactions
+  method: get
+  operationId: paymentRequestTransactionsGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - pisp
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /register
+  method: post
+  operationId: registrationPost
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /register/{clientId}
+  method: get
+  operationId: registrationGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /register/{clientId}
+  method: put
+  operationId: registrationPut
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /register/{clientId}
+  method: delete
+  operationId: registrationDelete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required

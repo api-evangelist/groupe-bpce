@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/groupe-bpce/main/json-schema/groupe-bpce-hal-authentication-request-schema.json",
+  "title": "HalAuthenticationRequest",
+  "description": "Data forwarded by the ASPSP top the PISP after creation of the Payment Request resource creation\nThe ASPSP, based on the authentication approaches proposed by the PISP, choose the one that it can processed, in respect with the preferences and constraints of the PSU and indicates in this field which approach was chosen.\nIt may happen that the ASPSP considers that, in case of payment cancellation request, there is no need for authentication and will then return \"NONE\".\n",
+  "x-generated": "2026-10-09",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/groupe-bpce-psd2-payments-openapi.yml#/components/schemas/HalAuthenticationRequest",
+  "type": "object",
+  "properties": {
+    "appliedAuthenticationApproach": {
+      "$ref": "#/$defs/AuthenticationApproach"
+    },
+    "nonce": {
+      "$ref": "#/$defs/Nonce"
+    },
+    "_links": {
+      "$ref": "#/$defs/PaymentRequestResourceCreationLinks"
+    }
+  },
+  "$defs": {
+    "AuthenticationApproach": {
+      "description": "Authentication approaches that can be applied.\nREDIRECT: the PSU is redirected by the TPP to the ASPSP which processes identification and authentication\nDECOUPLED: the TPP identifies the PSU and forwards the identification to the ASPSP which processes the authentication through a decoupled device\nNONE: there is no need for the PSU to authenticate\n",
+      "type": "string",
+      "enum": [
+        "REDIRECT",
+        "DECOUPLED",
+        "EMBEDDED-1-FACTOR",
+        "NONE"
+      ]
+    },
+    "GenericLink": {
+      "description": "hypertext reference",
+      "type": "object",
+      "properties": {
+        "href": {
+          "description": "URI to be used. HREF stands for Hypertext REFerence.",
+          "type": "string",
+          "maxLength": 2000
+        },
+        "templated": {
+          "description": "This field must be set with \"true\"  when [href] is an URI template, i.e. with parameters that will be set by the client afterwards. Parameter fields must be included by the API server according to RFC6570.\nOtherwise, this property must be absent or set to false\ndefault value: false\n",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "href"
+      ]
+    },
+    "Nonce": {
+      "description": "Challenge to be sent in order to avoid replay of the authentication process.\n",
+      "type": "string",
+      "maxLength": 70
+    },
+    "PaymentRequestResourceCreationLinks": {
+      "description": "links that can be used for further navigation, especially in REDIRECT approach\n| Link | Description |\n| ---- | ----------- |\n| consentApproval | URL to be used by the PISP in order to start the ASPSP authentication and consent management process |\n",
+      "type": "object",
+      "properties": {
+        "consentApproval": {
+          "$ref": "#/$defs/GenericLink"
+        }
+      },
+      "readOnly": true
+    }
+  }
+}

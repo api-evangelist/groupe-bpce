@@ -1,0 +1,91 @@
+generated: '2026-10-09'
+method: searched
+source: https://apistore.groupebpce.com/api/account-information-services-3; https://apistore.groupebpce.com/api/payment-initiation-3;
+  https://apistore.groupebpce.com/api/psd2-registration; openapi/
+description: STET PSD2 REST conventions shared across the Groupe BPCE PSD2 APIs; moneyTransfer (Open Finance) is
+  a separate non-STET API.
+base_url: 'per-bank host: www.<bank code>.oba-bad-me-live-api.89c3.com (live), www.<codetab>.sandbox.api.89C3.com
+  (sandbox); "the parameter “bank code” allows to send API requests to the right ASPSP backend"'
+api_style: REST, STET v1.6.2.0 (PSD2); HAL _links in account resources
+authentication:
+  scheme: OAuth2 (authorization code with SCA redirect for AISP/CBPII/PISP confirmation; client_credentials for
+    PISP and registration) over mutual TLS with an eIDAS QWAC; request signing with QSealC (Signature + Digest headers)
+  docs: https://apistore.groupebpce.com/api/psd2-registration
+  see: authentication/groupe-bpce-authentication.yml
+idempotency:
+  coverage: partial
+  scope:
+  - paymentRequestsPost
+  supported: partial
+  mechanism: 'Body field paymentInformationId — "API: This field is a clue for idempotency check by the ASPSP in
+    order to avoid duplicate SCA or payment execution. However the ASPSP may use other mechanisms." No Idempotency-Key
+    header.'
+  conflict_behavior: 'Documented duplicate response: 500 Internal server error "Database insertion problem, duplicate
+    unique key"'
+  docs: https://apistore.groupebpce.com/api/payment-initiation-3
+pagination:
+  style: HAL links
+  response_fields:
+  - _links.first
+  - _links.next
+  - _links.prev
+  - _links.last
+  request_params:
+  - dateFrom
+  - dateTo
+  - entryReferenceFrom (accounts)
+  - after, pageNumber, pageSize (moneyTransfer)
+  source: openapi/groupe-bpce-psd2-accounts-openapi.yml; openapi/groupe-bpce-open-finance-transfer-openapi.yml
+request_tracing:
+  request_id_header: X-Request-ID
+  description: Correlation header required on PSD2 calls (components.parameters.Correlation).
+psu_context_headers:
+- PSU-IP-Address
+- PSU-IP-Port
+- PSU-HTTP-Method
+- PSU-Date
+- PSU-User-Agent
+- PSU-Referer
+- PSU-Accept
+- PSU-Accept-Charset
+- PSU-Accept-Encoding
+- PSU-Accept-Language
+- PSU-GEO-Location
+- PSU-Device-ID
+versioning:
+  scheme: URL path /stet/psd2/v1, product versions track STET spec versions
+  see: lifecycle/groupe-bpce-lifecycle.yml
+errors:
+  see: errors/groupe-bpce-problem-types.yml
+rate_limit_signaling:
+  status: 429
+  note: 429 declared on PSD2 operations in the specs; no rate-limit headers documented.
+  see: rate-limits/groupe-bpce-rate-limits.yml
+reversibility:
+  grade: documented
+  surfaces:
+  - surface: payment initiation
+    reversal: cancel
+    operationId: paymentRequestPut
+    text: '"You may cancel an initiation of payment via the method PUT /paymentRequests (see “ Cancel a PIS request
+      “) effective as soon as it has been processed. The SCA is performed using REDIRECT mode."'
+    window: null
+    window_note: No cancellation window stated; cancellation is confirmed via paymentRequestConfirmationPost. Status
+      CANC = "Payment initiation has been successfully cancelled after having received a request for cancellation."
+    docs: https://apistore.groupebpce.com/api/payment-initiation-3
+  - surface: moneyTransfer transfer requests
+    reversal: delete
+    operationId: deleteTransferRequest
+    also:
+    - deleteTransferRequestTransferRequestLine
+    window: null
+    window_note: Declared in the spec; the product page says "Documentation in progress" and states no window.
+    docs: https://apistore.groupebpce.com/api/moneytransfer
+  - surface: PSD2 registration
+    reversal: delete registration
+    operationId: registrationDelete
+    window: null
+    docs: https://apistore.groupebpce.com/api/psd2-registration
+dry_run:
+  supported: false
+  note: No dry-run mode; sandbox with fictive data is the rehearsal path.

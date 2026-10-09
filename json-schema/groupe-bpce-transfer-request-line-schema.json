@@ -1,0 +1,287 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/groupe-bpce/main/json-schema/groupe-bpce-transfer-request-line-schema.json",
+  "title": "TransferRequestLine",
+  "description": "This resource stands for the detailed characteristics of a transfer request line. A transfer request line is the atomic part of the request that will be processed by a bank transfer.",
+  "x-generated": "2026-10-09",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/groupe-bpce-open-finance-transfer-openapi.yml#/components/schemas/TransferRequestLine",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/$defs/TransferRequestLineSummary"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "debitEntry": {
+          "$ref": "#/$defs/DebitEntry"
+        },
+        "executionDeadlineType": {
+          "$ref": "#/$defs/ExecutionDeadlineType"
+        },
+        "executionSettlement": {
+          "$ref": "#/$defs/ExecutionSettlement"
+        },
+        "reasonLabel": {
+          "description": "Reason label in the transfer historic view in the bank web site",
+          "type": "string",
+          "maxLength": 35
+        },
+        "forecastedExecutionDate": {
+          "description": "Execution date planned for the execution of the transfer (but not contractual)",
+          "type": "string",
+          "format": "date",
+          "readOnly": true
+        },
+        "allTheWayToRecipientInformation": {
+          "$ref": "#/$defs/AllTheWayToRecipientInformation"
+        },
+        "standingTransfer": {
+          "$ref": "#/$defs/StandingTransfer"
+        },
+        "economicReasonLabel": {
+          "description": "Economic reason code (mandatory if very high amount)",
+          "type": "string"
+        },
+        "fee": {
+          "$ref": "#/$defs/Amount"
+        }
+      },
+      "required": [
+        "executionDeadlineType",
+        "executionSettlement"
+      ]
+    }
+  ],
+  "$defs": {
+    "AccountIdentifier": {
+      "description": "Identifier of an account.",
+      "type": "string",
+      "minLength": 1
+    },
+    "AllTheWayToRecipientInformation": {
+      "description": "Additional data transmitted to the beneficiary bank, or even the beneficiary himself.",
+      "type": "object",
+      "properties": {
+        "endToEndReference": {
+          "description": "Transfer end-to-end reference, transmited from the sender to the recipient. Corresponds to the EndToEndIdentification field within the meaning of the ISO 20022 standard.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 35
+        },
+        "categoryPurposeType": {
+          "description": "Indicates the purpose of the SEPA transfer. Must correspond to the ISO20022 standard (see https://www.iso20022.org/catalogue-messages/additional-content-messages/external-code-sets)",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4
+        }
+      }
+    },
+    "Amount": {
+      "description": "Default objet which stands for an amount (number value + currency code).",
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "Value of the amount.",
+          "type": "number",
+          "format": "double"
+        },
+        "currencyCode": {
+          "description": "Alphabetical code of the currency code (ISO 4217)",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "currencyCode"
+      ]
+    },
+    "DebitEntry": {
+      "description": "Information about the debit and the posting to the debited account.",
+      "type": "object",
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/Amount"
+        },
+        "debitMode": {
+          "$ref": "#/$defs/TransferRequestDebitMode"
+        }
+      },
+      "required": [
+        "amount",
+        "debitMode"
+      ],
+      "readOnly": true
+    },
+    "ExecutionDeadlineType": {
+      "title": "ExecutionDeadlineType",
+      "description": "Execution delay type. <table><tr><td>Code</td> <td>Meaning</td></tr><tr><td>INSTANT</td> <td>Within the minute (instant payment).</td></tr><tr><td>ASAP</td> <td>=As soon as possible (today). The transfer request lines may be processed in the following days.</td></tr><tr><td>DELAYED</td> <td>For a date in the future.</td></tr></table>",
+      "type": "string",
+      "enum": [
+        "INSTANT",
+        "ASAP",
+        "DELAYED"
+      ]
+    },
+    "ExecutionFrequency": {
+      "title": "ExecutionFrequency",
+      "description": "Indicates if a transfer will be processed only one time or if it is a standing transfer.<table><tr><td>Code</td> <td>Meaning</td></tr><tr><td>ONESHOT</td> <td>The transfer will be processed only one time</td></tr><tr><td>STANDING</td> <td>The transfer will be processed several times in a periodic way</td></tr></table>",
+      "type": "string",
+      "enum": [
+        "ONESHOT",
+        "STANDING"
+      ]
+    },
+    "ExecutionSettlement": {
+      "title": "Settlement",
+      "description": "Type of transfer processing chain used.<table><tr><td>Code</td> <td>Meaning</td></tr><tr><td>INTERNAL</td> <td>Between two internal accounts belonging to the subscriber and managed by the same BPCE bank establishment.</td></tr><tr><td>SEPA</td> <td>SCT Transfer using the SEPA scheme.</td></tr></table>",
+      "type": "string",
+      "enum": [
+        "INTERNAL",
+        "SEPA"
+      ],
+      "readOnly": true
+    },
+    "ExecutionStatus": {
+      "title": "ExecutionStatus",
+      "description": "Transfer processing status (i.e. a transfer request line status).<table><tr><td> Status </td> <td> Meaning </td></tr>  <tr><td>TO_VALIDATE</td> <td>Needs to be validated.</td></tr><tr><td>VALIDATED</td> <td>Validated by the subscriber or by an authorized validator.</td></tr><tr><td>WAITING_DECISION</td> <td>Waiting for a decision.</td></tr><tr><td>PENDING</td> <td>Waiting for execution.</td></tr><tr><td>REFUSED</td> <td>Refused.</td></tr><tr><td>CANCELED</td> <td>Canceled by the subscriber.</td></tr><tr><td>REJECTED</td> <td>Rejected by the system.</td></tr><tr><td>EXECUTED</td> <td>Executed.</td></tr><tr><td>REFUNDED</td> <td>Refunded.</td></tr><tr><td>TERMINATED</td> <td>Terminated.</td></tr><tr><td>REJECTED_BY_RECIPIENT_BANK_AND_REFUNDED</td> <td>Transfer that has been rejected by the beneficiary bank and so the transfer request line is refunded in an individual way.</td></tr></table>",
+      "type": "string",
+      "enum": [
+        "TO_VALIDATE",
+        "VALIDATED",
+        "WAITING_DECISION",
+        "PENDING",
+        "REFUSED",
+        "CANCELED",
+        "REJECTED",
+        "EXECUTED",
+        "REFUNDED",
+        "TERMINATED",
+        "REJECTED_BY_RECIPIENT_BANK_AND_REFUNDED"
+      ],
+      "readOnly": true
+    },
+    "FrequencyCode": {
+      "title": "FrequencyCode",
+      "description": "For a standing transfer, this code indicates the frequency of the transfers. <table><tr><td>Code</td> <td>Meaning</td></tr><tr><td>WEEKLY</td> <td>Once every seven days.</td></tr><tr><td>EVERY_TWO_WEEKS</td> <td>Once every fifteen days.</td></tr><tr><td>MONTHLY</td> <td>Once every month.</td></tr><tr><td>EVERY_TWO_MONTHS</td> <td>Once every two months.</td></tr><tr><td>QUARTERLY</td> <td>Once every three months.</td></tr><tr><td>EVERY_SIX_MONTHS</td> <td>Once every six months.</td></tr><tr><td>ANNUALLY</td> <td>Once every year.</td></tr></table>",
+      "type": "string",
+      "enum": [
+        "WEEKLY",
+        "EVERY_TWO_WEEKS",
+        "MONTHLY",
+        "EVERY_TWO_MONTHS",
+        "QUARTERLY",
+        "EVERY_SIX_MONTHS",
+        "ANNUALLY"
+      ]
+    },
+    "StandingTransfer": {
+      "title": "StandingTransfer",
+      "description": "Standing transfer",
+      "type": "object",
+      "properties": {
+        "frequency": {
+          "$ref": "#/$defs/FrequencyCode"
+        },
+        "startDate": {
+          "description": "The start date for a standing transfer.",
+          "type": "string",
+          "format": "date"
+        },
+        "endDate": {
+          "description": "The last theoretical date for the standing transfer.",
+          "type": "string",
+          "format": "date"
+        },
+        "lastExecutionDate": {
+          "description": "The last actual date a transfer was actually made as part of this standing transfer order. It may be adjusted for calendar reasons.",
+          "type": "string",
+          "format": "date",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "frequency",
+        "startDate"
+      ]
+    },
+    "TransferRequestDebitMode": {
+      "title": "TransferRequestDebitMode",
+      "description": "Indicates how the set of transfer request lines are debited from the source account ; that is if there is only one global accounting entry with the global amount or alternatively there are n single transfers (one accounting entry for one transfer request line). <table><tr><td>Code</td> <td>Meaning</td></tr><tr><td>GROUPED</td> <td>One global accounting entry with the global amount.</td></tr><tr><td>SINGLE</td> <td>One accounting entry for each transfer request line.</td></tr></table>",
+      "type": "string",
+      "enum": [
+        "SINGLE",
+        "GROUPED"
+      ],
+      "readOnly": true
+    },
+    "TransferRequestLineSummary": {
+      "description": "This resource stands for important characteristics of a transfer request line. The amount attribute is free of charge.",
+      "type": "object",
+      "properties": {
+        "transferRequestLineId": {
+          "description": "Identifier of a transfer request line.",
+          "type": "string",
+          "minLength": 1,
+          "readOnly": true
+        },
+        "transferRequestId": {
+          "description": "Identifier of a transfer request within the transfer request line is embedded.",
+          "type": "string",
+          "minLength": 1,
+          "readOnly": true
+        },
+        "amount": {
+          "$ref": "#/$defs/Amount"
+        },
+        "creationDateTime": {
+          "description": "Timestamp of transfer request creation",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "status": {
+          "$ref": "#/$defs/ExecutionStatus"
+        },
+        "frequencyType": {
+          "$ref": "#/$defs/ExecutionFrequency"
+        },
+        "requestedExecutionDate": {
+          "description": "Requested execution date of the transfer. Significant if executionDeadlineType is DELAYED.",
+          "type": "string",
+          "format": "date",
+          "writeOnly": true
+        },
+        "executionDate": {
+          "description": "Date of execution of the transfer.",
+          "type": "string",
+          "format": "date",
+          "readOnly": true
+        },
+        "remittanceInformation": {
+          "description": "Reason for transfer, transmitted to the recipient",
+          "type": "string",
+          "maxLength": 140
+        },
+        "sourceAccount": {
+          "$ref": "#/$defs/AccountIdentifier"
+        },
+        "recipientAccount": {
+          "$ref": "#/$defs/AccountIdentifier"
+        }
+      },
+      "required": [
+        "transferRequestLineId",
+        "transferRequestId",
+        "amount",
+        "status",
+        "frequencyType",
+        "remittanceInformation",
+        "sourceAccount",
+        "recipientAccount"
+      ]
+    }
+  }
+}

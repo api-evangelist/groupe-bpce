@@ -1,0 +1,10 @@
+generated: '2026-10-09'
+method: none
+source: https://apistore.groupebpce.com/developer-catalog; https://registry.npmjs.org/-/v1/search?text=bpce; https://pypi.org/pypi/bpce/json
+  (404); https://api.github.com/orgs/BPCE/repos
+note: No first-party client SDK found. The API Store publishes downloadable OpenAPI specifications only. npm search
+  for "bpce" returns only two unrelated third-party test packages (@bpce/justatest, @bpce/hello-nathan, publisher
+  no-n4me) not linked from the portal; PyPI "bpce" is 404. The BPCE GitHub org hosts the Spectral API-guidelines
+  ruleset and unrelated open-source projects (ArmoniK etc.), no API client libraries. The moneyTransfer page mentions
+  "Software Development Kits (SDKs) available" in marketing copy but links none.
+packages: []

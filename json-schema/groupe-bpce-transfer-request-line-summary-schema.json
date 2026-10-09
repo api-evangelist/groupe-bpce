@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/groupe-bpce/main/json-schema/groupe-bpce-transfer-request-line-summary-schema.json",
+  "title": "TransferRequestLineSummary",
+  "description": "This resource stands for important characteristics of a transfer request line. The amount attribute is free of charge.",
+  "x-generated": "2026-10-09",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/groupe-bpce-open-finance-transfer-openapi.yml#/components/schemas/TransferRequestLineSummary",
+  "type": "object",
+  "properties": {
+    "transferRequestLineId": {
+      "description": "Identifier of a transfer request line.",
+      "type": "string",
+      "minLength": 1,
+      "readOnly": true
+    },
+    "transferRequestId": {
+      "description": "Identifier of a transfer request within the transfer request line is embedded.",
+      "type": "string",
+      "minLength": 1,
+      "readOnly": true
+    },
+    "amount": {
+      "$ref": "#/$defs/Amount"
+    },
+    "creationDateTime": {
+      "description": "Timestamp of transfer request creation",
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true
+    },
+    "status": {
+      "$ref": "#/$defs/ExecutionStatus"
+    },
+    "frequencyType": {
+      "$ref": "#/$defs/ExecutionFrequency"
+    },
+    "requestedExecutionDate": {
+      "description": "Requested execution date of the transfer. Significant if executionDeadlineType is DELAYED.",
+      "type": "string",
+      "format": "date",
+      "writeOnly": true
+    },
+    "executionDate": {
+      "description": "Date of execution of the transfer.",
+      "type": "string",
+      "format": "date",
+      "readOnly": true
+    },
+    "remittanceInformation": {
+      "description": "Reason for transfer, transmitted to the recipient",
+      "type": "string",
+      "maxLength": 140
+    },
+    "sourceAccount": {
+      "$ref": "#/$defs/AccountIdentifier"
+    },
+    "recipientAccount": {
+      "$ref": "#/$defs/AccountIdentifier"
+    }
+  },
+  "required": [
+    "transferRequestLineId",
+    "transferRequestId",
+    "amount",
+    "status",
+    "frequencyType",
+    "remittanceInformation",
+    "sourceAccount",
+    "recipientAccount"
+  ],
+  "$defs": {
+    "AccountIdentifier": {
+      "description": "Identifier of an account.",
+      "type": "string",
+      "minLength": 1
+    },
+    "Amount": {
+      "description": "Default objet which stands for an amount (number value + currency code).",
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "Value of the amount.",
+          "type": "number",
+          "format": "double"
+        },
+        "currencyCode": {
+          "description": "Alphabetical code of the currency code (ISO 4217)",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "currencyCode"
+      ]
+    },
+    "ExecutionFrequency": {
+      "title": "ExecutionFrequency",
+      "description": "Indicates if a transfer will be processed only one time or if it is a standing transfer.<table><tr><td>Code</td> <td>Meaning</td></tr><tr><td>ONESHOT</td> <td>The transfer will be processed only one time</td></tr><tr><td>STANDING</td> <td>The transfer will be processed several times in a periodic way</td></tr></table>",
+      "type": "string",
+      "enum": [
+        "ONESHOT",
+        "STANDING"
+      ]
+    },
+    "ExecutionStatus": {
+      "title": "ExecutionStatus",
+      "description": "Transfer processing status (i.e. a transfer request line status).<table><tr><td> Status </td> <td> Meaning </td></tr>  <tr><td>TO_VALIDATE</td> <td>Needs to be validated.</td></tr><tr><td>VALIDATED</td> <td>Validated by the subscriber or by an authorized validator.</td></tr><tr><td>WAITING_DECISION</td> <td>Waiting for a decision.</td></tr><tr><td>PENDING</td> <td>Waiting for execution.</td></tr><tr><td>REFUSED</td> <td>Refused.</td></tr><tr><td>CANCELED</td> <td>Canceled by the subscriber.</td></tr><tr><td>REJECTED</td> <td>Rejected by the system.</td></tr><tr><td>EXECUTED</td> <td>Executed.</td></tr><tr><td>REFUNDED</td> <td>Refunded.</td></tr><tr><td>TERMINATED</td> <td>Terminated.</td></tr><tr><td>REJECTED_BY_RECIPIENT_BANK_AND_REFUNDED</td> <td>Transfer that has been rejected by the beneficiary bank and so the transfer request line is refunded in an individual way.</td></tr></table>",
+      "type": "string",
+      "enum": [
+        "TO_VALIDATE",
+        "VALIDATED",
+        "WAITING_DECISION",
+        "PENDING",
+        "REFUSED",
+        "CANCELED",
+        "REJECTED",
+        "EXECUTED",
+        "REFUNDED",
+        "TERMINATED",
+        "REJECTED_BY_RECIPIENT_BANK_AND_REFUNDED"
+      ],
+      "readOnly": true
+    }
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/groupe-bpce/main/json-schema/groupe-bpce-hal-owners-schema.json",
+  "title": "HalOwners",
+  "description": "HYPERMEDIA structure used for returning the identities of the account owners.\nThese owners are either real persons or a company.\n- in the first case, the [identities] block must be used\n- in the second cas, the [company] property specifies the identity of the company owning the account.",
+  "x-generated": "2026-10-09",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/groupe-bpce-psd2-accounts-openapi.yml#/components/schemas/HalOwners",
+  "type": "object",
+  "properties": {
+    "company": {
+      "$ref": "#/$defs/GenericIdentification"
+    },
+    "identities": {
+      "description": "identity of the account owners.\n",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Identity"
+      }
+    },
+    "_links": {
+      "$ref": "#/$defs/OwnersLinks"
+    }
+  },
+  "required": [
+    "_links"
+  ],
+  "$defs": {
+    "GenericIdentification": {
+      "description": "ISO20022: Unique identification of an account, a person or an organisation, as assigned by an issuer.\nAPI: The ASPSP will document which account reference type it will support.\n",
+      "type": "object",
+      "properties": {
+        "identification": {
+          "description": "API: Identifier\n",
+          "type": "string",
+          "maxLength": 70
+        },
+        "schemeName": {
+          "description": "Name of the identification scheme.\nPossible values for the scheme name, partially based on ISO20022 external code list, are the following:\n| Code | Name | Description |\n| ---- | ---- | ----------- |\n| BANK | BankPartyIdentification | Unique and unambiguous assignment made by a specific bank or similar financial institution to identify a relationship as defined between the bank and its client. |\n| BBAN | BBANIdentifier | Basic Bank Account Number (BBAN) - identifier used nationally by financial institutions, ie, in individual countries, generally as part of a National Account Numbering Scheme(s), to uniquely identify the account of a customer. |\n| COID | CountryIdentificationCode) : Country authority given organisation identification (e.g., corporate registration number) |\n| SREN | SIREN | The SIREN number is a 9 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation in France. |\n| SRET | SIRET | The SIRET number is a 14 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation unit in France. It consists of the SIREN number, followed by a five digit classification number, to identify the local geographical unit of that entity. |\n| NIDN | NationalIdentityNumber | Number assigned by an authority to identify the national identity number of a person. |\nOther values are also permitted, for instance:\n| Code | Name | Description |\n| ---- | ---- | ----------- |\n| OAUT | OAUTH2 | OAUTH2 access token that is owned by the PISP being also an AISP and that can be used in order to identify the PSU |\n| CPAN | CardPan | Card PAN |\n| MPAN | MaskedPan | Card PAN where some digits were replaced for security reason |\n| TPAN | TokenizedPan | Token which was provided by a Token Service Provider (TSP) in order to obfuscate a real card PAN. The TSP must be identified in the issuer field |\n| TBAN | TokenizedIBAN | Token which was provided by a Token Service Provider (TSP) in order to obfuscate an IBAN. The TSP must be identified in the issuer field |\nEach implementation of the STET PSD2 API must specify in its own documentation which schemes can actually been used\n",
+          "type": "string",
+          "maxLength": 70
+        },
+        "issuer": {
+          "description": "ISO20022: Entity that assigns the identification. this could a country code or any organisation name or identifier that can be recognized by both parties\n",
+          "type": "string",
+          "maxLength": 35
+        }
+      },
+      "required": [
+        "identification",
+        "schemeName"
+      ]
+    },
+    "GenericLink": {
+      "description": "hypertext reference",
+      "type": "object",
+      "properties": {
+        "href": {
+          "description": "URI to be used. HREF stands for Hypertext REFerence.",
+          "type": "string",
+          "maxLength": 2000
+        },
+        "templated": {
+          "description": "This field must be set with \"true\"  when [href] is an URI template, i.e. with parameters that will be set by the client afterwards. Parameter fields must be included by the API server according to RFC6570.\nOtherwise, this property must be absent or set to false\ndefault value: false\n",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "href"
+      ]
+    },
+    "Identity": {
+      "description": "HYPERMEDIA structure used for returning the identity of the PSU",
+      "type": "object",
+      "properties": {
+        "fullName": {
+          "description": "Last name and first name\n",
+          "type": "string",
+          "maxLength": 140
+        },
+        "namePrefix": {
+          "$ref": "#/$defs/NamePrefixCode"
+        },
+        "firstName": {
+          "description": "First name\n",
+          "type": "string",
+          "maxLength": 70
+        },
+        "lastName": {
+          "description": "Last name\n",
+          "type": "string",
+          "maxLength": 70
+        }
+      },
+      "required": [
+        "fullName"
+      ]
+    },
+    "NamePrefixCode": {
+      "description": "Specifies the terms used to formally address a person.\nThis field accepts the following code values\n| Code | Description |\n| ---- | ---------- |\n| DOCT | Doctor |\n| MADM | Madam |\n| MISS | Miss |\n| MIST | Mister |\n",
+      "type": "string",
+      "enum": [
+        "DOCT",
+        "MADM",
+        "MISS",
+        "MIST"
+      ]
+    },
+    "OwnersLinks": {
+      "description": "links that can be used for further navigation when browsing balances Information at one account level\n| Link | Description |\n| ---- | ----------- |\n| self | link to the owners of a given account |\n| parent-list | link to the list of all available accounts |\n| balances | link to the balances for a given account |\n| transactions | link to the transactions of a given account |\n| overdrafts | link to the lists of overdrafts of a given account |\n",
+      "type": "object",
+      "properties": {
+        "self": {
+          "$ref": "#/$defs/GenericLink"
+        },
+        "parent-list": {
+          "$ref": "#/$defs/GenericLink"
+        },
+        "balances": {
+          "$ref": "#/$defs/GenericLink"
+        },
+        "transactions": {
+          "$ref": "#/$defs/GenericLink"
+        },
+        "overdrafts": {
+          "$ref": "#/$defs/GenericLink"
+        }
+      },
+      "required": [
+        "self"
+      ],
+      "readOnly": true
+    }
+  }
+}
