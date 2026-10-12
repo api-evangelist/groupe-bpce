@@ -37,3 +37,6 @@ standards:
 - id: idempotency
   conforms: false
   evidence: no idempotency key parameter on mutating operations
+- id: openapi-3.2
+  conforms: true
+  evidence: the document declares 3.2.0

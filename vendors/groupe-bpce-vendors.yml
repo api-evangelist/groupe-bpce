@@ -1,4 +1,4 @@
-generated: '2026-10-09'
+generated: '2026-10-12'
 method: probed
 source: pre-flight dossier (docs platform, portal detections) + CNAME chains and response headers of the hosts apis.yml names
 registry: all/0-working/vendors.yml
@@ -42,7 +42,3 @@ checked:
 - apistore.groupebpce.com (Support)
 - apistore.groupebpce.com (Login)
 - www.{etab}.oba-bad-me-live-api.banquepopulaire.fr (baseURL)
-- www.{etab}.oba-bad-me-live-api.89c3.com (baseURL)
-- www.30007.live.api.natixis.com (baseURL)
-- www.18919.live.api.natixis.com (baseURL)
-- api.groupebpce.com (baseURL)

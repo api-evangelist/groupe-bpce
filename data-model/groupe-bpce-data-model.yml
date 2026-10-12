@@ -1,21 +1,24 @@
-generated: '2026-10-09'
+generated: '2026-10-12'
 method: derived
 generator: derive-data-model.py
 source:
-- openapi/groupe-bpce-natixis-psd2-accounts-openapi.yml
-- openapi/groupe-bpce-natixis-wealth-management-psd2-accounts-openapi.yml
-- openapi/groupe-bpce-open-finance-transfer-openapi.yml
-- openapi/groupe-bpce-psd2-accounts-openapi.yml
-- openapi/groupe-bpce-psd2-funds-availability-openapi.yml
-- openapi/groupe-bpce-psd2-payments-openapi.yml
-- openapi/groupe-bpce-psd2-registration-openapi.yml
+- openapi/groupe-bpce-aisp-api-openapi.yml
+- openapi/groupe-bpce-cbpii-api-openapi.yml
+- openapi/groupe-bpce-external-accounts-api-openapi.yml
+- openapi/groupe-bpce-internal-accounts-api-openapi.yml
+- openapi/groupe-bpce-pisp-api-openapi.yml
+- openapi/groupe-bpce-registration-api-openapi.yml
+- openapi/groupe-bpce-transfers-api-openapi.yml
 notation: has_one = property $ref; has_many = array of $ref; belongs_to = <entity>_id field
 summary:
-  entities: 108
-  entities_in_spec: 108
-  relationships: 220
+  entities: 230
+  entities_in_spec: 230
+  relationships: 490
 entities:
 - name: Access
+  fields: 7
+  description: Requested access services.
+- name: Access_2
   fields: 7
   description: Requested access services.
 - name: AccessibleTrustedBeneficiaries
@@ -27,13 +30,28 @@ entities:
 - name: AccountIdentification
   fields: 4
   description: Unique and unambiguous identification for the account between the account owner and the account servicer.
+- name: AccountIdentification_2
+  fields: 4
+  description: Unique and unambiguous identification for the account between the account owner and the account servicer.
+- name: AccountIdentification_3
+  fields: 4
+  description: Unique and unambiguous identification for the account between the account owner and the account servicer.
 - name: AccountLinks
+  fields: 4
+  description: links that can be used for further navigation when browsing Account Information at one account level
+- name: AccountLinks_2
   fields: 4
   description: links that can be used for further navigation when browsing Account Information at one account level
 - name: AccountListLinks
   fields: 9
   description: Links that can be used for further navigation when browsing Account Information at top level
+- name: AccountListLinks_2
+  fields: 9
+  description: Links that can be used for further navigation when browsing Account Information at top level
 - name: AccountResource
+  fields: 13
+  description: PSU account that is made available to the TPP. 
+- name: AccountResource_2
   fields: 13
   description: PSU account that is made available to the TPP. 
 - name: AllTheWayToRecipientInformation
@@ -48,22 +66,52 @@ entities:
 - name: AmountAndCurrencyExchangeDetails
   fields: 8
   description: 'ISO20022: details on amount and currency exchange'
+- name: AmountAndCurrencyExchangeDetails_2
+  fields: 8
+  description: 'ISO20022: details on amount and currency exchange'
+- name: AmountAndCurrencyExchange_2
+  fields: 5
+  description: Provides detailed information on the original amount.
 - name: AmountType
+  fields: 2
+  description: Structure aiming to embed the amount and the currency to be used.
+- name: AmountType_2
+  fields: 2
+  description: Structure aiming to embed the amount and the currency to be used.
+- name: AmountType_3
   fields: 2
   description: Structure aiming to embed the amount and the currency to be used.
 - name: BalanceResource
   fields: 6
   description: Structure of an account balance
+- name: BalanceResource_2
+  fields: 6
+  description: Structure of an account balance
 - name: BalancesLinks
+  fields: 5
+  description: links that can be used for further navigation when browsing balances Information at one account level
+- name: BalancesLinks_2
   fields: 5
   description: links that can be used for further navigation when browsing balances Information at one account level
 - name: BankTransactionCode
   fields: 5
   description: Set of elements used to fully identify the type of underlying transaction resulting in an entry.
+- name: BankTransactionCode_2
+  fields: 5
+  description: Set of elements used to fully identify the type of underlying transaction resulting in an entry.
 - name: BeneficiariesLinks
   fields: 8
   description: links that can be used for further navigation when browsing Account Information at one account level
+- name: BeneficiariesLinks_2
+  fields: 8
+  description: links that can be used for further navigation when browsing Account Information at one account level
 - name: Beneficiary
+  fields: 6
+  description: Specification of a beneficiary
+- name: Beneficiary_2
+  fields: 6
+  description: Specification of a beneficiary
+- name: Beneficiary_3
   fields: 6
   description: Specification of a beneficiary
 - name: Charges
@@ -72,13 +120,37 @@ entities:
 - name: ChargesRecord
   fields: 8
   description: 'ISO20022: Provides further individual record details on the charges related to the payment transaction.'
+- name: ChargesRecord_2
+  fields: 8
+  description: 'ISO20022: Provides further individual record details on the charges related to the payment transaction.'
+- name: Charges_2
+  fields: 2
+  description: 'ISO20022: Provides further details on the charges related to the payment transaction.'
 - name: ClearingSystemMemberIdentification
+  fields: 2
+  description: 'ISO20022: Information used to identify a member within a clearing system.'
+- name: ClearingSystemMemberIdentification_2
+  fields: 2
+  description: 'ISO20022: Information used to identify a member within a clearing system.'
+- name: ClearingSystemMemberIdentification_3
   fields: 2
   description: 'ISO20022: Information used to identify a member within a clearing system.'
 - name: CodeAndIssuer
   fields: 2
   description: Specifies a code and the issuer of this code.
+- name: CodeAndIssuer_2
+  fields: 2
+  description: Specifies a code and the issuer of this code.
+- name: CodeAndIssuer_3
+  fields: 2
+  description: Specifies a code and the issuer of this code.
 - name: ConfirmationResource
+  fields: 2
+  description: Confirmation request resource
+- name: ConfirmationResource_2
+  fields: 2
+  description: Confirmation request resource
+- name: ConfirmationResource_3
   fields: 2
   description: Confirmation request resource
 - name: Contact
@@ -87,13 +159,31 @@ entities:
 - name: ContactDetails
   fields: 3
   description: Indicates how to contact the party.
+- name: ContactDetails_2
+  fields: 3
+  description: Indicates how to contact the party.
+- name: CreditTransferTransaction
+  fields: 18
+  description: 'ISO20022: Payment processes required to transfer cash from the debtor to the creditor.'
 - name: CreditTransferTransactionLinks
+  fields: 6
+  description: links that can be used for further navigation when retrieving the transaction of a payment request.
+- name: CreditTransferTransactionLinks_2
   fields: 6
   description: links that can be used for further navigation when retrieving the transaction of a payment request.
 - name: CreditTransferTransactionResource
   fields: 22
   description: 'ISO20022: Payment processes required to transfer cash from the debtor to the creditor.'
+- name: CreditTransferTransactionResource_2
+  fields: 22
+  description: 'ISO20022: Payment processes required to transfer cash from the debtor to the creditor.'
 - name: CreditorReferenceInformation
+  fields: 2
+  description: Reference information provided by the creditor to allow the identification of the underlying documents.
+- name: CreditorReferenceInformation_2
+  fields: 2
+  description: Reference information provided by the creditor to allow the identification of the underlying documents.
+- name: CreditorReferenceInformation_3
   fields: 2
   description: Reference information provided by the creditor to allow the identification of the underlying documents.
 - name: Currency
@@ -102,19 +192,47 @@ entities:
 - name: DateAndPlaceOfBirth
   fields: 3
   description: Date and place of birth of a person.
+- name: DateAndPlaceOfBirth_2
+  fields: 3
+  description: Date and place of birth of a person.
+- name: DateAndPlaceOfBirth_3
+  fields: 3
+  description: Date and place of birth of a person.
 - name: DebitEntry
   fields: 2
   description: Information about the debit and the posting to the debited account.
 - name: DocumentAdjustment
   fields: 4
   description: 'ISO20022: Specifies detailed information on the amount and reason of the adjustment.'
+- name: DocumentAdjustment_2
+  fields: 4
+  description: 'ISO20022: Specifies detailed information on the amount and reason of the adjustment.'
+- name: DocumentAdjustment_3
+  fields: 4
+  description: 'ISO20022: Specifies detailed information on the amount and reason of the adjustment.'
 - name: DocumentLineIdentification
+  fields: 3
+  description: Provides identification of the document line.
+- name: DocumentLineIdentification_2
+  fields: 3
+  description: Provides identification of the document line.
+- name: DocumentLineIdentification_3
   fields: 3
   description: Provides identification of the document line.
 - name: EndUserIdentityLinks
   fields: 4
   description: links that can be used for further navigation after retrieving end-user identity
+- name: EndUserIdentityLinks_2
+  fields: 4
+  description: links that can be used for further navigation after retrieving end-user identity
 - name: EquivalentAmountType
+  fields: 3
+  description: Structure aiming to embed the amount and the currency to be used.
+- name: EquivalentAmountType_2
+  fields: 3
+  description: Amount of money to be moved between debtor and creditor, before deduction of charges, expressed in
+    the currency of the debtor's account, and to be moved in a different currency.
+- name: EquivalentAmountType_3
   fields: 3
   description: Amount of money to be moved between debtor and creditor, before deduction of charges, expressed in
     the currency of the debtor's account, and to be moved in a different currency.
@@ -124,7 +242,16 @@ entities:
 - name: ErrorDetail
   fields: 9
   description: detailed error description
+- name: ErrorDetail_2
+  fields: 9
+  description: detailed error description
 - name: ErrorModel
+  fields: 6
+  description: Generic error report structure
+- name: ErrorModel_2
+  fields: 6
+  description: Generic error report structure
+- name: ErrorModel_3
   fields: 6
   description: Generic error report structure
 - name: ErrorModel_400
@@ -134,6 +261,12 @@ entities:
   fields: 1
   description: List of errors
 - name: ExchangeRate
+  fields: 4
+  description: Provides details on the currency exchange rate and contract.
+- name: ExchangeRate_2
+  fields: 6
+  description: 'ISO20022: Provides details on the currency exchange rate and contract.'
+- name: ExchangeRate_3
   fields: 6
   description: 'ISO20022: Provides details on the currency exchange rate and contract.'
 - name: ExternalAccount
@@ -148,23 +281,56 @@ entities:
   fields: 5
   description: 'ISO20022: Unique and unambiguous identification of a financial institution, as assigned under an
     internationally recognised or proprietary identification scheme.'
+- name: FinancialInstitutionIdentification_2
+  fields: 5
+  description: 'ISO20022: Unique and unambiguous identification of a financial institution, as assigned under an
+    internationally recognised or proprietary identification scheme.'
+- name: FinancialInstitutionIdentification_3
+  fields: 5
+  description: 'ISO20022: Unique and unambiguous identification of a financial institution, as assigned under an
+    internationally recognised or proprietary identification scheme.'
 - name: GenericIdentification
+  fields: 3
+  description: 'ISO20022: Unique identification of an account, a person or an organisation, as assigned by an issuer.'
+- name: GenericIdentification_2
+  fields: 3
+  description: 'ISO20022: Unique identification of an account, a person or an organisation, as assigned by an issuer.'
+- name: GenericIdentification_3
   fields: 3
   description: 'ISO20022: Unique identification of an account, a person or an organisation, as assigned by an issuer.'
 - name: GenericLink
   fields: 2
   description: hypertext reference
+- name: GenericLink_2
+  fields: 2
+  description: hypertext reference
+- name: GenericLink_3
+  fields: 2
+  description: hypertext reference
 - name: HalAccounts
   fields: 2
   description: HYPERMEDIA structure used for returning the list of the available accounts to the AISP
+- name: HalAccounts_2
+  fields: 2
+  description: HYPERMEDIA structure used for returning the list of the available accounts to the AISP
 - name: HalAuthenticationRequest
+  fields: 3
+  description: Data forwarded by the ASPSP top the PISP after creation of the Payment Request resource creation
+- name: HalAuthenticationRequest_2
   fields: 3
   description: Data forwarded by the ASPSP top the PISP after creation of the Payment Request resource creation
 - name: HalBalances
   fields: 2
   description: HYPERMEDIA structure used for returning the list of the relevant balances for a given account to
     the AISP
+- name: HalBalances_2
+  fields: 2
+  description: HYPERMEDIA structure used for returning the list of the relevant balances for a given account to
+    the AISP
 - name: HalBeneficiaries
+  fields: 2
+  description: HYPERMEDIA structure used for returning the list of the whitelisted beneficiaries
+- name: HalBeneficiaries_2
   fields: 2
   description: HYPERMEDIA structure used for returning the list of the whitelisted beneficiaries
 - name: HalCreditTransfertTransactions
@@ -173,33 +339,78 @@ entities:
 - name: HalEndUserIdentity
   fields: 2
   description: HYPERMEDIA structure used for returning the identity of the PSU.
+- name: HalEndUserIdentity_2
+  fields: 2
+  description: HYPERMEDIA structure used for returning the identity of the PSU.
 - name: HalOverdrafts
+  fields: 2
+  description: HYPERMEDIA structure used for returning the list of the overdrafts that can apply on a given account
+    to the AISP
+- name: HalOverdrafts_2
   fields: 2
   description: HYPERMEDIA structure used for returning the list of the overdrafts that can apply on a given account
     to the AISP
 - name: HalOwners
   fields: 3
   description: HYPERMEDIA structure used for returning the identities of the account owners.
+- name: HalOwners_2
+  fields: 3
+  description: HYPERMEDIA structure used for returning the identities of the account owners.
 - name: HalPaymentCoverageReport
+  fields: 3
+  description: HYPERMEDIA structure used for returning the payment coverage report to the CBPII
+- name: HalPaymentCoverageReport_2
   fields: 3
   description: HYPERMEDIA structure used for returning the payment coverage report to the CBPII
 - name: HalPaymentRequest
   fields: 2
   description: HYPERMEDIA structure used for returning the original Payment Request to the PISP
+- name: HalPaymentRequestCreation
+  fields: 3
+  description: data forwarded by the ASPSP top the PISP after creation of the Payment Request resource creation
+- name: HalPaymentRequest_2
+  fields: 2
+  description: HYPERMEDIA structure used for returning the original Payment Request to the PISP
+- name: HalPaymentRequest_3
+  fields: 2
+  description: HYPERMEDIA structure used for returning the original Payment Request to the PISP
 - name: HalTransactionDetails
+  fields: 2
+  description: HYPERMEDIA structure used for returning the details of a given transaction
+- name: HalTransactionDetails_2
   fields: 2
   description: HYPERMEDIA structure used for returning the details of a given transaction
 - name: HalTransactions
   fields: 2
   description: HYPERMEDIA structure used for returning the list of the transactions for a given account to the AISP
+- name: HalTransactions_2
+  fields: 2
+  description: HYPERMEDIA structure used for returning the list of the transactions for a given account to the AISP
 - name: Identity
+  fields: 4
+  description: HYPERMEDIA structure used for returning the identity of the PSU
+- name: Identity_2
   fields: 4
   description: HYPERMEDIA structure used for returning the identity of the PSU
 - name: InstructionForCreditorAgent
   fields: 2
   description: Further information related to the processing of the payment instruction that may need to be acted
     upon by the creditor's agent. The instruction may relate to a level of service, or may be an instruct
+- name: InstructionForCreditorAgent_2
+  fields: 2
+  description: Further information related to the processing of the payment instruction that may need to be acted
+    upon by the creditor's agent. The instruction may relate to a level of service, or may be an instruct
+- name: InstructionForCreditorAgent_3
+  fields: 2
+  description: Further information related to the processing of the payment instruction that may need to be acted
+    upon by the creditor's agent. The instruction may relate to a level of service, or may be an instruct
 - name: IntermediaryAgent
+  fields: 2
+  description: Agent and agent account between the debtor's agent and the creditor's agent.
+- name: IntermediaryAgent_2
+  fields: 2
+  description: Agent and agent account between the debtor's agent and the creditor's agent.
+- name: IntermediaryAgent_3
   fields: 2
   description: Agent and agent account between the debtor's agent and the creditor's agent.
 - name: InternalAccount
@@ -216,14 +427,30 @@ entities:
 - name: LineDetail
   fields: 3
   description: Set of elements used to provide the content of the referred document line.
+- name: LineDetail_2
+  fields: 3
+  description: Set of elements used to provide the content of the referred document line.
+- name: LineDetail_3
+  fields: 3
+  description: Set of elements used to provide the content of the referred document line.
 - name: Overdraft
+  fields: 1
+  description: 'ISO20022: Overdraft characteristics'
+- name: Overdraft_2
   fields: 1
   description: 'ISO20022: Overdraft characteristics'
 - name: OverdraftsLinks
   fields: 5
   description: links that can be used for further navigation when browsing overdrafts Information at one account
     level
+- name: OverdraftsLinks_2
+  fields: 5
+  description: links that can be used for further navigation when browsing overdrafts Information at one account
+    level
 - name: OwnersLinks
+  fields: 5
+  description: links that can be used for further navigation when browsing balances Information at one account level
+- name: OwnersLinks_2
   fields: 5
   description: links that can be used for further navigation when browsing balances Information at one account level
 - name: Page
@@ -238,27 +465,73 @@ entities:
 - name: PartyIdentification
   fields: 7
   description: 'API : Description of a Party which can be either a person or an organization.'
+- name: PartyIdentification_2
+  fields: 7
+  description: 'API : Description of a Party which can be either a person or an organization.'
+- name: PartyIdentification_3
+  fields: 7
+  description: 'API : Description of a Party which can be either a person or an organization.'
 - name: PaymentCoverageReportLinks
   fields: 1
   description: links that can be used for further navigation to post another coverage request.
+- name: PaymentCoverageReportLinks_2
+  fields: 1
+  description: links that can be used for further navigation to post another coverage request.
 - name: PaymentCoverageRequestResource
+  fields: 4
+  description: Payment coverage request structure. The request must rely either on a cash account or a payment card.
+- name: PaymentCoverageRequestResource_2
   fields: 4
   description: Payment coverage request structure.
 - name: PaymentIdentification
   fields: 3
   description: 'ISO20022: Set of elements used to reference a payment instruction.'
+- name: PaymentIdentification_2
+  fields: 3
+  description: 'ISO20022: Set of elements used to reference a payment instruction.'
+- name: PaymentIdentification_3
+  fields: 3
+  description: 'ISO20022: Set of elements used to reference a payment instruction.'
 - name: PaymentRequestLinks
+  fields: 2
+  description: links that can be used for further navigation when having post a Payment Request in order to get
+    the relevant status report.
+- name: PaymentRequestLinks_2
+  fields: 3
+  description: links that can be used for further navigation when having post a Payment Request in order to get
+    the relevant status report.
+- name: PaymentRequestLinks_3
   fields: 3
   description: links that can be used for further navigation when having post a Payment Request in order to get
     the relevant status report.
 - name: PaymentRequestResource
-  fields: 20
+  fields: 21
   description: 'ISO20022: The PaymentRequestResource message is sent by the Creditor sending party to the Debtor
     receiving party, directly or through agents. It is used by a Creditor to request movement of funds from'
 - name: PaymentRequestResourceCreationLinks
   fields: 1
   description: links that can be used for further navigation, especially in REDIRECT approach
+- name: PaymentRequestResourceCreationLinks_2
+  fields: 1
+  description: links that can be used for further navigation, especially in REDIRECT approach
+- name: PaymentRequestResourceCreationLinks_3
+  fields: 1
+  description: links that can be used for further navigation, especially in REDIRECT approach
+- name: PaymentRequestResource_2
+  fields: 20
+  description: 'ISO20022: The PaymentRequestResource message is sent by the Creditor sending party to the Debtor
+    receiving party, directly or through agents. It is used by a Creditor to request movement of funds from'
+- name: PaymentRequestResource_3
+  fields: 20
+  description: 'ISO20022: The PaymentRequestResource message is sent by the Creditor sending party to the Debtor
+    receiving party, directly or through agents. It is used by a Creditor to request movement of funds from'
 - name: PaymentTypeInformation
+  fields: 4
+  description: 'ISO20022: Set of elements used to further specify the type of transaction.'
+- name: PaymentTypeInformation_2
+  fields: 4
+  description: 'ISO20022: Set of elements used to further specify the type of transaction.'
+- name: PaymentTypeInformation_3
   fields: 4
   description: 'ISO20022: Set of elements used to further specify the type of transaction.'
 - name: Period
@@ -267,7 +540,19 @@ entities:
 - name: PostalAddress
   fields: 11
   description: 'ISO20022: Information that locates and identifies a specific address, as defined by postal services.'
+- name: PostalAddress_2
+  fields: 11
+  description: 'ISO20022: Information that locates and identifies a specific address, as defined by postal services.'
+- name: PostalAddress_3
+  fields: 11
+  description: 'ISO20022: Information that locates and identifies a specific address, as defined by postal services.'
 - name: ReferredDocumentInformation
+  fields: 4
+  description: Provides the identification and the content of the referred document.
+- name: ReferredDocumentInformation_2
+  fields: 4
+  description: Provides the identification and the content of the referred document.
+- name: ReferredDocumentInformation_3
   fields: 4
   description: Provides the identification and the content of the referred document.
 - name: RegistrationRecord
@@ -280,14 +565,34 @@ entities:
 - name: RelatedParties
   fields: 9
   description: information about the parties that are related to the transaction
+- name: RelatedParties_2
+  fields: 9
+  description: information about the parties that are related to the transaction
 - name: RemittanceAmount
+  fields: 6
+  description: 'ISO20022: Provides details on the amounts of the document line.'
+- name: RemittanceAmount_2
+  fields: 6
+  description: 'ISO20022: Provides details on the amounts of the document line.'
+- name: RemittanceAmount_3
   fields: 6
   description: 'ISO20022: Provides details on the amounts of the document line.'
 - name: RemittanceInformation
   fields: 2
   description: 'ISO20022: Information supplied to enable the matching of an entry with the items that the transfer
     is intended to settle, such as commercial invoices in an accounts'' receivable system.'
+- name: RemittanceInformation_2
+  fields: 2
+  description: 'ISO20022: Information supplied to enable the matching of an entry with the items that the transfer
+    is intended to settle, such as commercial invoices in an accounts'' receivable system.'
+- name: RemittanceInformation_3
+  fields: 2
+  description: 'ISO20022: Information supplied to enable the matching of an entry with the items that the transfer
+    is intended to settle, such as commercial invoices in an accounts'' receivable system.'
 - name: StandingOrderCharacteristics
+  fields: 4
+  description: Specifies the characteristics of a standing order.
+- name: StandingOrderCharacteristics_2
   fields: 4
   description: Specifies the characteristics of a standing order.
 - name: StandingTransfer
@@ -297,24 +602,69 @@ entities:
   fields: 6
   description: Information supplied to enable the matching/reconciliation of an entry with the items that the payment
     is intended to settle, such as commercial invoices in an accounts' receivable system, in a struct
+- name: StructuredRemittanceInformation_2
+  fields: 6
+  description: Information supplied to enable the matching/reconciliation of an entry with the items that the payment
+    is intended to settle, such as commercial invoices in an accounts' receivable system, in a struct
+- name: StructuredRemittanceInformation_3
+  fields: 6
+  description: Information supplied to enable the matching/reconciliation of an entry with the items that the payment
+    is intended to settle, such as commercial invoices in an accounts' receivable system, in a struct
 - name: SupplementaryData
+  fields: 5
+  description: 'ISO20022: Additional information that cannot be captured in the structured elements and/or any other
+    specific block.'
+- name: SupplementaryData_2
+  fields: 7
+  description: 'ISO20022: Additional information that cannot be captured in the structured elements and/or any other
+    specific block.'
+- name: SupplementaryData_3
   fields: 7
   description: 'ISO20022: Additional information that cannot be captured in the structured elements and/or any other
     specific block.'
 - name: TaxAmount
   fields: 4
   description: 'ISO20022: Set of elements used to provide information on the amount of the tax record.'
+- name: TaxAmount_2
+  fields: 4
+  description: 'ISO20022: Set of elements used to provide information on the amount of the tax record.'
+- name: TaxAmount_3
+  fields: 4
+  description: 'ISO20022: Set of elements used to provide information on the amount of the tax record.'
 - name: TaxCharges
+  fields: 3
+  description: 'ISO20022: Provides details on the tax applied to charges.'
+- name: TaxCharges_2
   fields: 3
   description: 'ISO20022: Provides details on the tax applied to charges.'
 - name: TaxInformation
   fields: 11
   description: 'ISO20022: Details about tax paid, or to be paid, to the government in accordance with the law, including
     pre-defined parameters such as thresholds and type of account.'
+- name: TaxInformation_2
+  fields: 11
+  description: 'ISO20022: Details about tax paid, or to be paid, to the government in accordance with the law, including
+    pre-defined parameters such as thresholds and type of account.'
+- name: TaxInformation_3
+  fields: 11
+  description: 'ISO20022: Details about tax paid, or to be paid, to the government in accordance with the law, including
+    pre-defined parameters such as thresholds and type of account.'
 - name: TaxParty
   fields: 4
   description: Set of elements used to identify a party of the transaction to which the tax applies.
+- name: TaxParty_2
+  fields: 4
+  description: Set of elements used to identify a party of the transaction to which the tax applies.
+- name: TaxParty_3
+  fields: 4
+  description: Set of elements used to identify a party of the transaction to which the tax applies.
 - name: TaxPeriod
+  fields: 4
+  description: Set of elements used to provide details on the period of time related to the tax payment.
+- name: TaxPeriod_2
+  fields: 4
+  description: Set of elements used to provide details on the period of time related to the tax payment.
+- name: TaxPeriod_3
   fields: 4
   description: Set of elements used to provide details on the period of time related to the tax payment.
 - name: TaxRecord
@@ -323,19 +673,50 @@ entities:
 - name: TaxRecordDetails
   fields: 2
   description: 'ISO20022: Elements used to provide details on the tax period and amount.'
+- name: TaxRecordDetails_2
+  fields: 2
+  description: 'ISO20022: Elements used to provide details on the tax period and amount.'
+- name: TaxRecordDetails_3
+  fields: 2
+  description: 'ISO20022: Elements used to provide details on the tax period and amount.'
+- name: TaxRecord_2
+  fields: 9
+  description: Record of tax details
+- name: TaxRecord_3
+  fields: 9
+  description: Record of tax details
 - name: TitleAndName
+  fields: 2
+  description: Title and Name of the party or the party's authorised reprensentative.
+- name: TitleAndName_2
+  fields: 2
+  description: Title and Name of the party or the party's authorised reprensentative.
+- name: TitleAndName_3
   fields: 2
   description: Title and Name of the party or the party's authorised reprensentative.
 - name: TransactionDetailsLinks
   fields: 2
   description: links that can be used after retrieving details on a given transaction
+- name: TransactionDetailsLinks_2
+  fields: 2
+  description: links that can be used after retrieving details on a given transaction
 - name: TransactionLinks
+  fields: 1
+  description: links that can be used for further retrieving details on a given transaction
+- name: TransactionLinks_2
   fields: 1
   description: links that can be used for further retrieving details on a given transaction
 - name: TransactionResource
   fields: 21
   description: 'ISO20022: Structure of a transaction.'
+- name: TransactionResource_2
+  fields: 21
+  description: 'ISO20022: Structure of a transaction.'
 - name: TransactionsLinks
+  fields: 9
+  description: links that can be used for further navigation when browsing transactions Information at one account
+    level
+- name: TransactionsLinks_2
   fields: 9
   description: links that can be used for further navigation when browsing transactions Information at one account
     level
@@ -358,251 +739,33 @@ entities:
 - name: TypedAmount
   fields: 2
   description: 'ISO20022: Typed Amount'
+- name: TypedAmount_2
+  fields: 2
+  description: 'ISO20022: Typed Amount'
+- name: TypedAmount_3
+  fields: 2
+  description: 'ISO20022: Typed Amount'
 - name: Workspace
   fields: 2
   description: Some ASPSP may provide different user workspaces that can be accessed by the same authenticated PSU.
     In this case, the AISP is able to retrieve the different pieces of account information by specifyin
 relationships:
-- from: Access
-  to: AccessibleTrustedBeneficiaries
-  type: has_many
-  via: trustedWorkspaceBeneficiaries
-- from: AccountIdentification
-  to: GenericIdentification
-  type: has_one
-  via: other
-- from: AccountLinks
-  to: GenericLink
-  type: has_one
-  via: owners
-- from: AccountLinks
-  to: GenericLink
-  type: has_one
-  via: balances
-- from: AccountLinks
-  to: GenericLink
-  type: has_one
-  via: transactions
-- from: AccountLinks
-  to: GenericLink
-  type: has_one
-  via: overdrafts
-- from: AccountListLinks
-  to: GenericLink
-  type: has_one
-  via: self
-- from: AccountListLinks
-  to: GenericLink
-  type: has_one
-  via: consents
-- from: AccountListLinks
-  to: GenericLink
-  type: has_one
-  via: endUserIdentity
-- from: AccountListLinks
-  to: GenericLink
-  type: has_one
-  via: trustedBeneficiaries
-- from: AccountListLinks
-  to: GenericLink
-  type: has_many
-  via: workspaces
-- from: AccountListLinks
-  to: GenericLink
-  type: has_one
-  via: first
-- from: AccountListLinks
-  to: GenericLink
-  type: has_one
-  via: last
-- from: AccountListLinks
-  to: GenericLink
-  type: has_one
-  via: next
-- from: AccountListLinks
-  to: GenericLink
-  type: has_one
-  via: prev
-- from: AccountResource
-  to: Workspace
-  type: has_one
-  via: workspace
-- from: AccountResource
-  to: AccountIdentification
-  type: has_one
-  via: accountId
-- from: AccountResource
-  to: Account
-  type: belongs_to
-  via: accountId
-- from: AccountResource
-  to: BalanceResource
-  type: has_many
-  via: balances
-- from: AccountResource
-  to: AccountLinks
+- from: HalTransactionDetails
+  to: TransactionDetailsLinks
   type: has_one
   via: _links
-- from: AmountAndCurrencyExchange
-  to: AmountAndCurrencyExchangeDetails
-  type: has_one
-  via: instructedAmount
-- from: AmountAndCurrencyExchange
-  to: AmountAndCurrencyExchangeDetails
-  type: has_one
-  via: transactionAmount
-- from: AmountAndCurrencyExchange
-  to: AmountAndCurrencyExchangeDetails
-  type: has_one
-  via: counterValueAmount
-- from: AmountAndCurrencyExchange
-  to: AmountAndCurrencyExchangeDetails
-  type: has_one
-  via: announcedPostingAmount
-- from: AmountAndCurrencyExchange
-  to: AmountAndCurrencyExchangeDetails
-  type: has_many
-  via: proprietaryAmount
-- from: AmountAndCurrencyExchangeDetails
+- from: TaxAmount
   to: AmountType
   type: has_one
-  via: amount
-- from: BalanceResource
+  via: taxableBaseAmount
+- from: TaxAmount
   to: AmountType
   type: has_one
-  via: balanceAmount
-- from: BalancesLinks
-  to: GenericLink
-  type: has_one
-  via: self
-- from: BalancesLinks
-  to: GenericLink
-  type: has_one
-  via: parent-list
-- from: BalancesLinks
-  to: GenericLink
-  type: has_one
-  via: owners
-- from: BalancesLinks
-  to: GenericLink
-  type: has_one
-  via: transactions
-- from: BalancesLinks
-  to: GenericLink
-  type: has_one
-  via: overdrafts
-- from: BeneficiariesLinks
-  to: GenericLink
-  type: has_one
-  via: self
-- from: BeneficiariesLinks
-  to: GenericLink
-  type: has_one
-  via: accounts
-- from: BeneficiariesLinks
-  to: GenericLink
-  type: has_one
-  via: consents
-- from: BeneficiariesLinks
-  to: GenericLink
-  type: has_one
-  via: endUserIdentity
-- from: BeneficiariesLinks
-  to: GenericLink
-  type: has_one
-  via: first
-- from: BeneficiariesLinks
-  to: GenericLink
-  type: has_one
-  via: last
-- from: BeneficiariesLinks
-  to: GenericLink
-  type: has_one
-  via: next
-- from: BeneficiariesLinks
-  to: GenericLink
-  type: has_one
-  via: prev
-- from: Beneficiary
-  to: Workspace
-  type: has_one
-  via: workspace
-- from: Beneficiary
-  to: FinancialInstitutionIdentification
-  type: has_one
-  via: creditorAgent
-- from: Beneficiary
-  to: PartyIdentification
-  type: has_one
-  via: creditor
-- from: Beneficiary
-  to: AccountIdentification
-  type: has_one
-  via: creditorAccount
-- from: Charges
-  to: AmountType
-  type: has_one
-  via: totalChargesAndTaxAmount
-- from: Charges
-  to: ChargesRecord
-  type: has_many
-  via: record
-- from: ChargesRecord
-  to: AmountType
-  type: has_one
-  via: amount
-- from: ChargesRecord
-  to: CodeAndIssuer
-  type: has_one
-  via: code
-- from: ChargesRecord
-  to: FinancialInstitutionIdentification
-  type: has_one
-  via: agent
-- from: ChargesRecord
-  to: TaxCharges
-  type: has_one
-  via: tax
-- from: CreditorReferenceInformation
-  to: CodeAndIssuer
-  type: has_one
-  via: type
-- from: DocumentAdjustment
-  to: AmountType
-  type: has_one
-  via: amount
-- from: DocumentLineIdentification
-  to: CodeAndIssuer
-  type: has_one
-  via: type
-- from: EndUserIdentityLinks
-  to: GenericLink
-  type: has_one
-  via: self
-- from: EndUserIdentityLinks
-  to: GenericLink
-  type: has_one
-  via: accounts
-- from: EndUserIdentityLinks
-  to: GenericLink
-  type: has_one
-  via: consents
-- from: EndUserIdentityLinks
-  to: GenericLink
-  type: has_one
-  via: trustedBeneficiaries
-- from: ErrorModel
-  to: ErrorDetail
+  via: totalAmount
+- from: TaxAmount
+  to: TaxRecordDetails
   type: has_many
   via: details
-- from: FinancialInstitutionIdentification
-  to: ClearingSystemMemberIdentification
-  type: has_one
-  via: clearingSystemMemberId
-- from: FinancialInstitutionIdentification
-  to: PostalAddress
-  type: has_one
-  via: postalAddress
 - from: HalAccounts
   to: AccountResource
   type: has_many
@@ -619,290 +782,6 @@ relationships:
   to: BalancesLinks
   type: has_one
   via: _links
-- from: HalBeneficiaries
-  to: Beneficiary
-  type: has_many
-  via: beneficiaries
-- from: HalBeneficiaries
-  to: BeneficiariesLinks
-  type: has_one
-  via: _links
-- from: HalEndUserIdentity
-  to: Identity
-  type: has_one
-  via: identity
-- from: HalEndUserIdentity
-  to: EndUserIdentityLinks
-  type: has_one
-  via: _links
-- from: HalOverdrafts
-  to: Overdraft
-  type: has_one
-  via: overdrafts
-- from: HalOverdrafts
-  to: OverdraftsLinks
-  type: has_one
-  via: _links
-- from: HalOwners
-  to: GenericIdentification
-  type: has_one
-  via: company
-- from: HalOwners
-  to: Identity
-  type: has_many
-  via: identities
-- from: HalOwners
-  to: OwnersLinks
-  type: has_one
-  via: _links
-- from: HalTransactionDetails
-  to: TransactionDetailsLinks
-  type: has_one
-  via: _links
-- from: HalTransactions
-  to: TransactionResource
-  type: has_many
-  via: transactions
-- from: HalTransactions
-  to: TransactionsLinks
-  type: has_one
-  via: _links
-- from: LineDetail
-  to: DocumentLineIdentification
-  type: has_one
-  via: identification
-- from: LineDetail
-  to: RemittanceAmount
-  type: has_one
-  via: amount
-- from: Overdraft
-  to: AmountType
-  type: has_one
-  via: allowedAmount
-- from: OverdraftsLinks
-  to: GenericLink
-  type: has_one
-  via: self
-- from: OverdraftsLinks
-  to: GenericLink
-  type: has_one
-  via: parent-list
-- from: OverdraftsLinks
-  to: GenericLink
-  type: has_one
-  via: owners
-- from: OverdraftsLinks
-  to: GenericLink
-  type: has_one
-  via: balances
-- from: OverdraftsLinks
-  to: GenericLink
-  type: has_one
-  via: transactions
-- from: OwnersLinks
-  to: GenericLink
-  type: has_one
-  via: self
-- from: OwnersLinks
-  to: GenericLink
-  type: has_one
-  via: parent-list
-- from: OwnersLinks
-  to: GenericLink
-  type: has_one
-  via: balances
-- from: OwnersLinks
-  to: GenericLink
-  type: has_one
-  via: transactions
-- from: OwnersLinks
-  to: GenericLink
-  type: has_one
-  via: overdrafts
-- from: PartyIdentification
-  to: DateAndPlaceOfBirth
-  type: has_one
-  via: dateAndPlaceOfBirth
-- from: PartyIdentification
-  to: PostalAddress
-  type: has_one
-  via: postalAddress
-- from: PartyIdentification
-  to: ContactDetails
-  type: has_one
-  via: contactDetails
-- from: PartyIdentification
-  to: GenericIdentification
-  type: has_one
-  via: organisationId
-- from: PartyIdentification
-  to: GenericIdentification
-  type: has_one
-  via: privateId
-- from: ReferredDocumentInformation
-  to: CodeAndIssuer
-  type: has_one
-  via: type
-- from: ReferredDocumentInformation
-  to: LineDetail
-  type: has_many
-  via: lineDetails
-- from: RelatedParties
-  to: PartyIdentification
-  type: has_one
-  via: initiatingParty
-- from: RelatedParties
-  to: FinancialInstitutionIdentification
-  type: has_one
-  via: debtorAgent
-- from: RelatedParties
-  to: PartyIdentification
-  type: has_one
-  via: debtor
-- from: RelatedParties
-  to: AccountIdentification
-  type: has_one
-  via: debtorAccount
-- from: RelatedParties
-  to: PartyIdentification
-  type: has_one
-  via: ultimateDebtor
-- from: RelatedParties
-  to: FinancialInstitutionIdentification
-  type: has_one
-  via: creditorAgent
-- from: RelatedParties
-  to: PartyIdentification
-  type: has_one
-  via: creditor
-- from: RelatedParties
-  to: AccountIdentification
-  type: has_one
-  via: creditorAccount
-- from: RelatedParties
-  to: PartyIdentification
-  type: has_one
-  via: ultimateCreditor
-- from: RemittanceAmount
-  to: AmountType
-  type: has_one
-  via: duePayableAmount
-- from: RemittanceAmount
-  to: TypedAmount
-  type: has_one
-  via: discountAppliedAmount
-- from: RemittanceAmount
-  to: AmountType
-  type: has_one
-  via: creditNoteAmount
-- from: RemittanceAmount
-  to: TypedAmount
-  type: has_one
-  via: taxAmount
-- from: RemittanceAmount
-  to: DocumentAdjustment
-  type: has_one
-  via: adjustmentAmountAndReason
-- from: RemittanceAmount
-  to: AmountType
-  type: has_one
-  via: remittedAmount
-- from: RemittanceInformation
-  to: StructuredRemittanceInformation
-  type: has_many
-  via: structured
-- from: StructuredRemittanceInformation
-  to: RemittanceAmount
-  type: has_one
-  via: referredDocumentAmount
-- from: StructuredRemittanceInformation
-  to: CreditorReferenceInformation
-  type: has_one
-  via: creditorReferenceInformation
-- from: StructuredRemittanceInformation
-  to: PartyIdentification
-  type: has_one
-  via: invoicer
-- from: StructuredRemittanceInformation
-  to: PartyIdentification
-  type: has_one
-  via: invoicee
-- from: StructuredRemittanceInformation
-  to: TaxInformation
-  type: has_one
-  via: taxRemittance
-- from: TaxAmount
-  to: AmountType
-  type: has_one
-  via: taxableBaseAmount
-- from: TaxAmount
-  to: AmountType
-  type: has_one
-  via: totalAmount
-- from: TaxAmount
-  to: TaxRecordDetails
-  type: has_many
-  via: details
-- from: TaxCharges
-  to: AmountType
-  type: has_one
-  via: amount
-- from: TaxInformation
-  to: TaxParty
-  type: has_one
-  via: creditor
-- from: TaxInformation
-  to: TaxParty
-  type: has_one
-  via: debtor
-- from: TaxInformation
-  to: TaxParty
-  type: has_one
-  via: ultimateDebtor
-- from: TaxInformation
-  to: AmountType
-  type: has_one
-  via: totalTaxableBaseAmount
-- from: TaxInformation
-  to: AmountType
-  type: has_one
-  via: totalTaxAmount
-- from: TaxInformation
-  to: TaxRecord
-  type: has_many
-  via: record
-- from: TaxParty
-  to: TitleAndName
-  type: has_one
-  via: authorisation
-- from: TaxRecord
-  to: TaxPeriod
-  type: has_one
-  via: period
-- from: TaxRecord
-  to: TaxAmount
-  type: has_one
-  via: taxAmount
-- from: TaxRecordDetails
-  to: TaxPeriod
-  type: has_one
-  via: period
-- from: TaxRecordDetails
-  to: AmountType
-  type: has_one
-  via: amount
-- from: TransactionDetailsLinks
-  to: GenericLink
-  type: has_one
-  via: transactions
-- from: TransactionDetailsLinks
-  to: GenericLink
-  type: has_one
-  via: accounts
-- from: TransactionLinks
-  to: GenericLink
-  type: has_one
-  via: details
 - from: TransactionResource
   to: AmountType
   type: has_one
@@ -943,6 +822,426 @@ relationships:
   to: GenericIdentification
   type: has_one
   via: cardId
+- from: HalTransactions
+  to: TransactionResource
+  type: has_many
+  via: transactions
+- from: HalTransactions
+  to: TransactionsLinks
+  type: has_one
+  via: _links
+- from: HalEndUserIdentity
+  to: Identity
+  type: has_one
+  via: identity
+- from: HalEndUserIdentity
+  to: EndUserIdentityLinks
+  type: has_one
+  via: _links
+- from: RemittanceInformation
+  to: StructuredRemittanceInformation
+  type: has_many
+  via: structured
+- from: TypedAmount
+  to: AmountType
+  type: has_one
+  via: amount
+- from: Charges
+  to: AmountType
+  type: has_one
+  via: totalChargesAndTaxAmount
+- from: Charges
+  to: ChargesRecord
+  type: has_many
+  via: record
+- from: LineDetail
+  to: DocumentLineIdentification
+  type: has_one
+  via: identification
+- from: LineDetail
+  to: RemittanceAmount
+  type: has_one
+  via: amount
+- from: BeneficiariesLinks
+  to: GenericLink
+  type: has_one
+  via: self
+- from: BeneficiariesLinks
+  to: GenericLink
+  type: has_one
+  via: accounts
+- from: BeneficiariesLinks
+  to: GenericLink
+  type: has_one
+  via: consents
+- from: BeneficiariesLinks
+  to: GenericLink
+  type: has_one
+  via: endUserIdentity
+- from: BeneficiariesLinks
+  to: GenericLink
+  type: has_one
+  via: first
+- from: BeneficiariesLinks
+  to: GenericLink
+  type: has_one
+  via: last
+- from: BeneficiariesLinks
+  to: GenericLink
+  type: has_one
+  via: next
+- from: BeneficiariesLinks
+  to: GenericLink
+  type: has_one
+  via: prev
+- from: TaxParty
+  to: TitleAndName
+  type: has_one
+  via: authorisation
+- from: StructuredRemittanceInformation
+  to: RemittanceAmount
+  type: has_one
+  via: referredDocumentAmount
+- from: StructuredRemittanceInformation
+  to: CreditorReferenceInformation
+  type: has_one
+  via: creditorReferenceInformation
+- from: StructuredRemittanceInformation
+  to: PartyIdentification
+  type: has_one
+  via: invoicer
+- from: StructuredRemittanceInformation
+  to: PartyIdentification
+  type: has_one
+  via: invoicee
+- from: StructuredRemittanceInformation
+  to: TaxInformation
+  type: has_one
+  via: taxRemittance
+- from: ReferredDocumentInformation
+  to: CodeAndIssuer
+  type: has_one
+  via: type
+- from: ReferredDocumentInformation
+  to: LineDetail
+  type: has_many
+  via: lineDetails
+- from: BalancesLinks
+  to: GenericLink
+  type: has_one
+  via: self
+- from: BalancesLinks
+  to: GenericLink
+  type: has_one
+  via: parent-list
+- from: BalancesLinks
+  to: GenericLink
+  type: has_one
+  via: owners
+- from: BalancesLinks
+  to: GenericLink
+  type: has_one
+  via: transactions
+- from: BalancesLinks
+  to: GenericLink
+  type: has_one
+  via: overdrafts
+- from: Access
+  to: AccessibleTrustedBeneficiaries
+  type: has_many
+  via: trustedWorkspaceBeneficiaries
+- from: TaxInformation
+  to: TaxParty
+  type: has_one
+  via: creditor
+- from: TaxInformation
+  to: TaxParty
+  type: has_one
+  via: debtor
+- from: TaxInformation
+  to: TaxParty
+  type: has_one
+  via: ultimateDebtor
+- from: TaxInformation
+  to: AmountType
+  type: has_one
+  via: totalTaxableBaseAmount
+- from: TaxInformation
+  to: AmountType
+  type: has_one
+  via: totalTaxAmount
+- from: TaxInformation
+  to: TaxRecord
+  type: has_many
+  via: record
+- from: OwnersLinks
+  to: GenericLink
+  type: has_one
+  via: self
+- from: OwnersLinks
+  to: GenericLink
+  type: has_one
+  via: parent-list
+- from: OwnersLinks
+  to: GenericLink
+  type: has_one
+  via: balances
+- from: OwnersLinks
+  to: GenericLink
+  type: has_one
+  via: transactions
+- from: OwnersLinks
+  to: GenericLink
+  type: has_one
+  via: overdrafts
+- from: ChargesRecord
+  to: AmountType
+  type: has_one
+  via: amount
+- from: ChargesRecord
+  to: CodeAndIssuer
+  type: has_one
+  via: code
+- from: ChargesRecord
+  to: FinancialInstitutionIdentification
+  type: has_one
+  via: agent
+- from: ChargesRecord
+  to: TaxCharges
+  type: has_one
+  via: tax
+- from: DocumentLineIdentification
+  to: CodeAndIssuer
+  type: has_one
+  via: type
+- from: TransactionLinks
+  to: GenericLink
+  type: has_one
+  via: details
+- from: TaxRecordDetails
+  to: TaxPeriod
+  type: has_one
+  via: period
+- from: TaxRecordDetails
+  to: AmountType
+  type: has_one
+  via: amount
+- from: HalOverdrafts
+  to: Overdraft
+  type: has_one
+  via: overdrafts
+- from: HalOverdrafts
+  to: OverdraftsLinks
+  type: has_one
+  via: _links
+- from: TaxRecord
+  to: TaxPeriod
+  type: has_one
+  via: period
+- from: TaxRecord
+  to: TaxAmount
+  type: has_one
+  via: taxAmount
+- from: HalOwners
+  to: GenericIdentification
+  type: has_one
+  via: company
+- from: HalOwners
+  to: Identity
+  type: has_many
+  via: identities
+- from: HalOwners
+  to: OwnersLinks
+  type: has_one
+  via: _links
+- from: RemittanceAmount
+  to: AmountType
+  type: has_one
+  via: duePayableAmount
+- from: RemittanceAmount
+  to: TypedAmount
+  type: has_one
+  via: discountAppliedAmount
+- from: RemittanceAmount
+  to: AmountType
+  type: has_one
+  via: creditNoteAmount
+- from: RemittanceAmount
+  to: TypedAmount
+  type: has_one
+  via: taxAmount
+- from: RemittanceAmount
+  to: DocumentAdjustment
+  type: has_one
+  via: adjustmentAmountAndReason
+- from: RemittanceAmount
+  to: AmountType
+  type: has_one
+  via: remittedAmount
+- from: Overdraft
+  to: AmountType
+  type: has_one
+  via: allowedAmount
+- from: ErrorModel
+  to: ErrorDetail
+  type: has_many
+  via: details
+- from: EndUserIdentityLinks
+  to: GenericLink
+  type: has_one
+  via: self
+- from: EndUserIdentityLinks
+  to: GenericLink
+  type: has_one
+  via: accounts
+- from: EndUserIdentityLinks
+  to: GenericLink
+  type: has_one
+  via: consents
+- from: EndUserIdentityLinks
+  to: GenericLink
+  type: has_one
+  via: trustedBeneficiaries
+- from: DocumentAdjustment
+  to: AmountType
+  type: has_one
+  via: amount
+- from: AccountResource
+  to: Workspace
+  type: has_one
+  via: workspace
+- from: AccountResource
+  to: AccountIdentification
+  type: has_one
+  via: accountId
+- from: AccountResource
+  to: Account
+  type: belongs_to
+  via: accountId
+- from: AccountResource
+  to: BalanceResource
+  type: has_many
+  via: balances
+- from: AccountResource
+  to: AccountLinks
+  type: has_one
+  via: _links
+- from: AmountAndCurrencyExchange
+  to: AmountAndCurrencyExchangeDetails
+  type: has_one
+  via: instructedAmount
+- from: AmountAndCurrencyExchange
+  to: AmountAndCurrencyExchangeDetails
+  type: has_one
+  via: transactionAmount
+- from: AmountAndCurrencyExchange
+  to: AmountAndCurrencyExchangeDetails
+  type: has_one
+  via: counterValueAmount
+- from: AmountAndCurrencyExchange
+  to: AmountAndCurrencyExchangeDetails
+  type: has_one
+  via: announcedPostingAmount
+- from: AmountAndCurrencyExchange
+  to: AmountAndCurrencyExchangeDetails
+  type: has_many
+  via: proprietaryAmount
+- from: AccountLinks
+  to: GenericLink
+  type: has_one
+  via: owners
+- from: AccountLinks
+  to: GenericLink
+  type: has_one
+  via: balances
+- from: AccountLinks
+  to: GenericLink
+  type: has_one
+  via: transactions
+- from: AccountLinks
+  to: GenericLink
+  type: has_one
+  via: overdrafts
+- from: CreditorReferenceInformation
+  to: CodeAndIssuer
+  type: has_one
+  via: type
+- from: AccountListLinks
+  to: GenericLink
+  type: has_one
+  via: self
+- from: AccountListLinks
+  to: GenericLink
+  type: has_one
+  via: consents
+- from: AccountListLinks
+  to: GenericLink
+  type: has_one
+  via: endUserIdentity
+- from: AccountListLinks
+  to: GenericLink
+  type: has_one
+  via: trustedBeneficiaries
+- from: AccountListLinks
+  to: GenericLink
+  type: has_many
+  via: workspaces
+- from: AccountListLinks
+  to: GenericLink
+  type: has_one
+  via: first
+- from: AccountListLinks
+  to: GenericLink
+  type: has_one
+  via: last
+- from: AccountListLinks
+  to: GenericLink
+  type: has_one
+  via: next
+- from: AccountListLinks
+  to: GenericLink
+  type: has_one
+  via: prev
+- from: AmountAndCurrencyExchangeDetails
+  to: AmountType
+  type: has_one
+  via: amount
+- from: RelatedParties
+  to: PartyIdentification
+  type: has_one
+  via: initiatingParty
+- from: RelatedParties
+  to: FinancialInstitutionIdentification
+  type: has_one
+  via: debtorAgent
+- from: RelatedParties
+  to: PartyIdentification
+  type: has_one
+  via: debtor
+- from: RelatedParties
+  to: AccountIdentification
+  type: has_one
+  via: debtorAccount
+- from: RelatedParties
+  to: PartyIdentification
+  type: has_one
+  via: ultimateDebtor
+- from: RelatedParties
+  to: FinancialInstitutionIdentification
+  type: has_one
+  via: creditorAgent
+- from: RelatedParties
+  to: PartyIdentification
+  type: has_one
+  via: creditor
+- from: RelatedParties
+  to: AccountIdentification
+  type: has_one
+  via: creditorAccount
+- from: RelatedParties
+  to: PartyIdentification
+  type: has_one
+  via: ultimateCreditor
 - from: TransactionsLinks
   to: GenericLink
   type: has_one
@@ -979,10 +1278,770 @@ relationships:
   to: GenericLink
   type: has_one
   via: prev
-- from: TypedAmount
+- from: AccountIdentification
+  to: GenericIdentification
+  type: has_one
+  via: other
+- from: PartyIdentification
+  to: DateAndPlaceOfBirth
+  type: has_one
+  via: dateAndPlaceOfBirth
+- from: PartyIdentification
+  to: PostalAddress
+  type: has_one
+  via: postalAddress
+- from: PartyIdentification
+  to: ContactDetails
+  type: has_one
+  via: contactDetails
+- from: PartyIdentification
+  to: GenericIdentification
+  type: has_one
+  via: organisationId
+- from: PartyIdentification
+  to: GenericIdentification
+  type: has_one
+  via: privateId
+- from: Beneficiary
+  to: Workspace
+  type: has_one
+  via: workspace
+- from: Beneficiary
+  to: FinancialInstitutionIdentification
+  type: has_one
+  via: creditorAgent
+- from: Beneficiary
+  to: PartyIdentification
+  type: has_one
+  via: creditor
+- from: Beneficiary
+  to: AccountIdentification
+  type: has_one
+  via: creditorAccount
+- from: TaxCharges
   to: AmountType
   type: has_one
   via: amount
+- from: TransactionDetailsLinks
+  to: GenericLink
+  type: has_one
+  via: transactions
+- from: TransactionDetailsLinks
+  to: GenericLink
+  type: has_one
+  via: accounts
+- from: BalanceResource
+  to: AmountType
+  type: has_one
+  via: balanceAmount
+- from: FinancialInstitutionIdentification
+  to: ClearingSystemMemberIdentification
+  type: has_one
+  via: clearingSystemMemberId
+- from: FinancialInstitutionIdentification
+  to: PostalAddress
+  type: has_one
+  via: postalAddress
+- from: OverdraftsLinks
+  to: GenericLink
+  type: has_one
+  via: self
+- from: OverdraftsLinks
+  to: GenericLink
+  type: has_one
+  via: parent-list
+- from: OverdraftsLinks
+  to: GenericLink
+  type: has_one
+  via: owners
+- from: OverdraftsLinks
+  to: GenericLink
+  type: has_one
+  via: balances
+- from: OverdraftsLinks
+  to: GenericLink
+  type: has_one
+  via: transactions
+- from: HalBeneficiaries
+  to: Beneficiary
+  type: has_many
+  via: beneficiaries
+- from: HalBeneficiaries
+  to: BeneficiariesLinks
+  type: has_one
+  via: _links
+- from: HalTransactionDetails_2
+  to: TransactionDetailsLinks_2
+  type: has_one
+  via: _links
+- from: TaxAmount_2
+  to: AmountType_2
+  type: has_one
+  via: taxableBaseAmount
+- from: TaxAmount_2
+  to: AmountType_2
+  type: has_one
+  via: totalAmount
+- from: TaxAmount_2
+  to: TaxRecordDetails_2
+  type: has_many
+  via: details
+- from: HalAccounts_2
+  to: AccountResource_2
+  type: has_many
+  via: accounts
+- from: HalAccounts_2
+  to: AccountListLinks_2
+  type: has_one
+  via: _links
+- from: HalBalances_2
+  to: BalanceResource_2
+  type: has_many
+  via: balances
+- from: HalBalances_2
+  to: BalancesLinks_2
+  type: has_one
+  via: _links
+- from: TransactionResource_2
+  to: AmountType_2
+  type: has_one
+  via: transactionAmount
+- from: TransactionResource_2
+  to: AmountAndCurrencyExchange_2
+  type: has_one
+  via: transactionAmountDetails
+- from: TransactionResource_2
+  to: BankTransactionCode_2
+  type: has_one
+  via: bankTransactionCode
+- from: TransactionResource_2
+  to: Charges_2
+  type: has_one
+  via: charges
+- from: TransactionResource_2
+  to: RelatedParties_2
+  type: has_one
+  via: relatedParties
+- from: TransactionResource_2
+  to: RemittanceInformation_2
+  type: has_one
+  via: remittanceInformation
+- from: TransactionResource_2
+  to: StandingOrderCharacteristics_2
+  type: has_one
+  via: standingOrderCharacteristics
+- from: TransactionResource_2
+  to: TransactionLinks_2
+  type: has_one
+  via: _links
+- from: TransactionResource_2
+  to: Period
+  type: has_one
+  via: bookingPeriod
+- from: TransactionResource_2
+  to: GenericIdentification_2
+  type: has_one
+  via: cardId
+- from: HalTransactions_2
+  to: TransactionResource_2
+  type: has_many
+  via: transactions
+- from: HalTransactions_2
+  to: TransactionsLinks_2
+  type: has_one
+  via: _links
+- from: HalEndUserIdentity_2
+  to: Identity_2
+  type: has_one
+  via: identity
+- from: HalEndUserIdentity_2
+  to: EndUserIdentityLinks_2
+  type: has_one
+  via: _links
+- from: RemittanceInformation_2
+  to: StructuredRemittanceInformation_2
+  type: has_many
+  via: structured
+- from: TypedAmount_2
+  to: AmountType_2
+  type: has_one
+  via: amount
+- from: Charges_2
+  to: AmountType_2
+  type: has_one
+  via: totalChargesAndTaxAmount
+- from: Charges_2
+  to: ChargesRecord_2
+  type: has_many
+  via: record
+- from: LineDetail_2
+  to: DocumentLineIdentification_2
+  type: has_one
+  via: identification
+- from: LineDetail_2
+  to: RemittanceAmount_2
+  type: has_one
+  via: amount
+- from: BeneficiariesLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: self
+- from: BeneficiariesLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: accounts
+- from: BeneficiariesLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: consents
+- from: BeneficiariesLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: endUserIdentity
+- from: BeneficiariesLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: first
+- from: BeneficiariesLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: last
+- from: BeneficiariesLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: next
+- from: BeneficiariesLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: prev
+- from: TaxParty_2
+  to: TitleAndName_2
+  type: has_one
+  via: authorisation
+- from: StructuredRemittanceInformation_2
+  to: RemittanceAmount_2
+  type: has_one
+  via: referredDocumentAmount
+- from: StructuredRemittanceInformation_2
+  to: CreditorReferenceInformation_2
+  type: has_one
+  via: creditorReferenceInformation
+- from: StructuredRemittanceInformation_2
+  to: PartyIdentification_2
+  type: has_one
+  via: invoicer
+- from: StructuredRemittanceInformation_2
+  to: PartyIdentification_2
+  type: has_one
+  via: invoicee
+- from: StructuredRemittanceInformation_2
+  to: TaxInformation_2
+  type: has_one
+  via: taxRemittance
+- from: ReferredDocumentInformation_2
+  to: CodeAndIssuer_2
+  type: has_one
+  via: type
+- from: ReferredDocumentInformation_2
+  to: LineDetail_2
+  type: has_many
+  via: lineDetails
+- from: BalancesLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: self
+- from: BalancesLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: parent-list
+- from: BalancesLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: owners
+- from: BalancesLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: transactions
+- from: BalancesLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: overdrafts
+- from: Access_2
+  to: AccessibleTrustedBeneficiaries
+  type: has_many
+  via: trustedWorkspaceBeneficiaries
+- from: TaxInformation_2
+  to: TaxParty_2
+  type: has_one
+  via: creditor
+- from: TaxInformation_2
+  to: TaxParty_2
+  type: has_one
+  via: debtor
+- from: TaxInformation_2
+  to: TaxParty_2
+  type: has_one
+  via: ultimateDebtor
+- from: TaxInformation_2
+  to: AmountType_2
+  type: has_one
+  via: totalTaxableBaseAmount
+- from: TaxInformation_2
+  to: AmountType_2
+  type: has_one
+  via: totalTaxAmount
+- from: TaxInformation_2
+  to: TaxRecord_2
+  type: has_many
+  via: record
+- from: OwnersLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: self
+- from: OwnersLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: parent-list
+- from: OwnersLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: balances
+- from: OwnersLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: transactions
+- from: OwnersLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: overdrafts
+- from: ChargesRecord_2
+  to: AmountType_2
+  type: has_one
+  via: amount
+- from: ChargesRecord_2
+  to: CodeAndIssuer_2
+  type: has_one
+  via: code
+- from: ChargesRecord_2
+  to: FinancialInstitutionIdentification_2
+  type: has_one
+  via: agent
+- from: ChargesRecord_2
+  to: TaxCharges_2
+  type: has_one
+  via: tax
+- from: DocumentLineIdentification_2
+  to: CodeAndIssuer_2
+  type: has_one
+  via: type
+- from: TransactionLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: details
+- from: TaxRecordDetails_2
+  to: TaxPeriod_2
+  type: has_one
+  via: period
+- from: TaxRecordDetails_2
+  to: AmountType_2
+  type: has_one
+  via: amount
+- from: HalOverdrafts_2
+  to: Overdraft_2
+  type: has_one
+  via: overdrafts
+- from: HalOverdrafts_2
+  to: OverdraftsLinks_2
+  type: has_one
+  via: _links
+- from: TaxRecord_2
+  to: TaxPeriod_2
+  type: has_one
+  via: period
+- from: TaxRecord_2
+  to: TaxAmount_2
+  type: has_one
+  via: taxAmount
+- from: HalOwners_2
+  to: GenericIdentification_2
+  type: has_one
+  via: company
+- from: HalOwners_2
+  to: Identity_2
+  type: has_many
+  via: identities
+- from: HalOwners_2
+  to: OwnersLinks_2
+  type: has_one
+  via: _links
+- from: RemittanceAmount_2
+  to: AmountType_2
+  type: has_one
+  via: duePayableAmount
+- from: RemittanceAmount_2
+  to: TypedAmount_2
+  type: has_one
+  via: discountAppliedAmount
+- from: RemittanceAmount_2
+  to: AmountType_2
+  type: has_one
+  via: creditNoteAmount
+- from: RemittanceAmount_2
+  to: TypedAmount_2
+  type: has_one
+  via: taxAmount
+- from: RemittanceAmount_2
+  to: DocumentAdjustment_2
+  type: has_one
+  via: adjustmentAmountAndReason
+- from: RemittanceAmount_2
+  to: AmountType_2
+  type: has_one
+  via: remittedAmount
+- from: Overdraft_2
+  to: AmountType_2
+  type: has_one
+  via: allowedAmount
+- from: ErrorModel_2
+  to: ErrorDetail_2
+  type: has_many
+  via: details
+- from: EndUserIdentityLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: self
+- from: EndUserIdentityLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: accounts
+- from: EndUserIdentityLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: consents
+- from: EndUserIdentityLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: trustedBeneficiaries
+- from: DocumentAdjustment_2
+  to: AmountType_2
+  type: has_one
+  via: amount
+- from: AccountResource_2
+  to: Workspace
+  type: has_one
+  via: workspace
+- from: AccountResource_2
+  to: AccountIdentification_2
+  type: has_one
+  via: accountId
+- from: AccountResource_2
+  to: Account
+  type: belongs_to
+  via: accountId
+- from: AccountResource_2
+  to: BalanceResource_2
+  type: has_many
+  via: balances
+- from: AccountResource_2
+  to: AccountLinks_2
+  type: has_one
+  via: _links
+- from: AmountAndCurrencyExchange_2
+  to: AmountAndCurrencyExchangeDetails_2
+  type: has_one
+  via: instructedAmount
+- from: AmountAndCurrencyExchange_2
+  to: AmountAndCurrencyExchangeDetails_2
+  type: has_one
+  via: transactionAmount
+- from: AmountAndCurrencyExchange_2
+  to: AmountAndCurrencyExchangeDetails_2
+  type: has_one
+  via: counterValueAmount
+- from: AmountAndCurrencyExchange_2
+  to: AmountAndCurrencyExchangeDetails_2
+  type: has_one
+  via: announcedPostingAmount
+- from: AmountAndCurrencyExchange_2
+  to: AmountAndCurrencyExchangeDetails_2
+  type: has_many
+  via: proprietaryAmount
+- from: AccountLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: owners
+- from: AccountLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: balances
+- from: AccountLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: transactions
+- from: AccountLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: overdrafts
+- from: CreditorReferenceInformation_2
+  to: CodeAndIssuer_2
+  type: has_one
+  via: type
+- from: AccountListLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: self
+- from: AccountListLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: consents
+- from: AccountListLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: endUserIdentity
+- from: AccountListLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: trustedBeneficiaries
+- from: AccountListLinks_2
+  to: GenericLink_2
+  type: has_many
+  via: workspaces
+- from: AccountListLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: first
+- from: AccountListLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: last
+- from: AccountListLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: next
+- from: AccountListLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: prev
+- from: AmountAndCurrencyExchangeDetails_2
+  to: AmountType_2
+  type: has_one
+  via: amount
+- from: RelatedParties_2
+  to: PartyIdentification_2
+  type: has_one
+  via: initiatingParty
+- from: RelatedParties_2
+  to: FinancialInstitutionIdentification_2
+  type: has_one
+  via: debtorAgent
+- from: RelatedParties_2
+  to: PartyIdentification_2
+  type: has_one
+  via: debtor
+- from: RelatedParties_2
+  to: AccountIdentification_2
+  type: has_one
+  via: debtorAccount
+- from: RelatedParties_2
+  to: PartyIdentification_2
+  type: has_one
+  via: ultimateDebtor
+- from: RelatedParties_2
+  to: FinancialInstitutionIdentification_2
+  type: has_one
+  via: creditorAgent
+- from: RelatedParties_2
+  to: PartyIdentification_2
+  type: has_one
+  via: creditor
+- from: RelatedParties_2
+  to: AccountIdentification_2
+  type: has_one
+  via: creditorAccount
+- from: RelatedParties_2
+  to: PartyIdentification_2
+  type: has_one
+  via: ultimateCreditor
+- from: TransactionsLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: self
+- from: TransactionsLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: parent-list
+- from: TransactionsLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: owners
+- from: TransactionsLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: balances
+- from: TransactionsLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: overdrafts
+- from: TransactionsLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: first
+- from: TransactionsLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: last
+- from: TransactionsLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: next
+- from: TransactionsLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: prev
+- from: AccountIdentification_2
+  to: GenericIdentification_2
+  type: has_one
+  via: other
+- from: PartyIdentification_2
+  to: DateAndPlaceOfBirth_2
+  type: has_one
+  via: dateAndPlaceOfBirth
+- from: PartyIdentification_2
+  to: PostalAddress_2
+  type: has_one
+  via: postalAddress
+- from: PartyIdentification_2
+  to: ContactDetails_2
+  type: has_one
+  via: contactDetails
+- from: PartyIdentification_2
+  to: GenericIdentification_2
+  type: has_one
+  via: organisationId
+- from: PartyIdentification_2
+  to: GenericIdentification_2
+  type: has_one
+  via: privateId
+- from: Beneficiary_2
+  to: Workspace
+  type: has_one
+  via: workspace
+- from: Beneficiary_2
+  to: FinancialInstitutionIdentification_2
+  type: has_one
+  via: creditorAgent
+- from: Beneficiary_2
+  to: PartyIdentification_2
+  type: has_one
+  via: creditor
+- from: Beneficiary_2
+  to: AccountIdentification_2
+  type: has_one
+  via: creditorAccount
+- from: TaxCharges_2
+  to: AmountType_2
+  type: has_one
+  via: amount
+- from: TransactionDetailsLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: transactions
+- from: TransactionDetailsLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: accounts
+- from: BalanceResource_2
+  to: AmountType_2
+  type: has_one
+  via: balanceAmount
+- from: FinancialInstitutionIdentification_2
+  to: ClearingSystemMemberIdentification_2
+  type: has_one
+  via: clearingSystemMemberId
+- from: FinancialInstitutionIdentification_2
+  to: PostalAddress_2
+  type: has_one
+  via: postalAddress
+- from: OverdraftsLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: self
+- from: OverdraftsLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: parent-list
+- from: OverdraftsLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: owners
+- from: OverdraftsLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: balances
+- from: OverdraftsLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: transactions
+- from: HalBeneficiaries_2
+  to: Beneficiary_2
+  type: has_many
+  via: beneficiaries
+- from: HalBeneficiaries_2
+  to: BeneficiariesLinks_2
+  type: has_one
+  via: _links
+- from: PaymentCoverageRequestResource
+  to: AmountType
+  type: has_one
+  via: instructedAmount
+- from: PaymentCoverageRequestResource
+  to: AccountIdentification
+  type: has_one
+  via: accountId
+- from: PaymentCoverageRequestResource
+  to: Account
+  type: belongs_to
+  via: accountId
+- from: PaymentCoverageReportLinks
+  to: GenericLink
+  type: has_one
+  via: self
+- from: HalPaymentCoverageReport
+  to: PaymentCoverageRequestResource
+  type: has_one
+  via: request
+- from: HalPaymentCoverageReport
+  to: PaymentCoverageReportLinks
+  type: has_one
+  via: _links
+- from: PaymentCoverageRequestResource_2
+  to: AmountType_2
+  type: has_one
+  via: instructedAmount
+- from: PaymentCoverageRequestResource_2
+  to: AccountIdentification_2
+  type: has_one
+  via: accountId
+- from: PaymentCoverageRequestResource_2
+  to: Account
+  type: belongs_to
+  via: accountId
+- from: PaymentCoverageReportLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: self
+- from: HalPaymentCoverageReport_2
+  to: PaymentCoverageRequestResource_2
+  type: has_one
+  via: request
+- from: HalPaymentCoverageReport_2
+  to: PaymentCoverageReportLinks_2
+  type: has_one
+  via: _links
+- from: Errors
+  to: Error
+  type: has_many
+  via: errors
 - from: Account
   to: FinancialInstitution
   type: has_one
@@ -991,22 +2050,630 @@ relationships:
   to: Currency
   type: has_many
   via: currencies
-- from: DebitEntry
-  to: Amount
-  type: has_one
-  via: amount
-- from: Errors
-  to: Error
-  type: has_many
-  via: errors
 - from: InternalAccount
   to: Amount
   type: has_one
   via: balance
-- from: TransferRequest
-  to: TransferRequestLine
+- from: IntermediaryAgent
+  to: PartyIdentification
+  type: has_one
+  via: agent
+- from: IntermediaryAgent
+  to: AccountIdentification
+  type: has_one
+  via: agentAccount
+- from: PaymentRequestResourceCreationLinks
+  to: GenericLink
+  type: has_one
+  via: consentApproval
+- from: PaymentRequestLinks
+  to: GenericLink
+  type: has_one
+  via: request
+- from: PaymentRequestLinks
+  to: GenericLink
+  type: has_one
+  via: confirmation
+- from: PaymentRequestResource
+  to: PartyIdentification
+  type: has_one
+  via: initiatingParty
+- from: PaymentRequestResource
+  to: PaymentTypeInformation
+  type: has_one
+  via: paymentTypeInformation
+- from: PaymentRequestResource
+  to: PartyIdentification
+  type: has_one
+  via: debtor
+- from: PaymentRequestResource
+  to: AccountIdentification
+  type: has_one
+  via: debtorAccount
+- from: PaymentRequestResource
+  to: FinancialInstitutionIdentification
+  type: has_one
+  via: debtorAgent
+- from: PaymentRequestResource
+  to: Beneficiary
+  type: has_one
+  via: beneficiary
+- from: PaymentRequestResource
+  to: CreditTransferTransaction
   type: has_many
-  via: lines
+  via: creditTransferTransaction
+- from: PaymentRequestResource
+  to: SupplementaryData
+  type: has_one
+  via: supplementaryData
+- from: HalPaymentRequestCreation
+  to: PaymentRequestResourceCreationLinks
+  type: has_one
+  via: _links
+- from: HalPaymentRequest
+  to: PaymentRequestResource
+  type: has_one
+  via: paymentRequest
+- from: HalPaymentRequest
+  to: PaymentRequestLinks
+  type: has_one
+  via: _links
+- from: CreditTransferTransaction
+  to: PaymentIdentification
+  type: has_one
+  via: paymentId
+- from: CreditTransferTransaction
+  to: AmountType
+  type: has_one
+  via: instructedAmount
+- from: CreditTransferTransaction
+  to: EquivalentAmountType
+  type: has_one
+  via: equivalentAmount
+- from: CreditTransferTransaction
+  to: ExchangeRate
+  type: has_one
+  via: exchangeRateInformation
+- from: CreditTransferTransaction
+  to: PartyIdentification
+  type: has_one
+  via: ultimateDebtor
+- from: CreditTransferTransaction
+  to: IntermediaryAgent
+  type: has_one
+  via: intermediaryAgent
+- from: CreditTransferTransaction
+  to: Beneficiary
+  type: has_one
+  via: beneficiary
+- from: CreditTransferTransaction
+  to: PartyIdentification
+  type: has_one
+  via: ultimateCreditor
+- from: CreditTransferTransaction
+  to: InstructionForCreditorAgent
+  type: has_many
+  via: instructionForCreditorAgent
+- from: CreditTransferTransaction
+  to: RemittanceInformation
+  type: has_one
+  via: remittanceInformation
+- from: ExchangeRate_2
+  to: AmountType_2
+  type: has_one
+  via: estimatedPayerAmount
+- from: ExchangeRate_2
+  to: AmountType_2
+  type: has_one
+  via: estimatedPayeeAmount
+- from: CreditTransferTransactionResource
+  to: PaymentIdentification_2
+  type: has_one
+  via: paymentId
+- from: CreditTransferTransactionResource
+  to: StandingOrderCharacteristics
+  type: has_one
+  via: standingOrderCharacteristics
+- from: CreditTransferTransactionResource
+  to: AmountType_2
+  type: has_one
+  via: instructedAmount
+- from: CreditTransferTransactionResource
+  to: EquivalentAmountType_2
+  type: has_one
+  via: equivalentAmount
+- from: CreditTransferTransactionResource
+  to: ExchangeRate_2
+  type: has_one
+  via: exchangeRateInformation
+- from: CreditTransferTransactionResource
+  to: PartyIdentification_2
+  type: has_one
+  via: ultimateDebtor
+- from: CreditTransferTransactionResource
+  to: IntermediaryAgent_2
+  type: has_one
+  via: intermediaryAgent
+- from: CreditTransferTransactionResource
+  to: Beneficiary_2
+  type: has_one
+  via: beneficiary
+- from: CreditTransferTransactionResource
+  to: PartyIdentification_2
+  type: has_one
+  via: ultimateCreditor
+- from: CreditTransferTransactionResource
+  to: InstructionForCreditorAgent_2
+  type: has_many
+  via: instructionForCreditorAgent
+- from: CreditTransferTransactionResource
+  to: RemittanceInformation_2
+  type: has_one
+  via: remittanceInformation
+- from: CreditTransferTransactionResource
+  to: SupplementaryData_2
+  type: has_one
+  via: supplementaryData
+- from: PaymentRequestResourceCreationLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: consentApproval
+- from: IntermediaryAgent_2
+  to: PartyIdentification_2
+  type: has_one
+  via: agent
+- from: IntermediaryAgent_2
+  to: AccountIdentification_2
+  type: has_one
+  via: agentAccount
+- from: CreditTransferTransactionLinks
+  to: GenericLink_2
+  type: has_one
+  via: self
+- from: CreditTransferTransactionLinks
+  to: GenericLink_2
+  type: has_one
+  via: parent
+- from: CreditTransferTransactionLinks
+  to: GenericLink_2
+  type: has_one
+  via: first
+- from: CreditTransferTransactionLinks
+  to: GenericLink_2
+  type: has_one
+  via: last
+- from: CreditTransferTransactionLinks
+  to: GenericLink_2
+  type: has_one
+  via: next
+- from: CreditTransferTransactionLinks
+  to: GenericLink_2
+  type: has_one
+  via: prev
+- from: PaymentRequestLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: request
+- from: PaymentRequestLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: confirmation
+- from: PaymentRequestLinks_2
+  to: GenericLink_2
+  type: has_one
+  via: transactions
+- from: PaymentRequestResource_2
+  to: PartyIdentification_2
+  type: has_one
+  via: initiatingParty
+- from: PaymentRequestResource_2
+  to: PaymentTypeInformation_2
+  type: has_one
+  via: paymentTypeInformation
+- from: PaymentRequestResource_2
+  to: PartyIdentification_2
+  type: has_one
+  via: debtor
+- from: PaymentRequestResource_2
+  to: AccountIdentification_2
+  type: has_one
+  via: debtorAccount
+- from: PaymentRequestResource_2
+  to: FinancialInstitutionIdentification_2
+  type: has_one
+  via: debtorAgent
+- from: PaymentRequestResource_2
+  to: CreditTransferTransactionResource
+  type: has_many
+  via: creditTransferTransaction
+- from: PaymentRequestResource_2
+  to: SupplementaryData_2
+  type: has_one
+  via: supplementaryData
+- from: HalCreditTransfertTransactions
+  to: CreditTransferTransactionResource
+  type: has_many
+  via: creditTransferTransaction
+- from: HalCreditTransfertTransactions
+  to: CreditTransferTransactionLinks
+  type: has_one
+  via: _links
+- from: HalPaymentRequest_2
+  to: PaymentRequestResource_2
+  type: has_one
+  via: paymentRequest
+- from: HalPaymentRequest_2
+  to: PaymentRequestLinks_2
+  type: has_one
+  via: _links
+- from: HalAuthenticationRequest
+  to: PaymentRequestResourceCreationLinks_2
+  type: has_one
+  via: _links
+- from: TaxAmount_3
+  to: AmountType_3
+  type: has_one
+  via: taxableBaseAmount
+- from: TaxAmount_3
+  to: AmountType_3
+  type: has_one
+  via: totalAmount
+- from: TaxAmount_3
+  to: TaxRecordDetails_3
+  type: has_many
+  via: details
+- from: ExchangeRate_3
+  to: AmountType_3
+  type: has_one
+  via: estimatedPayerAmount
+- from: ExchangeRate_3
+  to: AmountType_3
+  type: has_one
+  via: estimatedPayeeAmount
+- from: RemittanceInformation_3
+  to: StructuredRemittanceInformation_3
+  type: has_many
+  via: structured
+- from: TypedAmount_3
+  to: AmountType_3
+  type: has_one
+  via: amount
+- from: LineDetail_3
+  to: DocumentLineIdentification_3
+  type: has_one
+  via: identification
+- from: LineDetail_3
+  to: RemittanceAmount_3
+  type: has_one
+  via: amount
+- from: CreditTransferTransactionResource_2
+  to: PaymentIdentification_3
+  type: has_one
+  via: paymentId
+- from: CreditTransferTransactionResource_2
+  to: StandingOrderCharacteristics_2
+  type: has_one
+  via: standingOrderCharacteristics
+- from: CreditTransferTransactionResource_2
+  to: AmountType_3
+  type: has_one
+  via: instructedAmount
+- from: CreditTransferTransactionResource_2
+  to: EquivalentAmountType_3
+  type: has_one
+  via: equivalentAmount
+- from: CreditTransferTransactionResource_2
+  to: ExchangeRate_3
+  type: has_one
+  via: exchangeRateInformation
+- from: CreditTransferTransactionResource_2
+  to: PartyIdentification_3
+  type: has_one
+  via: ultimateDebtor
+- from: CreditTransferTransactionResource_2
+  to: IntermediaryAgent_3
+  type: has_one
+  via: intermediaryAgent
+- from: CreditTransferTransactionResource_2
+  to: Beneficiary_3
+  type: has_one
+  via: beneficiary
+- from: CreditTransferTransactionResource_2
+  to: PartyIdentification_3
+  type: has_one
+  via: ultimateCreditor
+- from: CreditTransferTransactionResource_2
+  to: InstructionForCreditorAgent_3
+  type: has_many
+  via: instructionForCreditorAgent
+- from: CreditTransferTransactionResource_2
+  to: RemittanceInformation_3
+  type: has_one
+  via: remittanceInformation
+- from: CreditTransferTransactionResource_2
+  to: SupplementaryData_3
+  type: has_one
+  via: supplementaryData
+- from: PaymentRequestResourceCreationLinks_3
+  to: GenericLink_3
+  type: has_one
+  via: consentApproval
+- from: IntermediaryAgent_3
+  to: PartyIdentification_3
+  type: has_one
+  via: agent
+- from: IntermediaryAgent_3
+  to: AccountIdentification_3
+  type: has_one
+  via: agentAccount
+- from: TaxParty_3
+  to: TitleAndName_3
+  type: has_one
+  via: authorisation
+- from: CreditTransferTransactionLinks_2
+  to: GenericLink_3
+  type: has_one
+  via: self
+- from: CreditTransferTransactionLinks_2
+  to: GenericLink_3
+  type: has_one
+  via: parent
+- from: CreditTransferTransactionLinks_2
+  to: GenericLink_3
+  type: has_one
+  via: first
+- from: CreditTransferTransactionLinks_2
+  to: GenericLink_3
+  type: has_one
+  via: last
+- from: CreditTransferTransactionLinks_2
+  to: GenericLink_3
+  type: has_one
+  via: next
+- from: CreditTransferTransactionLinks_2
+  to: GenericLink_3
+  type: has_one
+  via: prev
+- from: StructuredRemittanceInformation_3
+  to: RemittanceAmount_3
+  type: has_one
+  via: referredDocumentAmount
+- from: StructuredRemittanceInformation_3
+  to: CreditorReferenceInformation_3
+  type: has_one
+  via: creditorReferenceInformation
+- from: StructuredRemittanceInformation_3
+  to: PartyIdentification_3
+  type: has_one
+  via: invoicer
+- from: StructuredRemittanceInformation_3
+  to: PartyIdentification_3
+  type: has_one
+  via: invoicee
+- from: StructuredRemittanceInformation_3
+  to: TaxInformation_3
+  type: has_one
+  via: taxRemittance
+- from: ReferredDocumentInformation_3
+  to: CodeAndIssuer_3
+  type: has_one
+  via: type
+- from: ReferredDocumentInformation_3
+  to: LineDetail_3
+  type: has_many
+  via: lineDetails
+- from: TaxInformation_3
+  to: TaxParty_3
+  type: has_one
+  via: creditor
+- from: TaxInformation_3
+  to: TaxParty_3
+  type: has_one
+  via: debtor
+- from: TaxInformation_3
+  to: TaxParty_3
+  type: has_one
+  via: ultimateDebtor
+- from: TaxInformation_3
+  to: AmountType_3
+  type: has_one
+  via: totalTaxableBaseAmount
+- from: TaxInformation_3
+  to: AmountType_3
+  type: has_one
+  via: totalTaxAmount
+- from: TaxInformation_3
+  to: TaxRecord_3
+  type: has_many
+  via: record
+- from: DocumentLineIdentification_3
+  to: CodeAndIssuer_3
+  type: has_one
+  via: type
+- from: PaymentRequestLinks_3
+  to: GenericLink_3
+  type: has_one
+  via: request
+- from: PaymentRequestLinks_3
+  to: GenericLink_3
+  type: has_one
+  via: confirmation
+- from: PaymentRequestLinks_3
+  to: GenericLink_3
+  type: has_one
+  via: transactions
+- from: TaxRecordDetails_3
+  to: TaxPeriod_3
+  type: has_one
+  via: period
+- from: TaxRecordDetails_3
+  to: AmountType_3
+  type: has_one
+  via: amount
+- from: TaxRecord_3
+  to: TaxPeriod_3
+  type: has_one
+  via: period
+- from: TaxRecord_3
+  to: TaxAmount_3
+  type: has_one
+  via: taxAmount
+- from: RemittanceAmount_3
+  to: AmountType_3
+  type: has_one
+  via: duePayableAmount
+- from: RemittanceAmount_3
+  to: TypedAmount_3
+  type: has_one
+  via: discountAppliedAmount
+- from: RemittanceAmount_3
+  to: AmountType_3
+  type: has_one
+  via: creditNoteAmount
+- from: RemittanceAmount_3
+  to: TypedAmount_3
+  type: has_one
+  via: taxAmount
+- from: RemittanceAmount_3
+  to: DocumentAdjustment_3
+  type: has_one
+  via: adjustmentAmountAndReason
+- from: RemittanceAmount_3
+  to: AmountType_3
+  type: has_one
+  via: remittedAmount
+- from: ErrorModel_3
+  to: ErrorDetail
+  type: has_many
+  via: details
+- from: DocumentAdjustment_3
+  to: AmountType_3
+  type: has_one
+  via: amount
+- from: CreditorReferenceInformation_3
+  to: CodeAndIssuer_3
+  type: has_one
+  via: type
+- from: PaymentRequestResource_3
+  to: PartyIdentification_3
+  type: has_one
+  via: initiatingParty
+- from: PaymentRequestResource_3
+  to: PaymentTypeInformation_3
+  type: has_one
+  via: paymentTypeInformation
+- from: PaymentRequestResource_3
+  to: PartyIdentification_3
+  type: has_one
+  via: debtor
+- from: PaymentRequestResource_3
+  to: AccountIdentification_3
+  type: has_one
+  via: debtorAccount
+- from: PaymentRequestResource_3
+  to: FinancialInstitutionIdentification_3
+  type: has_one
+  via: debtorAgent
+- from: PaymentRequestResource_3
+  to: CreditTransferTransactionResource_2
+  type: has_many
+  via: creditTransferTransaction
+- from: PaymentRequestResource_3
+  to: SupplementaryData_3
+  type: has_one
+  via: supplementaryData
+- from: AccountIdentification_3
+  to: GenericIdentification_3
+  type: has_one
+  via: other
+- from: PartyIdentification_3
+  to: DateAndPlaceOfBirth_3
+  type: has_one
+  via: dateAndPlaceOfBirth
+- from: PartyIdentification_3
+  to: PostalAddress_3
+  type: has_one
+  via: postalAddress
+- from: PartyIdentification_3
+  to: ContactDetails
+  type: has_one
+  via: contactDetails
+- from: PartyIdentification_3
+  to: GenericIdentification_3
+  type: has_one
+  via: organisationId
+- from: PartyIdentification_3
+  to: GenericIdentification_3
+  type: has_one
+  via: privateId
+- from: Beneficiary_3
+  to: Workspace
+  type: has_one
+  via: workspace
+- from: Beneficiary_3
+  to: FinancialInstitutionIdentification_3
+  type: has_one
+  via: creditorAgent
+- from: Beneficiary_3
+  to: PartyIdentification_3
+  type: has_one
+  via: creditor
+- from: Beneficiary_3
+  to: AccountIdentification_3
+  type: has_one
+  via: creditorAccount
+- from: HalPaymentRequest_3
+  to: PaymentRequestResource_3
+  type: has_one
+  via: paymentRequest
+- from: HalPaymentRequest_3
+  to: PaymentRequestLinks_3
+  type: has_one
+  via: _links
+- from: FinancialInstitutionIdentification_3
+  to: ClearingSystemMemberIdentification_3
+  type: has_one
+  via: clearingSystemMemberId
+- from: FinancialInstitutionIdentification_3
+  to: PostalAddress_3
+  type: has_one
+  via: postalAddress
+- from: HalAuthenticationRequest_2
+  to: PaymentRequestResourceCreationLinks_3
+  type: has_one
+  via: _links
+- from: RegistrationRecord
+  to: JsonWebKeySet
+  type: has_one
+  via: jwks
+- from: RegistrationRecord
+  to: Contact
+  type: has_one
+  via: contact
+- from: RegistrationRequest
+  to: JsonWebKeySet
+  type: has_one
+  via: jwks
+- from: RegistrationRequest
+  to: Contact
+  type: has_one
+  via: contact
+- from: JsonWebKeySet
+  to: JsonWebKey
+  type: has_many
+  via: keys
+- from: TransferRequestSummary
+  to: TransferRequest
+  type: belongs_to
+  via: transferRequestId
+- from: TransferRequestSummary
+  to: Amount
+  type: has_one
+  via: globalAmount
+- from: TransferRequestSummary
+  to: Amount
+  type: has_one
+  via: globalFee
 - from: TransferRequestLine
   to: DebitEntry
   type: has_one
@@ -1035,211 +2702,11 @@ relationships:
   to: Amount
   type: has_one
   via: amount
-- from: TransferRequestSummary
-  to: TransferRequest
-  type: belongs_to
-  via: transferRequestId
-- from: TransferRequestSummary
+- from: DebitEntry
   to: Amount
   type: has_one
-  via: globalAmount
-- from: TransferRequestSummary
-  to: Amount
-  type: has_one
-  via: globalFee
-- from: HalPaymentCoverageReport
-  to: PaymentCoverageRequestResource
-  type: has_one
-  via: request
-- from: HalPaymentCoverageReport
-  to: PaymentCoverageReportLinks
-  type: has_one
-  via: _links
-- from: PaymentCoverageReportLinks
-  to: GenericLink
-  type: has_one
-  via: self
-- from: PaymentCoverageRequestResource
-  to: AmountType
-  type: has_one
-  via: instructedAmount
-- from: PaymentCoverageRequestResource
-  to: AccountIdentification
-  type: has_one
-  via: accountId
-- from: PaymentCoverageRequestResource
-  to: Account
-  type: belongs_to
-  via: accountId
-- from: CreditTransferTransactionLinks
-  to: GenericLink
-  type: has_one
-  via: self
-- from: CreditTransferTransactionLinks
-  to: GenericLink
-  type: has_one
-  via: parent
-- from: CreditTransferTransactionLinks
-  to: GenericLink
-  type: has_one
-  via: first
-- from: CreditTransferTransactionLinks
-  to: GenericLink
-  type: has_one
-  via: last
-- from: CreditTransferTransactionLinks
-  to: GenericLink
-  type: has_one
-  via: next
-- from: CreditTransferTransactionLinks
-  to: GenericLink
-  type: has_one
-  via: prev
-- from: CreditTransferTransactionResource
-  to: PaymentIdentification
-  type: has_one
-  via: paymentId
-- from: CreditTransferTransactionResource
-  to: StandingOrderCharacteristics
-  type: has_one
-  via: standingOrderCharacteristics
-- from: CreditTransferTransactionResource
-  to: AmountType
-  type: has_one
-  via: instructedAmount
-- from: CreditTransferTransactionResource
-  to: EquivalentAmountType
-  type: has_one
-  via: equivalentAmount
-- from: CreditTransferTransactionResource
-  to: ExchangeRate
-  type: has_one
-  via: exchangeRateInformation
-- from: CreditTransferTransactionResource
-  to: PartyIdentification
-  type: has_one
-  via: ultimateDebtor
-- from: CreditTransferTransactionResource
-  to: IntermediaryAgent
-  type: has_one
-  via: intermediaryAgent
-- from: CreditTransferTransactionResource
-  to: Beneficiary
-  type: has_one
-  via: beneficiary
-- from: CreditTransferTransactionResource
-  to: PartyIdentification
-  type: has_one
-  via: ultimateCreditor
-- from: CreditTransferTransactionResource
-  to: InstructionForCreditorAgent
+  via: amount
+- from: TransferRequest
+  to: TransferRequestLine
   type: has_many
-  via: instructionForCreditorAgent
-- from: CreditTransferTransactionResource
-  to: RemittanceInformation
-  type: has_one
-  via: remittanceInformation
-- from: CreditTransferTransactionResource
-  to: SupplementaryData
-  type: has_one
-  via: supplementaryData
-- from: ExchangeRate
-  to: AmountType
-  type: has_one
-  via: estimatedPayerAmount
-- from: ExchangeRate
-  to: AmountType
-  type: has_one
-  via: estimatedPayeeAmount
-- from: HalAuthenticationRequest
-  to: PaymentRequestResourceCreationLinks
-  type: has_one
-  via: _links
-- from: HalCreditTransfertTransactions
-  to: CreditTransferTransactionResource
-  type: has_many
-  via: creditTransferTransaction
-- from: HalCreditTransfertTransactions
-  to: CreditTransferTransactionLinks
-  type: has_one
-  via: _links
-- from: HalPaymentRequest
-  to: PaymentRequestResource
-  type: has_one
-  via: paymentRequest
-- from: HalPaymentRequest
-  to: PaymentRequestLinks
-  type: has_one
-  via: _links
-- from: IntermediaryAgent
-  to: PartyIdentification
-  type: has_one
-  via: agent
-- from: IntermediaryAgent
-  to: AccountIdentification
-  type: has_one
-  via: agentAccount
-- from: PaymentRequestLinks
-  to: GenericLink
-  type: has_one
-  via: request
-- from: PaymentRequestLinks
-  to: GenericLink
-  type: has_one
-  via: confirmation
-- from: PaymentRequestLinks
-  to: GenericLink
-  type: has_one
-  via: transactions
-- from: PaymentRequestResource
-  to: PartyIdentification
-  type: has_one
-  via: initiatingParty
-- from: PaymentRequestResource
-  to: PaymentTypeInformation
-  type: has_one
-  via: paymentTypeInformation
-- from: PaymentRequestResource
-  to: PartyIdentification
-  type: has_one
-  via: debtor
-- from: PaymentRequestResource
-  to: AccountIdentification
-  type: has_one
-  via: debtorAccount
-- from: PaymentRequestResource
-  to: FinancialInstitutionIdentification
-  type: has_one
-  via: debtorAgent
-- from: PaymentRequestResource
-  to: CreditTransferTransactionResource
-  type: has_many
-  via: creditTransferTransaction
-- from: PaymentRequestResource
-  to: SupplementaryData
-  type: has_one
-  via: supplementaryData
-- from: PaymentRequestResourceCreationLinks
-  to: GenericLink
-  type: has_one
-  via: consentApproval
-- from: JsonWebKeySet
-  to: JsonWebKey
-  type: has_many
-  via: keys
-- from: RegistrationRecord
-  to: JsonWebKeySet
-  type: has_one
-  via: jwks
-- from: RegistrationRecord
-  to: Contact
-  type: has_one
-  via: contact
-- from: RegistrationRequest
-  to: JsonWebKeySet
-  type: has_one
-  via: jwks
-- from: RegistrationRequest
-  to: Contact
-  type: has_one
-  via: contact
+  via: lines

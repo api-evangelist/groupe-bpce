@@ -1,0 +1,23 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/groupe-bpce/integrations
+- https://n8n.io/integrations/groupe-bpce/
+- https://composio.dev/toolkits/groupe-bpce
+- https://monid.ai/tools/groupe-bpce
+checked:
+- https://apistore.groupebpce.com/apis
+- https://apistore.groupebpce.com/partenaires
+- https://composio.dev/toolkits/groupe-bpce
+- https://monid.ai/tools/groupe-bpce
+- https://n8n.io/integrations/bpce
+- https://n8n.io/integrations/groupe-bpce/
+- https://www.make.com/en/integrations/bpce
+- https://zapier.com/apps/groupe-bpce/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
+note: No marketplace listing (Zapier 404, n8n 404, Make 403 bot edge) and no partner/integrations page on the API
+  Store; the PSD2 contracts name no third-party service. Access is via regulated TPP onboarding (eIDAS QWAC), not
+  app integrations.
