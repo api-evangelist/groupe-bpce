@@ -42,6 +42,9 @@ maintainers:
 image: https://avatars.githubusercontent.com/u/105843508?v=4
 
 common:
+- type: CapabilityMap
+  url: capabilities/groupe-bpce-capability-edges.yml
+  name: Groupe BPCE Business Capability Map
 - type: AgenticAccess
   url: agentic-access/groupe-bpce-agentic-access.yml
 - type: RateLimits

@@ -1,0 +1,27 @@
+slug: groupe-bpce
+provider: Groupe BPCE
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Registration
+  spec_file: groupe-bpce-registration-api-openapi.yml
+  capability_id: BC-4270.40
+  capability_id_l1: BC-4270
+  capability_name: Developer Identity & Credential Management
+  confidence: 0.75
+  evidence: POST /register registrationPost "Client Registration request"; schemas TokenEndpointAuthMethod,
+    RedirectUris, JsonWebKeySet, SoftwareId, ClientName
+  reason: Despite sitting in a banking spec, the operations are OAuth dynamic client registration — creating,
+    reading, updating and deleting API client credentials for third-party developers consuming the API
+    store. That is Developer Identity & Credential Management. Confidence tempered because the registrants
+    are regulated TPPs, so one could argue it is partner onboarding rather than pure developer credentialing.
