@@ -1,16 +1,16 @@
 openapi: 3.2.0
 info:
-  title: Groupe Bpce Transfers API
+  title: BPCE Open Finance Transfer Transfers API
   version: 1.1.1
+  description: Enables partners applications to initiate a transfer without enforcing our common end user customers to use their BPCE internet bank site interface.
+  termsOfService: https://developer.bpce.fr/mentions-legales/
   contact:
     name: BPCE
     url: https://developer.bpce.fr/support/
   license:
     name: Copyright BPCE
     url: https://developer.bpce.fr/mentions-legales/
-  termsOfService: https://developer.bpce.fr/mentions-legales/
   x-internal-id: RMT001
-  description: 'Operations tagged Transfers across 2 of this provider''s published API definitions: moneytransfer-oas3-public-v1.1.1.json, groupe-bpce-open-finance-transfer-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - description: prod
   url: https://api.groupebpce.com/{domain}/moneyTransfer/v1
@@ -135,12 +135,6 @@ paths:
         - moneyTransfer.transferRequests:WRITE
       tags:
       - Transfers
-    servers:
-    - description: prod
-      url: https://api.groupebpce.com/{domain}/moneyTransfer/v1
-      variables:
-        domain:
-          default: retail
   /transferRequests/{transferRequestId}/errors:
     parameters:
     - $ref: '#/components/parameters/transferRequestId'
@@ -187,12 +181,6 @@ paths:
         - moneyTransfer.transferRequests:READ
       tags:
       - Transfers
-    servers:
-    - description: prod
-      url: https://api.groupebpce.com/{domain}/moneyTransfer/v1
-      variables:
-        domain:
-          default: retail
   /transferRequests/{transferRequestId}:
     parameters:
     - $ref: '#/components/parameters/transferRequestId'
@@ -254,12 +242,6 @@ paths:
         - moneyTransfer.transferRequests:DELETE
       tags:
       - Transfers
-    servers:
-    - description: prod
-      url: https://api.groupebpce.com/{domain}/moneyTransfer/v1
-      variables:
-        domain:
-          default: retail
   /transferRequests/{transferRequestId}/confirmations:
     parameters:
     - $ref: '#/components/parameters/transferRequestId'
@@ -293,12 +275,6 @@ paths:
         - moneyTransfer.transferRequests.confirmations:WRITE
       tags:
       - Transfers
-    servers:
-    - description: prod
-      url: https://api.groupebpce.com/{domain}/moneyTransfer/v1
-      variables:
-        domain:
-          default: retail
   /transferRequests/{transferRequestId}/transferRequestLines:
     parameters:
     - $ref: '#/components/parameters/transferRequestId'
@@ -440,12 +416,6 @@ paths:
         - moneyTransfer.transferRequests:READ
       tags:
       - Transfers
-    servers:
-    - description: prod
-      url: https://api.groupebpce.com/{domain}/moneyTransfer/v1
-      variables:
-        domain:
-          default: retail
   /transferRequests/{transferRequestId}/transferRequestLines/{transferRequestLineId}:
     parameters:
     - $ref: '#/components/parameters/transferRequestId'
@@ -521,13 +491,81 @@ paths:
         - moneyTransfer.transferRequests:DELETE
       tags:
       - Transfers
-    servers:
-    - description: prod
-      url: https://api.groupebpce.com/{domain}/moneyTransfer/v1
-      variables:
-        domain:
-          default: retail
 components:
+  responses:
+    BadRequest:
+      description: Bad Request - HTTP 400
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          examples:
+            closed source account:
+              value:
+                errors:
+                - code: bpce.accountDebtor
+                  message: Le compte émetteur n'a pas été trouvé ou a été clôturé.
+                  attribute: string
+            Refusal for confirming a transfer request due to delegation issue:
+              value:
+                errors:
+                - code: bpce.delegation.hasToBeDoneOnBankWebSite
+                  message: le lot de virement doit être validé sur le site WEB de la Banque à Distance
+    NoContent:
+      description: No content on response - HTTP 204
+    ForbiddenDueToRequiredStepup:
+      description: Forbidden - HTTP 403
+      headers:
+        X-StepUp-Token:
+          schema:
+            type: string
+          description: token for stepup process. This token must be passed in the xstepuptoken parameter of the next request (GET /stepup)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          examples:
+            A stepup is required to do this action:
+              value:
+                errors:
+                - code: insufficientAuthLevel
+                  message: Niveau d'authentification insuffisant
+    Unauthorized:
+      description: Unauthorized - HTTP 401
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    NotFound:
+      description: Resource Not Found - HTTP 404
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Unavailable:
+      description: Service Unavailable - HTTP 503.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Forbidden:
+      description: Forbidden - HTTP 403
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    NotImplemented:
+      description: Not Implemented - HTTP 501.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Unexpected:
+      description: Internal Server Error - HTTP 500.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
   schemas:
     ExecutionSettlement:
       title: Settlement
@@ -538,6 +576,258 @@ components:
       - SEPA
       readOnly: true
       example: SEPA
+    DebitEntry:
+      description: Information about the debit and the posting to the debited account.
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/Amount'
+        debitMode:
+          $ref: '#/components/schemas/TransferRequestDebitMode'
+      required:
+      - amount
+      - debitMode
+      readOnly: true
+    Error:
+      description: Error produced during request processing.
+      type: object
+      properties:
+        code:
+          description: Error code.
+          type: string
+          example: bpce.accountDebtor
+        message:
+          description: Error message.
+          type: string
+          example: Le compte émetteur n'a pas été trouvé ou a été clôturé.
+        attribute:
+          description: Attribute concerned by the error.
+          type: string
+          example: error.attribute
+      required:
+      - code
+      - message
+    TransferRequest:
+      description: This resource stands for the wish from the caller to initiate a set of transfer. The size of the list of transfer request lines is valued to "1" for single transfer or be greater to initiate a multiple transfer.
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/TransferRequestSummary'
+      - type: object
+        properties:
+          lines:
+            type: array
+            items:
+              $ref: '#/components/schemas/TransferRequestLine'
+            minItems: 1
+        required:
+        - lines
+    TransferRequestLineSummary:
+      description: This resource stands for important characteristics of a transfer request line. The amount attribute is free of charge.
+      type: object
+      properties:
+        transferRequestLineId:
+          description: Identifier of a transfer request line.
+          type: string
+          minLength: 1
+          readOnly: true
+          example: 13807-0656574820
+        transferRequestId:
+          description: Identifier of a transfer request within the transfer request line is embedded.
+          type: string
+          minLength: 1
+          readOnly: true
+          example: 13807-0656574819
+        amount:
+          $ref: '#/components/schemas/Amount'
+        creationDateTime:
+          description: Timestamp of transfer request creation
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2024-04-30T17:35:00Z'
+        status:
+          $ref: '#/components/schemas/ExecutionStatus'
+        frequencyType:
+          $ref: '#/components/schemas/ExecutionFrequency'
+        requestedExecutionDate:
+          description: Requested execution date of the transfer. Significant if executionDeadlineType is DELAYED.
+          type: string
+          format: date
+          example: '2024-04-30'
+          writeOnly: true
+        executionDate:
+          description: Date of execution of the transfer.
+          type: string
+          format: date
+          readOnly: true
+          example: '2024-05-03'
+        remittanceInformation:
+          description: Reason for transfer, transmitted to the recipient
+          type: string
+          maxLength: 140
+          example: Mon reglement de facture urgente pour juin
+        sourceAccount:
+          $ref: '#/components/schemas/AccountIdentifier'
+        recipientAccount:
+          $ref: '#/components/schemas/AccountIdentifier'
+      required:
+      - transferRequestLineId
+      - transferRequestId
+      - amount
+      - status
+      - frequencyType
+      - remittanceInformation
+      - sourceAccount
+      - recipientAccount
+    Errors:
+      description: List of errors
+      type: object
+      properties:
+        errors:
+          description: List of errors
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          example:
+          - code: bpce.accountDebtor
+            message: Le compte émetteur n'a pas été trouvé ou a été clôturé.
+      required:
+      - errors
+      example:
+        errors:
+        - code: bpce.accountDebtor
+          message: Le compte émetteur n'a pas été trouvé ou a été clôturé.
+    PaginationByIndex:
+      title: PaginationByIndex
+      description: Pagination by index of page.
+      type: object
+      properties:
+        pageSize:
+          description: Number of items by page
+          type: integer
+          format: int64
+          minimum: 1
+          example: 50
+        pageNumber:
+          description: Page number requested.
+          type: integer
+          format: int64
+          minimum: 1
+          example: 1
+        totalElements:
+          description: Number of items matching the query
+          type: integer
+          format: int64
+          minimum: 0
+          example: 20
+        totalPages:
+          description: Number of pages of items matching the query
+          type: integer
+          format: int64
+          minimum: 0
+          example: 1
+      required:
+      - pageSize
+      - pageNumber
+    PaginationByCursor:
+      description: Pagination via cursor of the last element of the previous call.
+      type: object
+      properties:
+        pageSize:
+          description: Number of items by page
+          type: integer
+          format: int64
+          minimum: 0
+          example: 50
+        after:
+          description: 'Cursor of the last element of the previous call.
+
+            Used to get the next page.'
+          type: string
+          example: 13807-1-CPT31719694553
+      required:
+      - pageSize
+      - after
+    TransferRequestDebitMode:
+      title: TransferRequestDebitMode
+      description: Indicates how the set of transfer request lines are debited from the source account ; that is if there is only one global accounting entry with the global amount or alternatively there are n single transfers (one accounting entry for one transfer request line). <table><tr><td>Code</td> <td>Meaning</td></tr><tr><td>GROUPED</td> <td>One global accounting entry with the global amount.</td></tr><tr><td>SINGLE</td> <td>One accounting entry for each transfer request line.</td></tr></table>
+      type: string
+      enum:
+      - SINGLE
+      - GROUPED
+      readOnly: true
+      example: GROUPED
+    RequestedTransferRequestDebitMode:
+      title: RequestedTransferRequestDebitMode
+      description: Indicates how the caller wishes the set of transfer request lines to be debited from the source account ; that is if there should be only one global accounting entry with the global amount or alternatively there should be n single transfers (one accounting entry for one transfer request line). <table><tr><td>Code</td> <td>Meaning</td></tr><tr><td>GROUPED</td> <td>One global accounting entry with the global amount.</td></tr><tr><td>SINGLE</td> <td>One accounting entry for each transfer request line.</td></tr></table>
+      type: string
+      enum:
+      - SINGLE
+      - GROUPED
+      default: GROUPED
+      example: GROUPED
+      writeOnly: true
+    FrequencyCode:
+      title: FrequencyCode
+      description: For a standing transfer, this code indicates the frequency of the transfers. <table><tr><td>Code</td> <td>Meaning</td></tr><tr><td>WEEKLY</td> <td>Once every seven days.</td></tr><tr><td>EVERY_TWO_WEEKS</td> <td>Once every fifteen days.</td></tr><tr><td>MONTHLY</td> <td>Once every month.</td></tr><tr><td>EVERY_TWO_MONTHS</td> <td>Once every two months.</td></tr><tr><td>QUARTERLY</td> <td>Once every three months.</td></tr><tr><td>EVERY_SIX_MONTHS</td> <td>Once every six months.</td></tr><tr><td>ANNUALLY</td> <td>Once every year.</td></tr></table>
+      type: string
+      enum:
+      - WEEKLY
+      - EVERY_TWO_WEEKS
+      - MONTHLY
+      - EVERY_TWO_MONTHS
+      - QUARTERLY
+      - EVERY_SIX_MONTHS
+      - ANNUALLY
+      example: MONTHLY
+    ExecutionDeadlineType:
+      title: ExecutionDeadlineType
+      description: Execution delay type. <table><tr><td>Code</td> <td>Meaning</td></tr><tr><td>INSTANT</td> <td>Within the minute (instant payment).</td></tr><tr><td>ASAP</td> <td>=As soon as possible (today). The transfer request lines may be processed in the following days.</td></tr><tr><td>DELAYED</td> <td>For a date in the future.</td></tr></table>
+      type: string
+      enum:
+      - INSTANT
+      - ASAP
+      - DELAYED
+      example: DELAYED
+    ExecutionFrequency:
+      title: ExecutionFrequency
+      description: Indicates if a transfer will be processed only one time or if it is a standing transfer.<table><tr><td>Code</td> <td>Meaning</td></tr><tr><td>ONESHOT</td> <td>The transfer will be processed only one time</td></tr><tr><td>STANDING</td> <td>The transfer will be processed several times in a periodic way</td></tr></table>
+      type: string
+      enum:
+      - ONESHOT
+      - STANDING
+      example: ONESHOT
+    Amount:
+      description: Default objet which stands for an amount (number value + currency code).
+      type: object
+      properties:
+        value:
+          description: Value of the amount.
+          type: number
+          format: double
+          example: 3.18
+        currencyCode:
+          description: Alphabetical code of the currency code (ISO 4217)
+          type: string
+          example: EUR
+      required:
+      - value
+      - currencyCode
+      example:
+        value: 517.14
+        currencyCode: EUR
+    TransferRequestStatus:
+      title: TransferRequestStatus
+      description: State of the transfer request. This state is useful to follow and manage a transfer request only during the entry phase. Once confirmed, rejected or canceled, the transfer request is in a terminal state and will not change, so that it is the state of the transfer request line one must then examinate to know if a transfer have been well processed or not.<table><tr><td>Code</td> <td>Meaning</td></tr><tr><td>INITIALIZED</td> <td>The transfer request has been accepted but all transfer lines has not been processed so that the transfer request confirmation step is not yet available.</td></tr><tr><td>CONFIRMABLE</td> <td>The transfer request has been accepted and all transfer lines has been processed so that the transfer request confirmation step is available.</td></tr><tr><td>CONFIRMED</td> <td>The transfer request has been confirmed. One cannot add additional transfer lines to the transfer request anymore.</td></tr><tr><td>REJECTED</td> <td>The BPCE system has rejected all the lines (for a common cause).</td></tr><tr><td>DELETED</td> <td>The subscriber has canceled the transfer request (all lines are canceled).</td></tr></table>
+      type: string
+      enum:
+      - INITIALIZED
+      - CONFIRMABLE
+      - CONFIRMED
+      - REJECTED
+      - DELETED
+      readOnly: true
+      example: CONFIRMABLE
     TransferRequestSummary:
       description: Summary of a transfer request. This resource includes only global information of the request. There is no information about the lines details here. The globalAmount property is a free of charge amount.
       type: object
@@ -609,78 +899,6 @@ components:
       - REJECTED_BY_RECIPIENT_BANK_AND_REFUNDED
       readOnly: true
       example: EXECUTED
-    Error:
-      description: Error produced during request processing.
-      type: object
-      properties:
-        code:
-          description: Error code.
-          type: string
-          example: bpce.accountDebtor
-        message:
-          description: Error message.
-          type: string
-          example: Le compte émetteur n'a pas été trouvé ou a été clôturé.
-        attribute:
-          description: Attribute concerned by the error.
-          type: string
-          example: error.attribute
-      required:
-      - code
-      - message
-    Errors:
-      description: List of errors
-      type: object
-      properties:
-        errors:
-          description: List of errors
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-          example:
-          - code: bpce.accountDebtor
-            message: Le compte émetteur n'a pas été trouvé ou a été clôturé.
-      required:
-      - errors
-      example:
-        errors:
-        - code: bpce.accountDebtor
-          message: Le compte émetteur n'a pas été trouvé ou a été clôturé.
-    StandingTransfer:
-      title: StandingTransfer
-      description: Standing transfer
-      type: object
-      properties:
-        frequency:
-          $ref: '#/components/schemas/FrequencyCode'
-        startDate:
-          description: The start date for a standing transfer.
-          type: string
-          format: date
-          example: '2024-02-02'
-        endDate:
-          description: The last theoretical date for the standing transfer.
-          type: string
-          format: date
-          example: '2024-11-02'
-        lastExecutionDate:
-          description: The last actual date a transfer was actually made as part of this standing transfer order. It may be adjusted for calendar reasons.
-          type: string
-          format: date
-          readOnly: true
-          example: '2024-05-02'
-      required:
-      - frequency
-      - startDate
-    TransferRequestDebitMode:
-      title: TransferRequestDebitMode
-      description: Indicates how the set of transfer request lines are debited from the source account ; that is if there is only one global accounting entry with the global amount or alternatively there are n single transfers (one accounting entry for one transfer request line). <table><tr><td>Code</td> <td>Meaning</td></tr><tr><td>GROUPED</td> <td>One global accounting entry with the global amount.</td></tr><tr><td>SINGLE</td> <td>One accounting entry for each transfer request line.</td></tr></table>
-      type: string
-      enum:
-      - SINGLE
-      - GROUPED
-      readOnly: true
-      example: GROUPED
     TransferRequestLine:
       description: This resource stands for the detailed characteristics of a transfer request line. A transfer request line is the atomic part of the request that will be processed by a bank transfer.
       type: object
@@ -717,68 +935,6 @@ components:
         required:
         - executionDeadlineType
         - executionSettlement
-    FrequencyCode:
-      title: FrequencyCode
-      description: For a standing transfer, this code indicates the frequency of the transfers. <table><tr><td>Code</td> <td>Meaning</td></tr><tr><td>WEEKLY</td> <td>Once every seven days.</td></tr><tr><td>EVERY_TWO_WEEKS</td> <td>Once every fifteen days.</td></tr><tr><td>MONTHLY</td> <td>Once every month.</td></tr><tr><td>EVERY_TWO_MONTHS</td> <td>Once every two months.</td></tr><tr><td>QUARTERLY</td> <td>Once every three months.</td></tr><tr><td>EVERY_SIX_MONTHS</td> <td>Once every six months.</td></tr><tr><td>ANNUALLY</td> <td>Once every year.</td></tr></table>
-      type: string
-      enum:
-      - WEEKLY
-      - EVERY_TWO_WEEKS
-      - MONTHLY
-      - EVERY_TWO_MONTHS
-      - QUARTERLY
-      - EVERY_SIX_MONTHS
-      - ANNUALLY
-      example: MONTHLY
-    ExecutionDeadlineType:
-      title: ExecutionDeadlineType
-      description: Execution delay type. <table><tr><td>Code</td> <td>Meaning</td></tr><tr><td>INSTANT</td> <td>Within the minute (instant payment).</td></tr><tr><td>ASAP</td> <td>=As soon as possible (today). The transfer request lines may be processed in the following days.</td></tr><tr><td>DELAYED</td> <td>For a date in the future.</td></tr></table>
-      type: string
-      enum:
-      - INSTANT
-      - ASAP
-      - DELAYED
-      example: DELAYED
-    ExecutionFrequency:
-      title: ExecutionFrequency
-      description: Indicates if a transfer will be processed only one time or if it is a standing transfer.<table><tr><td>Code</td> <td>Meaning</td></tr><tr><td>ONESHOT</td> <td>The transfer will be processed only one time</td></tr><tr><td>STANDING</td> <td>The transfer will be processed several times in a periodic way</td></tr></table>
-      type: string
-      enum:
-      - ONESHOT
-      - STANDING
-      example: ONESHOT
-    PaginationByIndex:
-      title: PaginationByIndex
-      description: Pagination by index of page.
-      type: object
-      properties:
-        pageSize:
-          description: Number of items by page
-          type: integer
-          format: int64
-          minimum: 1
-          example: 50
-        pageNumber:
-          description: Page number requested.
-          type: integer
-          format: int64
-          minimum: 1
-          example: 1
-        totalElements:
-          description: Number of items matching the query
-          type: integer
-          format: int64
-          minimum: 0
-          example: 20
-        totalPages:
-          description: Number of pages of items matching the query
-          type: integer
-          format: int64
-          minimum: 0
-          example: 1
-      required:
-      - pageSize
-      - pageNumber
     AllTheWayToRecipientInformation:
       description: Additional data transmitted to the beneficiary bank, or even the beneficiary himself.
       type: object
@@ -795,119 +951,6 @@ components:
           minLength: 1
           maxLength: 4
           example: CASH
-    TransferRequestLineSummary:
-      description: This resource stands for important characteristics of a transfer request line. The amount attribute is free of charge.
-      type: object
-      properties:
-        transferRequestLineId:
-          description: Identifier of a transfer request line.
-          type: string
-          minLength: 1
-          readOnly: true
-          example: 13807-0656574820
-        transferRequestId:
-          description: Identifier of a transfer request within the transfer request line is embedded.
-          type: string
-          minLength: 1
-          readOnly: true
-          example: 13807-0656574819
-        amount:
-          $ref: '#/components/schemas/Amount'
-        creationDateTime:
-          description: Timestamp of transfer request creation
-          type: string
-          format: date-time
-          readOnly: true
-          example: '2024-04-30T17:35:00Z'
-        status:
-          $ref: '#/components/schemas/ExecutionStatus'
-        frequencyType:
-          $ref: '#/components/schemas/ExecutionFrequency'
-        requestedExecutionDate:
-          description: Requested execution date of the transfer. Significant if executionDeadlineType is DELAYED.
-          type: string
-          format: date
-          example: '2024-04-30'
-          writeOnly: true
-        executionDate:
-          description: Date of execution of the transfer.
-          type: string
-          format: date
-          readOnly: true
-          example: '2024-05-03'
-        remittanceInformation:
-          description: Reason for transfer, transmitted to the recipient
-          type: string
-          maxLength: 140
-          example: Mon reglement de facture urgente pour juin
-        sourceAccount:
-          $ref: '#/components/schemas/AccountIdentifier'
-        recipientAccount:
-          $ref: '#/components/schemas/AccountIdentifier'
-      required:
-      - transferRequestLineId
-      - transferRequestId
-      - amount
-      - status
-      - frequencyType
-      - remittanceInformation
-      - sourceAccount
-      - recipientAccount
-    RequestedTransferRequestDebitMode:
-      title: RequestedTransferRequestDebitMode
-      description: Indicates how the caller wishes the set of transfer request lines to be debited from the source account ; that is if there should be only one global accounting entry with the global amount or alternatively there should be n single transfers (one accounting entry for one transfer request line). <table><tr><td>Code</td> <td>Meaning</td></tr><tr><td>GROUPED</td> <td>One global accounting entry with the global amount.</td></tr><tr><td>SINGLE</td> <td>One accounting entry for each transfer request line.</td></tr></table>
-      type: string
-      enum:
-      - SINGLE
-      - GROUPED
-      default: GROUPED
-      example: GROUPED
-      writeOnly: true
-    DebitEntry:
-      description: Information about the debit and the posting to the debited account.
-      type: object
-      properties:
-        amount:
-          $ref: '#/components/schemas/Amount'
-        debitMode:
-          $ref: '#/components/schemas/TransferRequestDebitMode'
-      required:
-      - amount
-      - debitMode
-      readOnly: true
-    TransferRequest:
-      description: This resource stands for the wish from the caller to initiate a set of transfer. The size of the list of transfer request lines is valued to "1" for single transfer or be greater to initiate a multiple transfer.
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/TransferRequestSummary'
-      - type: object
-        properties:
-          lines:
-            type: array
-            items:
-              $ref: '#/components/schemas/TransferRequestLine'
-            minItems: 1
-        required:
-        - lines
-    PaginationByCursor:
-      description: Pagination via cursor of the last element of the previous call.
-      type: object
-      properties:
-        pageSize:
-          description: Number of items by page
-          type: integer
-          format: int64
-          minimum: 0
-          example: 50
-        after:
-          description: 'Cursor of the last element of the previous call.
-
-            Used to get the next page.'
-          type: string
-          example: 13807-1-CPT31719694553
-      required:
-      - pageSize
-      - after
     AccountIdentifier:
       description: Identifier of an account.
       type: string
@@ -919,111 +962,32 @@ components:
       oneOf:
       - $ref: '#/components/schemas/PaginationByIndex'
       - $ref: '#/components/schemas/PaginationByCursor'
-    Amount:
-      description: Default objet which stands for an amount (number value + currency code).
+    StandingTransfer:
+      title: StandingTransfer
+      description: Standing transfer
       type: object
       properties:
-        value:
-          description: Value of the amount.
-          type: number
-          format: double
-          example: 3.18
-        currencyCode:
-          description: Alphabetical code of the currency code (ISO 4217)
+        frequency:
+          $ref: '#/components/schemas/FrequencyCode'
+        startDate:
+          description: The start date for a standing transfer.
           type: string
-          example: EUR
+          format: date
+          example: '2024-02-02'
+        endDate:
+          description: The last theoretical date for the standing transfer.
+          type: string
+          format: date
+          example: '2024-11-02'
+        lastExecutionDate:
+          description: The last actual date a transfer was actually made as part of this standing transfer order. It may be adjusted for calendar reasons.
+          type: string
+          format: date
+          readOnly: true
+          example: '2024-05-02'
       required:
-      - value
-      - currencyCode
-      example:
-        value: 517.14
-        currencyCode: EUR
-    TransferRequestStatus:
-      title: TransferRequestStatus
-      description: State of the transfer request. This state is useful to follow and manage a transfer request only during the entry phase. Once confirmed, rejected or canceled, the transfer request is in a terminal state and will not change, so that it is the state of the transfer request line one must then examinate to know if a transfer have been well processed or not.<table><tr><td>Code</td> <td>Meaning</td></tr><tr><td>INITIALIZED</td> <td>The transfer request has been accepted but all transfer lines has not been processed so that the transfer request confirmation step is not yet available.</td></tr><tr><td>CONFIRMABLE</td> <td>The transfer request has been accepted and all transfer lines has been processed so that the transfer request confirmation step is available.</td></tr><tr><td>CONFIRMED</td> <td>The transfer request has been confirmed. One cannot add additional transfer lines to the transfer request anymore.</td></tr><tr><td>REJECTED</td> <td>The BPCE system has rejected all the lines (for a common cause).</td></tr><tr><td>DELETED</td> <td>The subscriber has canceled the transfer request (all lines are canceled).</td></tr></table>
-      type: string
-      enum:
-      - INITIALIZED
-      - CONFIRMABLE
-      - CONFIRMED
-      - REJECTED
-      - DELETED
-      readOnly: true
-      example: CONFIRMABLE
-  responses:
-    Unavailable:
-      description: Service Unavailable - HTTP 503.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    Forbidden:
-      description: Forbidden - HTTP 403
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    NotImplemented:
-      description: Not Implemented - HTTP 501.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    NoContent:
-      description: No content on response - HTTP 204
-    Unauthorized:
-      description: Unauthorized - HTTP 401
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    Unexpected:
-      description: Internal Server Error - HTTP 500.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    BadRequest:
-      description: Bad Request - HTTP 400
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-          examples:
-            closed source account:
-              value:
-                errors:
-                - code: bpce.accountDebtor
-                  message: Le compte émetteur n'a pas été trouvé ou a été clôturé.
-                  attribute: string
-            Refusal for confirming a transfer request due to delegation issue:
-              value:
-                errors:
-                - code: bpce.delegation.hasToBeDoneOnBankWebSite
-                  message: le lot de virement doit être validé sur le site WEB de la Banque à Distance
-    NotFound:
-      description: Resource Not Found - HTTP 404
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    ForbiddenDueToRequiredStepup:
-      description: Forbidden - HTTP 403
-      headers:
-        X-StepUp-Token:
-          schema:
-            type: string
-          description: token for stepup process. This token must be passed in the xstepuptoken parameter of the next request (GET /stepup)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-          examples:
-            A stepup is required to do this action:
-              value:
-                errors:
-                - code: insufficientAuthLevel
-                  message: Niveau d'authentification insuffisant
+      - frequency
+      - startDate
   parameters:
     After:
       name: after
@@ -1032,6 +996,24 @@ components:
       schema:
         type: string
       description: Cursor of the last element of the previous call. Used to get the next page. Default value point to the first element
+    PageNumber:
+      name: pageNumber
+      in: query
+      example: 2
+      required: false
+      schema:
+        type: integer
+        format: int32
+      description: Number of the current page
+    transferRequestId:
+      name: transferRequestId
+      schema:
+        type: string
+        pattern: ^[0-9]{5}-[a-zA-Z0-9-]{1,100}$
+      in: path
+      example: 13807-0610601194
+      required: true
+      description: Transfer request identifier.
     transferRequestLineId:
       name: transferRequestLineId
       schema:
@@ -1050,24 +1032,6 @@ components:
         type: integer
         format: int32
       description: Number of elements per page
-    transferRequestId:
-      name: transferRequestId
-      schema:
-        type: string
-        pattern: ^[0-9]{5}-[a-zA-Z0-9-]{1,100}$
-      in: path
-      example: 13807-0610601194
-      required: true
-      description: Transfer request identifier.
-    PageNumber:
-      name: pageNumber
-      in: query
-      example: 2
-      required: false
-      schema:
-        type: integer
-        format: int32
-      description: Number of the current page
   securitySchemes:
     oauth2-authorizationCodePKCE-moneyTransfer:
       type: oauth2
@@ -1085,6 +1049,3 @@ components:
           refreshUrl: /api/oauth/refresh
           tokenUrl: /api/oauth/token
       description: ''
-x-refined-from:
-- moneytransfer-oas3-public-v1.1.1.json
-- groupe-bpce-open-finance-transfer-openapi.yml

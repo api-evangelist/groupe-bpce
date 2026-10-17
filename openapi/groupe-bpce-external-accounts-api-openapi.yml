@@ -1,16 +1,16 @@
 openapi: 3.2.0
 info:
-  title: Groupe Bpce External Accounts API
+  title: BPCE Open Finance Transfer External Accounts API
   version: 1.1.1
+  description: Enables partners applications to initiate a transfer without enforcing our common end user customers to use their BPCE internet bank site interface.
+  termsOfService: https://developer.bpce.fr/mentions-legales/
   contact:
     name: BPCE
     url: https://developer.bpce.fr/support/
   license:
     name: Copyright BPCE
     url: https://developer.bpce.fr/mentions-legales/
-  termsOfService: https://developer.bpce.fr/mentions-legales/
   x-internal-id: RMT001
-  description: 'Operations tagged External Accounts across 2 of this provider''s published API definitions: moneytransfer-oas3-public-v1.1.1.json, groupe-bpce-open-finance-transfer-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - description: prod
   url: https://api.groupebpce.com/{domain}/moneyTransfer/v1
@@ -402,41 +402,94 @@ paths:
       tags:
       - External Accounts
       deprecated: false
-    servers:
-    - description: prod
-      url: https://api.groupebpce.com/{domain}/moneyTransfer/v1
-      variables:
-        domain:
-          default: retail
 components:
-  schemas:
-    ExternalAccount:
-      description: Characteristics of an account beneficiary for making transfers, authorized to the user of the subscription. This may be an IBAN registered by the subscriber to make transfers to third parties, but also a subset of his own accounts in the banking establishment and which are eligible for credit as part of a transfer account to account.
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Account'
-      - type: object
-        properties:
-          status:
-            $ref: '#/components/schemas/ExternalAccountStatus'
-          activationDateTime:
-            description: If the beneficiary account is being activated, indicates the date from which it will be usable.
+  responses:
+    BadRequest:
+      description: Bad Request - HTTP 400
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          examples:
+            closed source account:
+              value:
+                errors:
+                - code: bpce.accountDebtor
+                  message: Le compte émetteur n'a pas été trouvé ou a été clôturé.
+                  attribute: string
+            Refusal for confirming a transfer request due to delegation issue:
+              value:
+                errors:
+                - code: bpce.delegation.hasToBeDoneOnBankWebSite
+                  message: le lot de virement doit être validé sur le site WEB de la Banque à Distance
+    ForbiddenDueToRequiredStepup:
+      description: Forbidden - HTTP 403
+      headers:
+        X-StepUp-Token:
+          schema:
             type: string
-            format: date-time
-            readOnly: true
-          isHolder:
-            description: Indicates whether the subscriber is the owner or co-owner of the beneficiary account. Declarative data.
-            type: boolean
-            default: false
-          groupLabels:
-            description: Name of the beneficiary groups to which the account is attached.
-            type: array
-            items:
-              type: string
-              maxLength: 32
-            readOnly: true
-        required:
-        - status
+          description: token for stepup process. This token must be passed in the xstepuptoken parameter of the next request (GET /stepup)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          examples:
+            A stepup is required to do this action:
+              value:
+                errors:
+                - code: insufficientAuthLevel
+                  message: Niveau d'authentification insuffisant
+    Unauthorized:
+      description: Unauthorized - HTTP 401
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Unavailable:
+      description: Service Unavailable - HTTP 503.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Forbidden:
+      description: Forbidden - HTTP 403
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Unexpected:
+      description: Internal Server Error - HTTP 500.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+  parameters:
+    After:
+      name: after
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Cursor of the last element of the previous call. Used to get the next page. Default value point to the first element
+    PageNumber:
+      name: pageNumber
+      in: query
+      example: 2
+      required: false
+      schema:
+        type: integer
+        format: int32
+      description: Number of the current page
+    PageSize:
+      name: pageSize
+      in: query
+      example: 50
+      required: false
+      schema:
+        type: integer
+        format: int32
+      description: Number of elements per page
+  schemas:
     Error:
       description: Error produced during request processing.
       type: object
@@ -474,21 +527,6 @@ components:
         errors:
         - code: bpce.accountDebtor
           message: Le compte émetteur n'a pas été trouvé ou a été clôturé.
-    Currency:
-      title: Currency
-      description: A Currency object, with a code and an optional label.
-      type: object
-      properties:
-        code:
-          description: An ISO 3166 3-char code for a currency.
-          type: string
-          example: EUR
-        label:
-          description: A human readable label for the currency.
-          type: string
-          example: Euro
-      required:
-      - code
     PaginationByIndex:
       title: PaginationByIndex
       description: Pagination by index of page.
@@ -521,41 +559,6 @@ components:
       required:
       - pageSize
       - pageNumber
-    PaginationByCursor:
-      description: Pagination via cursor of the last element of the previous call.
-      type: object
-      properties:
-        pageSize:
-          description: Number of items by page
-          type: integer
-          format: int64
-          minimum: 0
-          example: 50
-        after:
-          description: 'Cursor of the last element of the previous call.
-
-            Used to get the next page.'
-          type: string
-          example: 13807-1-CPT31719694553
-      required:
-      - pageSize
-      - after
-    ExternalAccountStatus:
-      title: ExternalAccountStatus
-      description: Status of the external account (beneficiary). <table><tr><td>Code</td> <td>Meaning</td></tr><tr><td>DELETED</td> <td>The external account has been canceled. It will not be usable anymore.</td></tr><tr><td>ACTIVATION_IN_PROGRESS</td> <td>The external account has been created but is not usable yet.</td></tr><tr><td>ACTIVATED</td> <td>The external account can be used for a new transfer.</td></tr></table>
-      type: string
-      enum:
-      - DELETED
-      - ACTIVATION_IN_PROGRESS
-      - ACTIVATED
-      readOnly: true
-      example: ACTIVATED
-    Page:
-      description: A pagination structure. This may be a pagination by index or by cursor.
-      type: object
-      oneOf:
-      - $ref: '#/components/schemas/PaginationByIndex'
-      - $ref: '#/components/schemas/PaginationByCursor'
     Account:
       title: Account
       description: This object stands for an bank account.
@@ -593,6 +596,50 @@ components:
       - accountId
       - label
       - accountNumber
+    PaginationByCursor:
+      description: Pagination via cursor of the last element of the previous call.
+      type: object
+      properties:
+        pageSize:
+          description: Number of items by page
+          type: integer
+          format: int64
+          minimum: 0
+          example: 50
+        after:
+          description: 'Cursor of the last element of the previous call.
+
+            Used to get the next page.'
+          type: string
+          example: 13807-1-CPT31719694553
+      required:
+      - pageSize
+      - after
+    ExternalAccountStatus:
+      title: ExternalAccountStatus
+      description: Status of the external account (beneficiary). <table><tr><td>Code</td> <td>Meaning</td></tr><tr><td>DELETED</td> <td>The external account has been canceled. It will not be usable anymore.</td></tr><tr><td>ACTIVATION_IN_PROGRESS</td> <td>The external account has been created but is not usable yet.</td></tr><tr><td>ACTIVATED</td> <td>The external account can be used for a new transfer.</td></tr></table>
+      type: string
+      enum:
+      - DELETED
+      - ACTIVATION_IN_PROGRESS
+      - ACTIVATED
+      readOnly: true
+      example: ACTIVATED
+    Currency:
+      title: Currency
+      description: A Currency object, with a code and an optional label.
+      type: object
+      properties:
+        code:
+          description: An ISO 3166 3-char code for a currency.
+          type: string
+          example: EUR
+        label:
+          description: A human readable label for the currency.
+          type: string
+          example: Euro
+      required:
+      - code
     FinancialInstitution:
       title: Financial Institution
       description: A financial Institution is a legitimate organization contributing to financial operations. It is not necessarily a Bank.
@@ -637,92 +684,39 @@ components:
         identifiers:
         - value: CCBPFRPPNAN
           type: BIC
-  responses:
-    Unavailable:
-      description: Service Unavailable - HTTP 503.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    Forbidden:
-      description: Forbidden - HTTP 403
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    Unauthorized:
-      description: Unauthorized - HTTP 401
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    Unexpected:
-      description: Internal Server Error - HTTP 500.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    BadRequest:
-      description: Bad Request - HTTP 400
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-          examples:
-            closed source account:
-              value:
-                errors:
-                - code: bpce.accountDebtor
-                  message: Le compte émetteur n'a pas été trouvé ou a été clôturé.
-                  attribute: string
-            Refusal for confirming a transfer request due to delegation issue:
-              value:
-                errors:
-                - code: bpce.delegation.hasToBeDoneOnBankWebSite
-                  message: le lot de virement doit être validé sur le site WEB de la Banque à Distance
-    ForbiddenDueToRequiredStepup:
-      description: Forbidden - HTTP 403
-      headers:
-        X-StepUp-Token:
-          schema:
+    ExternalAccount:
+      description: Characteristics of an account beneficiary for making transfers, authorized to the user of the subscription. This may be an IBAN registered by the subscriber to make transfers to third parties, but also a subset of his own accounts in the banking establishment and which are eligible for credit as part of a transfer account to account.
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Account'
+      - type: object
+        properties:
+          status:
+            $ref: '#/components/schemas/ExternalAccountStatus'
+          activationDateTime:
+            description: If the beneficiary account is being activated, indicates the date from which it will be usable.
             type: string
-          description: token for stepup process. This token must be passed in the xstepuptoken parameter of the next request (GET /stepup)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-          examples:
-            A stepup is required to do this action:
-              value:
-                errors:
-                - code: insufficientAuthLevel
-                  message: Niveau d'authentification insuffisant
-  parameters:
-    After:
-      name: after
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Cursor of the last element of the previous call. Used to get the next page. Default value point to the first element
-    PageSize:
-      name: pageSize
-      in: query
-      example: 50
-      required: false
-      schema:
-        type: integer
-        format: int32
-      description: Number of elements per page
-    PageNumber:
-      name: pageNumber
-      in: query
-      example: 2
-      required: false
-      schema:
-        type: integer
-        format: int32
-      description: Number of the current page
+            format: date-time
+            readOnly: true
+          isHolder:
+            description: Indicates whether the subscriber is the owner or co-owner of the beneficiary account. Declarative data.
+            type: boolean
+            default: false
+          groupLabels:
+            description: Name of the beneficiary groups to which the account is attached.
+            type: array
+            items:
+              type: string
+              maxLength: 32
+            readOnly: true
+        required:
+        - status
+    Page:
+      description: A pagination structure. This may be a pagination by index or by cursor.
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/PaginationByIndex'
+      - $ref: '#/components/schemas/PaginationByCursor'
   securitySchemes:
     oauth2-authorizationCodePKCE-moneyTransfer:
       type: oauth2
@@ -740,6 +734,3 @@ components:
           refreshUrl: /api/oauth/refresh
           tokenUrl: /api/oauth/token
       description: ''
-x-refined-from:
-- moneytransfer-oas3-public-v1.1.1.json
-- groupe-bpce-open-finance-transfer-openapi.yml
