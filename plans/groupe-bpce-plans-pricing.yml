@@ -16,3 +16,15 @@ plans:
   features:
   - Costs may vary depending on the transaction volume and any additional services subscribed to.
   limits: []
+x-canonical:
+  generated: '2026-10-18'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models: []
+  units: []
+  plans:
+  - name: Money Transfer API
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
