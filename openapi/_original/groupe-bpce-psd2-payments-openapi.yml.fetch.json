@@ -1,0 +1,12 @@
+{
+ "url": "https://apistore.groupebpce.com/sites/default/files//apidoc_specs/payments-oas3-public-v1.6.2.0-b_1.json",
+ "requested_url": "https://apistore.groupebpce.com/sites/default/files//apidoc_specs/payments-oas3-public-v1.6.2.0-b_1.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 170578,
+ "sha256": "227d67355caeb849dfe13d0aeecc216bdf55f89f475c1823f046caabbd1df91c",
+ "fetched_at": "2026-10-19",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
