@@ -39,3 +39,38 @@
     identity_source: wikidata P856 (LEI P1278 or name; labelled provenance step; Kin 2026-10-15 decision 1)
   status: not-a-workflow
   arazzo: null
+- slug: groupe-bpce-banco-central-do-brasil-authorized-banks
+  label: Banco Central do Brasil authorized banks
+  partner_name: Banco Central do Brasil authorized banks
+  category: Brazil BCB-authorized bank
+  type: register
+  channel: regulator-register
+  evidence: https://www.bcb.gov.br/estabilidadefinanceira/relacao_instituicoes_funcionamento
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: Banco Central do Brasil authorized banks
+    spec_file: null
+    standard: null
+    role: authorized-bank
+    institution_class: incumbent
+    registrations:
+    - registered_name: BANCO BPCE EQUIPMENT SOLUTIONS S.A.
+      register_status: authorized-active
+      register_country: BR
+      register_id: CNPJ 62816426
+      segment: Banco Múltiplo
+      matched_domain: groupebpce.com
+      matched_by: domain
+      evidence_url: https://www.bcb.gov.br/estabilidadefinanceira/relacao_instituicoes_funcionamento
+      licences:
+      - Banco Múltiplo
+      situation: Autorizada em Atividade
+      tariff_list_confirmed: true
+      domain_source: filed-website
+    signal_note: 'participation only: a Banco Central do Brasil authorisation to operate; no API conformance is
+      published by this register'
+    detected_by: sweep-brazil-bcb-authorized-institutions.py
+    detected: '2026-10-22'
+  status: not-a-workflow
+  arazzo: null
