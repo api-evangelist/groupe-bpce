@@ -1,5 +1,5 @@
 generated: '2026-10-12'
-method: none
+method: searched
 source:
 - https://zapier.com/apps/groupe-bpce/integrations
 - https://n8n.io/integrations/groupe-bpce/
@@ -14,9 +14,47 @@ checked:
 - https://n8n.io/integrations/groupe-bpce/
 - https://www.make.com/en/integrations/bpce
 - https://zapier.com/apps/groupe-bpce/integrations
+- https://www.amf-france.org/fr/espace-epargnants/proteger-son-epargne/listes-blanches
+- https://www.regafi.fr/
 summary: null
 marketplace_apps: []
-edges: []
+edges:
+- partner_name: REGAFI (ACPR / Banque de France register of authorised financial firms)
+  partner: null
+  partner_match: register
+  type: register
+  channel: regulator-register
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.regafi.fr/
+  category: French financial supervisory authorisation (ACPR, REGAFI)
+  contract_reference:
+    register: REGAFI (ACPR / Banque de France register of authorised financial firms)
+    spec_file: null
+    standard: null
+    role: acpr-authorised
+    registrations:
+    - registered_name: BPCE
+      role: acpr-authorised
+      licences:
+      - Établissement de Crédit (Banque)
+      register_country: FR
+      matched_domain: groupebpce.com
+      matched_by: domain
+      register_id: '12732'
+      lei: 9695005MSX1OYEMGDF46
+      siren: '493455042'
+      since: '2009-07-31'
+      brands:
+      - BPCE
+      identity: wikidata Q806941 (LEI P1278) P856 https://www.groupebpce.com/
+    signal_note: 'participation only: a supervisory authorisation / passport notification; no API conformance is
+      published by this register'
+    detected_by: sweep-france-regafi-acpr.py
+    detected: '2026-10-22'
+    identity_source: wikidata P856 (LEI P1278 or name; labelled provenance step; Kin 2026-10-15 decision 1)
+  detected_by: sweep-france-regafi-acpr.py
+  first_seen: '2026-10-22'
 templates: []
 note: No marketplace listing (Zapier 404, n8n 404, Make 403 bot edge) and no partner/integrations page on the API
   Store; the PSD2 contracts name no third-party service. Access is via regulated TPP onboarding (eIDAS QWAC), not
