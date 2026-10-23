@@ -3849,3 +3849,9 @@ components:
             aisp: Access by an AISP to one given PSU's account
             extended_transaction_history: Access by an AISP to a transaction history over more than the 90 last days
           refreshUrl: /stet/psd2/oauth/token
+x-provenance:
+  method: harvested
+  publisher: Groupe BPCE
+  source: https://apistore.groupebpce.com/sites/default/files//apidoc_specs/accounts-oas3-public-v1.6.2.0-b.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
